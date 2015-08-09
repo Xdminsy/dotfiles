@@ -3,18 +3,56 @@ set ruler
 inoremap jk <ESC>
 " let mapleader = "\<Space>"
 let mapleader = ";"
+let g:mapleader = ";"
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>wq :wq<CR>
 
-inoremap <c-b> <Left>
-inoremap <c-f> <Right>
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()"
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+noremap <c-b> <Left>
+noremap <c-f> <Right>
 inoremap <c-a> <Home>
 inoremap <c-e> <End>
 inoremap <c-d> <Del>
 inoremap <c-h> <BS>
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command! W w !sudo tee % > /dev/null
 
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
 
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+
+" Add a bit extra margin to the left
+"set foldcolumn=1
+" How many tenths of a second to blink when matching brackets
+"set mat=2
+" For regular expressions turn magic on
+set magic
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+" Height of the command bar
+"set cmdheight=2
+" Set to auto read when a file is changed from the outside
+set autoread
 " 关闭vi的一致性模式 避免以前版本的一些Bug和局限
 set nocompatible
 " 配置backspace键工作方式
@@ -23,6 +61,8 @@ set backspace=indent,eol,start
 set number
 nnoremap <F6> :set nonumber!<CR>:set foldcolumn=0<CR>
 " 设置在编辑过程中右下角显示光标的行列信息
+" Makes search act like search in modern browsers
+set incsearch
 set ruler
 " 当一行文字很长时取消换行
 set nowrap
@@ -31,7 +71,7 @@ set showcmd
 " 设置历史记录条数
 set history=100
 " 设置取消备份 禁止临时文件生成
-set nobackup
+" set nobackup
 set noswapfile
 " 突出现实当前行列、高亮当前行列
 set cursorline
@@ -40,6 +80,7 @@ set cursorline
 set showmatch
 " 设置C/C++方式自动对齐
 set autoindent
+set smartindent
 set cindent
 " 开启语法高亮功能
 syntax enable syntax on
@@ -48,7 +89,10 @@ set t_Co=256
 " 设置搜索时忽略大小写
 set ignorecase
 " 设置在Vim中可以使用鼠标 防止在Linux终端下无法拷贝
-set mouse=a
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+    set mouse=a
+endif
 " 设置Tab宽度
 set tabstop=4
 " 设置自动对齐空格数
@@ -71,8 +115,6 @@ filetype indent on
 filetype plugin on
 " 启动智能补全
 filetype plugin indent on
-
-
 
 " Vundle start
 set nocompatible
