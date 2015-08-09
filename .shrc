@@ -1,0 +1,10 @@
+PS1='\033[36m\u@\033[34m\h:\033[32m\W \033[01;31m>\033[33m>\033[34m>\033[m '
+RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[m%}')
+PROMPT=$(echo '%{\033[36m%}%n@%{\033[34m%}%M:%{\033[32m%}%1d %{\033[01;31m%}>%{\033[33m%}>%{\033[34m%}>%{\033[m%} ')
+
+alias rot13="tr a-zA-Z n-za-mN-ZA-M"
+alias ls="ls --color=auto -Fh"
+alias vi="vim"
+export EDITOR="vim"
+export PATH=~/npmglobal/bin:$PATH
+# fortune | cowsay
