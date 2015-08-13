@@ -2,7 +2,6 @@ set nu
 set ruler
 inoremap jk <ESC>
 " let mapleader = "\<Space>"
-let mapleader = ";"
 let g:mapleader = ";"
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
@@ -16,18 +15,10 @@ map <leader>tm :tabmove
 map <leader>t<leader> :tabnext 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()"
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
-noremap <c-b> <Left>
-noremap <c-f> <Right>
-inoremap <c-a> <Home>
-inoremap <c-e> <End>
-inoremap <c-d> <Del>
-inoremap <c-h> <BS>
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
@@ -45,8 +36,9 @@ map <leader>s? z=
 "set foldcolumn=1
 " How many tenths of a second to blink when matching brackets
 "set mat=2
-" For regular expressions turn magic on
-set magic
+" For regular expressions turn very magic on
+:nnoremap / /\v
+:cnoremap %s/ %s/\v
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 " Height of the command bar
@@ -66,6 +58,7 @@ set incsearch
 set ruler
 " 当一行文字很长时取消换行
 set nowrap
+set wrap
 " 在状态栏显示正在输入的命令
 set showcmd
 " 设置历史记录条数
@@ -120,7 +113,7 @@ filetype plugin indent on
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call vundle#rc()
 " === 使用Vundle来管理Vundle ===
 Plugin 'gmarik/Vundle.vim'
 " === The-NERD-tree 目录导航插件 ===
@@ -194,7 +187,18 @@ let g:vim_markdown_folding_disabled=1
 Plugin 'jnwhiteh/vim-golang'
 " 自动检测文件编码
 Plugin 'FencView.vim'
+
 Plugin 'othree/html5.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'xuhdev/SingleCompile'
+Plugin 'TagHighlight'
+Plugin 'klen/python-mode'
+Plugin 'drmingdrmer/xptemplate'
+Plugin 'davidhalter/jedi-vim'
+
+" Plugin 'nvie/vim-flake8' "Because of the existence of syntastic
+" let g:flake8_quickfix_location="topleft"
+" let g:flake8_quickfix_height=3
 
 " syntastic
 " ==========================
@@ -217,3 +221,13 @@ filetype plugin indent on
 " Vundle end
 
 colorscheme molokai
+" Let h/l can move across line
+set whichwrap+=<,>,h,l
+cnoremap <c-b> <Left>
+cnoremap <c-f> <Right>
+noremap <c-a> <Home>
+noremap <c-e> <End>
+inoremap <c-d> <Del>
+inoremap <c-h> <BS>
+noremap <c-b> :SingleCompile<CR>:SingleCompileRun<CR>
+
