@@ -1,11 +1,25 @@
 set nu
 set ruler
 inoremap jk <ESC>
-" let mapleader = "\<Space>"
+" let g:mapleader = "\<Space>"
 let g:mapleader = ";"
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>wq :wq<CR>
+" http://www.tuicool.com/articles/f6feae
+" 设置快捷键将选中文本块复制至系统剪贴板
+vnoremap <Leader>y "+y
+" 设置快捷键将系统剪贴板内容粘贴至 vim
+nmap <Leader>p "+p
+" 依次遍历子窗口
+nnoremap nw <C-W><C-W>
+" 禁止gui光标闪烁
+set gcr=a:block-blinkon0
+
+" Uncomment the following to have Vim jump to the last position when reopening a file
+if has("autocmd")
+    au BufReadPost * exe "normal! g`\""
+endif
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -18,6 +32,17 @@ let g:lasttab = 1
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" gvim on windows
+if has("win32")
+set guioptions-=m "Remove menubar"
+set guioptions-=T "Remove toolbar"
+set guioptions-=r "Remove v_scroll bar"
+set mousemodel=extend
+set guifont=Consolas
+language messages en_US.utf-8
+endif
+
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -119,7 +144,7 @@ Plugin 'gmarik/Vundle.vim'
 " === The-NERD-tree 目录导航插件 ===
 Plugin 'scrooloose/nerdtree'
 " 开启目录导航快捷键映射成n键
-nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <c-t> :NERDTreeToggle<CR>
 " 高亮鼠标所在的当前行
 " let NERDTreeHighlightCursorline=1
 Plugin 'bling/vim-airline'
@@ -138,22 +163,22 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|.rvm$'
 let g:ctrlp_max_height=15
 " === YouCompleteMe 自动补全插件===
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'Valloric/ycmd'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:EclimCompletionMethod = 'omnifunc'
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_min_num_of_chars_for_completion = 1
-"youcompleteme 默认tab s-tab 和自动补全冲突
-"let g:ycm_key_list_select_completion=['<c-n>']
-"let g:ycm_key_list_select_completion = ['<Down>']
-"let g:ycm_key_list_previous_completion=['<c-p>']
-"let g:ycm_key_list_previous_completion = ['<Up>']
-"nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-"let g:UltiSnipsExpandTrigger="<c-j>"
-" 当选择了一项后自动关闭自动补全提示窗口
-"let g:ycm_autoclose_preview_window_after_completion=1
+" youcompleteme 默认tab s-tab 和自动补全冲突
+" let g:ycm_key_list_select_completion=['<c-n>']
+" let g:ycm_key_list_select_completion = ['<Down>']
+" let g:ycm_key_list_previous_completion=['<c-p>']
+" let g:ycm_key_list_previous_completion = ['<Up>']
+" nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+" let g:UltiSnipsExpandTrigger="<c-j>"
+"  当选择了一项后自动关闭自动补全提示窗口
+" let g:ycm_autoclose_preview_window_after_completion=1
+
 
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -164,12 +189,11 @@ let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 Plugin 'Raimondi/delimitMate'
 " === 主题solarized ===
 Plugin 'altercation/vim-colors-solarized'
-let g:solarized_termtrans=1
+" let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 " === 主题 molokai ===
 Plugin 'tomasr/molokai'
-" 设置主题 colorscheme molokai
 set background=dark
 set t_Co=256
 " === indentLine代码排版缩进标识 ===
@@ -188,17 +212,18 @@ Plugin 'jnwhiteh/vim-golang'
 " 自动检测文件编码
 Plugin 'FencView.vim'
 
+Plugin 'mattn/emmet-vim'
 Plugin 'othree/html5.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'xuhdev/SingleCompile'
 Plugin 'TagHighlight'
 Plugin 'klen/python-mode'
-Plugin 'drmingdrmer/xptemplate'
-Plugin 'davidhalter/jedi-vim'
-
-" Plugin 'nvie/vim-flake8' "Because of the existence of syntastic
-" let g:flake8_quickfix_location="topleft"
-" let g:flake8_quickfix_height=3
+Plugin 'easymotion/vim-easymotion'
+let g:EasyMotion_leader_key = 'f'
+Plugin 'taglist.vim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'godlygeek/tabular'
 
 " syntastic
 " ==========================
