@@ -1,12 +1,16 @@
+# For bash prompt
 PS1='\033[36m\u@\033[34m\h:\033[32m\W \033[01;31m>\033[33m>\033[34m>\033[m '
+# For zsh prompt
 RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[m%}')
 PROMPT=$(echo '%{\033[36m%}%n@%{\033[34m%}%M:%{\033[32m%}%1d %{\033[01;31m%}>%{\033[33m%}>%{\033[34m%}>%{\033[m%} ')
 
 alias rot13="tr a-zA-Z n-za-mN-ZA-M"
 alias ls="ls --color=auto -Fh"
 alias vi="vim"
+alias j="jobs"
 export EDITOR="vim"
 export PATH=~/npmglobal/bin:$PATH
+umask 022
 # fortune | cowsay
 
 #For colourful man pages (CLUG-Wiki style)
@@ -18,5 +22,12 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-mcd(){ mkdir $1;cd $1 }
+# For example, you can use `ls $(whereis w | skip 1)`
+col() { awk -v col=$1 '{print $col}'; }
+skip() { n=$(($1 + 1));cut -d' ' -f $n-; }
+
+# Upload your ssh key to any remote server
+upload-key() { ssh $2 'mkdir -p .ssh && cat >> .ssh/authorized_keys' ~/.ssh/id_ras.pub }
+
+mcd() { mkdir $1;cd $1; }
 

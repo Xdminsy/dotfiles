@@ -1,48 +1,50 @@
-set nu
-set ruler
 inoremap jk <ESC>
 " let g:mapleader = "\<Space>"
 let g:mapleader = ";"
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>wq :wq<CR>
-" http://www.tuicool.com/articles/f6feae
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
 " 设置快捷键将系统剪贴板内容粘贴至 vim
 nmap <Leader>p "+p
 " 依次遍历子窗口
-nnoremap nw <C-W><C-W>
+nnoremap ;nw <C-W><C-W>
 " 禁止gui光标闪烁
 set gcr=a:block-blinkon0
 
-" Uncomment the following to have Vim jump to the last position when reopening a file
-if has("autocmd")
-    au BufReadPost * exe "normal! g`\""
-endif
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap * *zzzv
+nnoremap # #zzzv
+nnoremap g* g*zzzv
+nnoremap g# g#zzzv
 
+
+map <C-x><C-b> :ls<CR>
+map <C-x>b :b<Space>
+nmap <Leader>s :shell<CR>
+" Edit the .bashrc"
+nmap <silent> <leader>eb :e ~/.bashrc<CR>
+" Edit the .vimrc"
+nmap <silent> <leader>ev :e ~/.vimrc<CR>
+" Paste and visual paste improvments {{{
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>tn :tabnew<CR>
+map <leader>te :tabedit<Space>
+map <leader>to :tabonly<CR>
+map <leader>tc :tabclose<CR>
+map <leader>tm :tabmove<Space>
+map <C-h> :tabprevious<CR>
+map <C-l> :tabnext<CR>
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-" gvim on windows
-if has("win32")
-set guioptions-=m "Remove menubar"
-set guioptions-=T "Remove toolbar"
-set guioptions-=r "Remove v_scroll bar"
-set mousemodel=extend
-set guifont=Consolas
-language messages en_US.utf-8
-endif
-
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -57,6 +59,11 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
 
+autocmd BufWinLeave *.* silent! mkview " Make Vim save view (state) (folds, cursor, etc)
+autocmd BufWinEnter *.* silent! loadview " Make Vim load view (state) (folds, cursor, etc)
+" To have Vim jump to the last position when reopening a file
+" autocmd BufReadPost * exe "normal! g`\""
+
 " Add a bit extra margin to the left
 "set foldcolumn=1
 " How many tenths of a second to blink when matching brackets
@@ -64,10 +71,15 @@ map <leader>s? z=
 " For regular expressions turn very magic on
 :nnoremap / /\v
 :cnoremap %s/ %s/\v
+set virtualedit=block
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 " Height of the command bar
-"set cmdheight=2
+set cmdheight=1
+set colorcolumn=80
+set visualbell noerrorbells " don't beep
+set guioptions=a            " hide scrollbars/menu/tabs
+set ttyfast
 " Set to auto read when a file is changed from the outside
 set autoread
 " 关闭vi的一致性模式 避免以前版本的一些Bug和局限
@@ -108,23 +120,79 @@ set t_Co=256
 set ignorecase
 " 设置在Vim中可以使用鼠标 防止在Linux终端下无法拷贝
 " In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-    set mouse=a
-endif
+set mouse=a
 " 设置Tab宽度
 set tabstop=4
+set expandtab
 " 设置自动对齐空格数
 set shiftwidth=4
 " 设置按退格键时可以一次删除4个空格
 set softtabstop=4
+set shiftround
 " 设置按退格键时可以一次删除4个空格
 set smarttab
 " 将Tab键自动转换成空格 真正需要Tab键时使用[Ctrl + V + Tab]
+set showcmd         " Show (partial) command in status line.
 set expandtab
 " 设置编码方式
 set encoding=utf-8
 " 自动判断编码时 依次尝试一下编码
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set title
+set titlestring=%t%(\ %m%)%(\ (%{expand('%:p:h')})%)%(\ %a%)
+set showtabline=2 " Always show tab line"
+" Set up tab labels
+set guitablabel=%m%N:%t[%{tabpagewinnr(v:lnum)}]
+set tabline=%!MyTabLine()
+function! MyTabLine()
+    let s=''
+    let t=tabpagenr() " The index of current page
+    let i=1
+    while i<=tabpagenr('$') " From the first page
+        let buflist=tabpagebuflist(i)
+        let winnr=tabpagewinnr(i)
+        let s.=(i==t ? '%#TabLineSel#' : '%#TabLine#')
+        let s.='%'.i.'T'
+        let s.=' '
+        let bufnr=buflist[winnr-1]
+        let file=bufname(bufnr)
+        let buftype = getbufvar(bufnr, 'buftype')
+        let m=''
+        if getbufvar(bufnr, '&modified')
+            let m='[+]'
+        endif
+        if buftype=='nofile'
+            if file=~'\/.'
+                let file=substitute(file, '.*\/\ze.', '', '')
+            endif
+        else
+            let file=fnamemodify(file, ':p:t')
+        endif
+        if file==''
+            let file='[No Name]'
+        endif
+        let s.=m
+        let s.=i.':'
+        let s.=file
+        let s.='['.winnr.']'
+        let s.=' '
+        let i=i+1
+    endwhile
+    let s.='%T%#TabLineFill#%='
+    let s.=(tabpagenr('$')>1 ? '%999XX' : 'X')
+    return s
+endfunction
+set shortmess=at
+" Set up tab tooltips with each buffer name
+set guitabtooltip=%F
+if has("gui_running")
+    set guioptions-=m "Remove menubar"
+    set guioptions-=T "Remove toolbar"
+    set guioptions-=r "Remove v_scroll bar"
+    set mousemodel=extend
+    set guifont=Consolas
+    language messages en_US.utf-8
+endif
 " 检测文件类型
 filetype on
 " 针对不同的文件采用不同的缩进方式
@@ -134,27 +202,45 @@ filetype plugin on
 " 启动智能补全
 filetype plugin indent on
 
-" Vundle start
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
-" === 使用Vundle来管理Vundle ===
-Plugin 'gmarik/Vundle.vim'
+"NeoBundle Scripts-----------------------------
+if has('vim_starting')
+if &compatible
+set nocompatible               " Be iMproved
+endif
+
+" Required:
+set runtimepath+=/home/x/.vim/bundle/neobundle.vim/
+endif
+
+" Required:
+call neobundle#begin(expand('/home/x/.vim/bundle'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Add or remove your Bundles here:
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'flazz/vim-colorschemes'
+
+" You can specify revision/branch/tag.
+NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+
 " === The-NERD-tree 目录导航插件 ===
-Plugin 'scrooloose/nerdtree'
-" 开启目录导航快捷键映射成n键
-nnoremap <c-t> :NERDTreeToggle<CR>
+NeoBundle 'scrooloose/nerdtree'
+" 开启目录导航快捷键映射成<Leader>t
+nnoremap <Leader>t :NERDTreeToggle<CR>
 " 高亮鼠标所在的当前行
 " let NERDTreeHighlightCursorline=1
-Plugin 'bling/vim-airline'
-" === AirLine插件 状态栏增强展示 ===
-" vim有一个状态栏 加上airline则有两个状态栏
+NeoBundle 'bling/vim-airline'
 set laststatus=2
 " === A 头文件和实现文件自动切换插件 ===
-Plugin 'vim-scripts/a.vim'
+NeoBundle 'vim-scripts/a.vim'
 "=== ctrlp 文件搜索插件 不需要外部依赖包 ===
-Plugin 'kien/ctrlp.vim'
+NeoBundle 'kien/ctrlp.vim'
 " 设置开始文件搜索的快捷键
 let g:ctrlp_map = '<leader>p'
 " 设置默认忽略搜索的文件格式
@@ -162,7 +248,14 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|.rvm$'
 " 设置搜索时显示的搜索结果最大条数
 let g:ctrlp_max_height=15
 " === YouCompleteMe 自动补全插件===
-Plugin 'Valloric/YouCompleteMe'
+NeoBundle 'Valloric/YouCompleteMe', {
+                \ 'build' : {
+                \     'mac' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
+                \     'unix' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
+                \     'windows' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
+                \     'cygwin' : './install.sh --clang-completer --system-libclang --omnisharp-completer'
+                \    }
+                \ }
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:EclimCompletionMethod = 'omnifunc'
 let g:ycm_collect_identifiers_from_tags_files = 1
@@ -180,54 +273,78 @@ let g:ycm_min_num_of_chars_for_completion = 1
 " let g:ycm_autoclose_preview_window_after_completion=1
 
 
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 " === 自动补全单引号、双引号、括号等 ===
-Plugin 'Raimondi/delimitMate'
+NeoBundle 'Raimondi/delimitMate'
 " === 主题solarized ===
-Plugin 'altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized'
 " let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 " === 主题 molokai ===
-Plugin 'tomasr/molokai'
+NeoBundle 'tomasr/molokai'
 set background=dark
 set t_Co=256
 " === indentLine代码排版缩进标识 ===
-Plugin 'Yggdroot/indentLine'
+NeoBundle 'Yggdroot/indentLine'
 let g:indentLine_noConcealCursor = 1
 let g:indentLine_color_term = 0
 " 缩进的显示标识|
 let g:indentLine_char = '¦'
 " === vim-trailing-whitespace将代码行最后无效的空格标红 ===
-Plugin 'bronson/vim-trailing-whitespace'
+NeoBundle 'bronson/vim-trailing-whitespace'
 " === markdown编辑插件 ===
-Plugin 'plasticboy/vim-markdown'
+NeoBundle 'plasticboy/vim-markdown'
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:vim_markdown_folding_disabled=1
 " === golang编辑插件 ===
-Plugin 'jnwhiteh/vim-golang'
+NeoBundle 'jnwhiteh/vim-golang'
 " 自动检测文件编码
-Plugin 'FencView.vim'
+NeoBundle 'FencView.vim'
 
-Plugin 'mattn/emmet-vim'
-Plugin 'othree/html5.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'xuhdev/SingleCompile'
-Plugin 'TagHighlight'
-Plugin 'klen/python-mode'
-Plugin 'easymotion/vim-easymotion'
-let g:EasyMotion_leader_key = 'f'
-Plugin 'taglist.vim'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'godlygeek/tabular'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'pangloss/vim-javascript'
+" NeoBundle 'xuhdev/SingleCompile'
+NeoBundle 'tpope/vim-dispatch'
+NeoBundle 'TagHighlight'
+NeoBundle 'klen/python-mode'
+NeoBundle 'easymotion/vim-easymotion'
+let g:EasyMotion_leader_key = '<Space>'
+NeoBundle 'taglist.vim'
+NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'wookiehangover/jshint.vim'
+NeoBundle 'tomtom/tcomment_vim'
+nnoremap <C-k> :TComment<CR>
+NeoBundle 'bling/vim-bufferline'
+NeoBundle 'mhinz/vim-startify'
+let g:startify_list_order = ['files', 'dir', 'bookmarks', 'sessions']
+let g:startify_bookmarks = [ '~/.vimrc' ]
+NeoBundle 'junegunn/goyo.vim'
+NeoBundle 'AndrewRadev/splitjoin.vim'
+NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'unblevable/quick-scope'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'xuhdev/SingleCompile'
+NeoBundle 'Shougo/vimproc', {
+                \ 'build' : {
+                \     'windows' : 'make -f make_mingw32.mak',
+                \     'cygwin' : 'make -f make_cygwin.mak',
+                \     'mac' : 'make -f make_mac.mak',
+                \     'unix' : 'make -f make_unix.mak',
+                \    },
+                \ }
+
 
 " syntastic
 " ==========================
-Plugin 'scrooloose/syntastic'
+NeoBundle 'scrooloose/syntastic'
 let g:syntastic_check_on_open = 1
 let g:syntastic_cpp_include_dirs = ['/usr/include/']
 let g:syntastic_cpp_remove_include_errors = 1
@@ -239,11 +356,16 @@ let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
 "whether to show balloons
 let g:syntastic_enable_balloons = 1
-" ==========================
-" ==========================
-call vundle#end()
+
+" Required:
+call neobundle#end()
+
+" Required:
 filetype plugin indent on
-" Vundle end
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
 
 colorscheme molokai
 " Let h/l can move across line
@@ -254,5 +376,6 @@ noremap <c-a> <Home>
 noremap <c-e> <End>
 inoremap <c-d> <Del>
 inoremap <c-h> <BS>
-noremap <c-b> :SingleCompile<CR>:SingleCompileRun<CR>
-
+set noshowcmd
+vnoremap <Space><Space> zf
+nnoremap <silent> <Space><Space> @=(foldlevel('.') ? 'za' : '\<Space>')<CR>
