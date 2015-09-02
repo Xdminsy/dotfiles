@@ -19,7 +19,7 @@ nnoremap * *zzzv
 nnoremap # #zzzv
 nnoremap g* g*zzzv
 nnoremap g# g#zzzv
-
+" map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 map <C-x><C-b> :ls<CR>
 map <C-x>b :b<Space>
@@ -58,6 +58,16 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
+
+function! ToggleBG()
+    let s:tbg = &background
+    if s:tbg == "dark"
+        set background=light
+    else
+        set background=dark
+    endif
+endfunction
+noremap <leader>bg :call ToggleBG()<CR>
 
 autocmd BufWinLeave *.* silent! mkview " Make Vim save view (state) (folds, cursor, etc)
 autocmd BufWinEnter *.* silent! loadview " Make Vim load view (state) (folds, cursor, etc)
@@ -118,9 +128,9 @@ syntax enable syntax on
 set t_Co=256
 " 设置搜索时忽略大小写
 set ignorecase
-" 设置在Vim中可以使用鼠标 防止在Linux终端下无法拷贝
 " In many terminal emulators the mouse works just fine, thus enable it.
 set mouse=a
+set mousehide
 " 设置Tab宽度
 set tabstop=4
 set expandtab
@@ -190,8 +200,9 @@ if has("gui_running")
     set guioptions-=T "Remove toolbar"
     set guioptions-=r "Remove v_scroll bar"
     set mousemodel=extend
-    set guifont=Consolas
+    set guifont=Consolas:h10
     language messages en_US.utf-8
+    set lines=40 columns=120
 endif
 " 检测文件类型
 filetype on
@@ -209,11 +220,11 @@ set nocompatible               " Be iMproved
 endif
 
 " Required:
-set runtimepath+=/home/x/.vim/bundle/neobundle.vim/
+set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 " Required:
-call neobundle#begin(expand('/home/x/.vim/bundle'))
+call neobundle#begin(expand('~/.vim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -223,8 +234,11 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
+NeoBundle  'Shougo/unite.vim'
+NeoBundle 'sickill/vim-pasta'
 
 " You can specify revision/branch/tag.
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
@@ -278,6 +292,7 @@ NeoBundle 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 " === 自动补全单引号、双引号、括号等 ===
 NeoBundle 'Raimondi/delimitMate'
 " === 主题solarized ===
@@ -306,6 +321,16 @@ NeoBundle 'jnwhiteh/vim-golang'
 " 自动检测文件编码
 NeoBundle 'FencView.vim'
 
+NeoBundle 'wavded/vim-stylus'
+NeoBundle 'elixir-lang/vim-elixir'
+NeoBundle 'wting/rust.vim'
+NeoBundle 'VimClojure'
+NeoBundle 'nono/jquery.vim'
+NeoBundle 'moll/vim-node'
+NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundle 'StanAngeloff/php.vim'
+NeoBundle 'JulesWang/css.vim'
+NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'pangloss/vim-javascript'
@@ -319,7 +344,6 @@ NeoBundle 'taglist.vim'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'godlygeek/tabular'
-NeoBundle 'wookiehangover/jshint.vim'
 NeoBundle 'tomtom/tcomment_vim'
 nnoremap <C-k> :TComment<CR>
 NeoBundle 'bling/vim-bufferline'
@@ -332,6 +356,7 @@ NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'unblevable/quick-scope'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'xuhdev/SingleCompile'
+NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'Shougo/vimproc', {
                 \ 'build' : {
                 \     'windows' : 'make -f make_mingw32.mak',
@@ -340,6 +365,8 @@ NeoBundle 'Shougo/vimproc', {
                 \     'unix' : 'make -f make_unix.mak',
                 \    },
                 \ }
+NeoBundle 'mattn/calendar-vim'
+NeoBundle 'leshill/vim-json'
 
 
 " syntastic
@@ -379,3 +406,23 @@ inoremap <c-h> <BS>
 set noshowcmd
 vnoremap <Space><Space> zf
 nnoremap <silent> <Space><Space> @=(foldlevel('.') ? 'za' : '\<Space>')<CR>
+
+" Use fork vimrc if available {
+if filereadable(expand("~/.vimrc.fork"))
+    source ~/.vimrc.fork
+endif
+" })}
+
+" Use local vimrc if available {
+if filereadable(expand("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
+" }"
+
+" Use local gvimrc if available and gui is running {
+if has('gui_running')
+    if filereadable(expand("~/.gvimrc.local"))
+        source ~/.gvimrc.local
+    endif
+endif
+" }"
