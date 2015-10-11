@@ -5,11 +5,11 @@ RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[m%}')
 PROMPT=$(echo '%{\033[36m%}%n@%{\033[34m%}%M:%{\033[32m%}%1d %{\033[01;31m%}>%{\033[33m%}>%{\033[34m%}>%{\033[m%} ')
 
 alias rot13="tr a-zA-Z n-za-mN-ZA-M"
-alias ls="ls --color=auto -Fh"
+alias ls="ls --color=auto -hF"
 alias vi="vim"
 alias j="jobs"
 export EDITOR="vim"
-export PATH=~/npmglobal/bin:$PATH
+export PATH=~/npm-global/bin:$PATH
 umask 022
 # fortune | cowsay
 
@@ -27,7 +27,7 @@ col() { awk -v col=$1 '{print $col}'; }
 skip() { n=$(($1 + 1));cut -d' ' -f $n-; }
 
 # Upload your ssh key to any remote server
-upload-key() { ssh $2 'mkdir -p .ssh && cat >> .ssh/authorized_keys' ~/.ssh/id_ras.pub }
+upload-key() { ssh $1 'mkdir -p .ssh && cat >> .ssh/authorized_keys' ~/.ssh/id_ras.pub; }
 
 mcd() { mkdir $1;cd $1; }
 

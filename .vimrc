@@ -1,3 +1,5 @@
+" vim:foldmethod=marker:foldlevel=0
+" Maps {{{
 inoremap jk <ESC>
 " let g:mapleader = "\<Space>"
 let g:mapleader = ";"
@@ -10,9 +12,24 @@ vnoremap <Leader>y "+y
 nmap <Leader>p "+p
 " 依次遍历子窗口
 nnoremap ;nw <C-W><C-W>
-" 禁止gui光标闪烁
-set gcr=a:block-blinkon0
+nnoremap <F6> :set nonumber!<CR>:set foldcolumn=0<CR>
 
+" Add a bit extra margin to the left
+"set foldcolumn=1
+" How many tenths of a second to blink when matching brackets
+"set mat=2
+" For regular expressions turn very magic on
+:nnoremap / /\v
+:cnoremap %s/ %s/\v
+
+" Select last inserted text
+nnoremap gV `[v`]
+" move to beginning/end of line
+nnoremap B ^
+nnoremap E $
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap * *zzzv
@@ -21,14 +38,13 @@ nnoremap g* g*zzzv
 nnoremap g# g#zzzv
 " map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
-map <C-x><C-b> :ls<CR>
-map <C-x>b :b<Space>
+noremap <leader>bg :call ToggleBG()<CR>
 nmap <Leader>s :shell<CR>
 " Edit the .bashrc"
 nmap <silent> <leader>eb :e ~/.bashrc<CR>
 " Edit the .vimrc"
-nmap <silent> <leader>ev :e ~/.vimrc<CR>
-" Paste and visual paste improvments {{{
+nmap <silent> <leader>ev :vsp ~/.vimrc<CR>
+nnoremap <leader>sv :source ~/.vimrc<CR>
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
@@ -58,7 +74,8 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
-
+" }}}
+" Functions {{{
 function! ToggleBG()
     let s:tbg = &background
     if s:tbg == "dark"
@@ -67,93 +84,7 @@ function! ToggleBG()
         set background=dark
     endif
 endfunction
-noremap <leader>bg :call ToggleBG()<CR>
 
-autocmd BufWinLeave *.* silent! mkview " Make Vim save view (state) (folds, cursor, etc)
-autocmd BufWinEnter *.* silent! loadview " Make Vim load view (state) (folds, cursor, etc)
-" To have Vim jump to the last position when reopening a file
-" autocmd BufReadPost * exe "normal! g`\""
-
-" Add a bit extra margin to the left
-"set foldcolumn=1
-" How many tenths of a second to blink when matching brackets
-"set mat=2
-" For regular expressions turn very magic on
-:nnoremap / /\v
-:cnoremap %s/ %s/\v
-set virtualedit=block
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
-" Height of the command bar
-set cmdheight=1
-set colorcolumn=80
-set visualbell noerrorbells " don't beep
-set guioptions=a            " hide scrollbars/menu/tabs
-set ttyfast
-" Set to auto read when a file is changed from the outside
-set autoread
-" 关闭vi的一致性模式 避免以前版本的一些Bug和局限
-set nocompatible
-" 配置backspace键工作方式
-set backspace=indent,eol,start
-" 显示行号
-set number
-nnoremap <F6> :set nonumber!<CR>:set foldcolumn=0<CR>
-" 设置在编辑过程中右下角显示光标的行列信息
-" Makes search act like search in modern browsers
-set incsearch
-set ruler
-" 当一行文字很长时取消换行
-set nowrap
-set wrap
-" 在状态栏显示正在输入的命令
-set showcmd
-" 设置历史记录条数
-set history=100
-" 设置取消备份 禁止临时文件生成
-" set nobackup
-set noswapfile
-" 突出现实当前行列、高亮当前行列
-set cursorline
-" set cursorcolumn
-" 设置匹配模式 类似当输入一个左括号时会匹配相应的那个右括号
-set showmatch
-" 设置C/C++方式自动对齐
-set autoindent
-set smartindent
-set cindent
-" 开启语法高亮功能
-syntax enable syntax on
-" 指定配色方案为256色
-set t_Co=256
-" 设置搜索时忽略大小写
-set ignorecase
-" In many terminal emulators the mouse works just fine, thus enable it.
-set mouse=a
-set mousehide
-" 设置Tab宽度
-set tabstop=4
-set expandtab
-" 设置自动对齐空格数
-set shiftwidth=4
-" 设置按退格键时可以一次删除4个空格
-set softtabstop=4
-set shiftround
-" 设置按退格键时可以一次删除4个空格
-set smarttab
-" 将Tab键自动转换成空格 真正需要Tab键时使用[Ctrl + V + Tab]
-set showcmd         " Show (partial) command in status line.
-set expandtab
-" 设置编码方式
-set encoding=utf-8
-" 自动判断编码时 依次尝试一下编码
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-set title
-set titlestring=%t%(\ %m%)%(\ (%{expand('%:p:h')})%)%(\ %a%)
-set showtabline=2 " Always show tab line"
-" Set up tab labels
-set guitablabel=%m%N:%t[%{tabpagewinnr(v:lnum)}]
-set tabline=%!MyTabLine()
 function! MyTabLine()
     let s=''
     let t=tabpagenr() " The index of current page
@@ -192,6 +123,97 @@ function! MyTabLine()
     let s.=(tabpagenr('$')>1 ? '%999XX' : 'X')
     return s
 endfunction
+
+" }}}
+" Autocmds {{{
+autocmd BufWinLeave *.* silent! mkview " Make Vim save view (state) (folds, cursor, etc)
+autocmd BufWinEnter *.* silent! loadview " Make Vim load view (state) (folds, cursor, etc)
+" To have Vim jump to the last position when reopening a file
+" autocmd BufReadPost * exe "normal! g`\""
+" }}}
+" Sets {{{
+set virtualedit=block
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+" Height of the command bar
+set cmdheight=1
+set colorcolumn=80
+set visualbell noerrorbells " don't beep
+set guioptions=a            " hide scrollbars/menu/tabs
+set ttyfast
+" Set to auto read when a file is changed from the outside
+set autoread
+" 关闭vi的一致性模式 避免以前版本的一些Bug和局限
+set nocompatible
+" 配置backspace键工作方式
+set backspace=indent,eol,start
+" 显示行号
+set number
+" Makes search act like search in modern browsers
+set incsearch
+set ruler
+" 当一行文字很长时取消换行
+set nowrap
+set wrap
+" 在状态栏显示正在输入的命令
+set showcmd
+" 设置历史记录条数
+set history=100
+set backup
+set writebackup
+set noswapfile
+" 突出现实当前行列、高亮当前行列
+set cursorline
+" set cursorcolumn
+" 设置匹配模式 类似当输入一个左括号时会匹配相应的那个右括号
+set showmatch
+" 设置C/C++方式自动对齐
+set autoindent
+set smartindent
+set modelines=1
+set cindent
+" 开启语法高亮功能
+syntax enable syntax on
+" 指定配色方案为256色
+set t_Co=256
+" 设置搜索时忽略大小写
+set ignorecase
+" In many terminal emulators the mouse works just fine, thus enable it.
+set mouse=a
+set wildmenu            " visual autocomplete for command menu"
+set mousehide
+" 禁止gui光标闪烁
+set gcr=a:block-blinkon0
+" 设置Tab宽度
+set tabstop=4
+set expandtab
+" 设置自动对齐空格数
+set shiftwidth=4
+" 设置按退格键时可以一次删除4个空格
+set softtabstop=4
+set shiftround
+" 设置按退格键时可以一次删除4个空格
+set smarttab
+" 将Tab键自动转换成空格 真正需要Tab键时使用[Ctrl + V + Tab]
+set showcmd         " Show (partial) command in status line.
+set expandtab
+" 设置编码方式
+set encoding=utf-8
+" 自动判断编码时 依次尝试一下编码
+set noshowcmd
+vnoremap <Space><Space> zf
+nnoremap <silent> <Space><Space> @=(foldlevel('.') ? 'za' : '\<Space>')<CR>
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set title
+set foldlevelstart=10   " open most folds by default"
+set foldmethod=indent   " fold based on indent level"
+set foldnestmax=10      " 10 nested fold max"
+set lazyredraw          " redraw only when we need to."
+set titlestring=%t%(\ %m%)%(\ (%{expand('%:p:h')})%)%(\ %a%)
+set showtabline=2 " Always show tab line"
+" Set up tab labels
+set guitablabel=%m%N:%t[%{tabpagewinnr(v:lnum)}]
+set tabline=%!MyTabLine()
 set shortmess=at
 " Set up tab tooltips with each buffer name
 set guitabtooltip=%F
@@ -204,6 +226,8 @@ if has("gui_running")
     language messages en_US.utf-8
     set lines=40 columns=120
 endif
+" }}}
+" filetype {{{
 " 检测文件类型
 filetype on
 " 针对不同的文件采用不同的缩进方式
@@ -212,8 +236,8 @@ filetype indent on
 filetype plugin on
 " 启动智能补全
 filetype plugin indent on
-
-"NeoBundle Scripts-----------------------------
+" }}}
+" NeoBundle Scripts {{{
 if has('vim_starting')
 if &compatible
 set nocompatible               " Be iMproved
@@ -264,10 +288,10 @@ let g:ctrlp_max_height=15
 " === YouCompleteMe 自动补全插件===
 NeoBundle 'Valloric/YouCompleteMe', {
                 \ 'build' : {
-                \     'mac' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
-                \     'unix' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
-                \     'windows' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
-                \     'cygwin' : './install.sh --clang-completer --system-libclang --omnisharp-completer'
+                \     'mac' : './install.py --clang-completer --system-libclang --omnisharp-completer',
+                \     'unix' : './install.py --clang-completer --system-libclang --omnisharp-completer',
+                \     'windows' : './install.py --clang-completer --system-libclang --omnisharp-completer',
+                \     'cygwin' : './install.py --clang-completer --system-libclang --omnisharp-completer'
                 \    }
                 \ }
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
@@ -367,7 +391,8 @@ NeoBundle 'Shougo/vimproc', {
                 \ }
 NeoBundle 'mattn/calendar-vim'
 NeoBundle 'leshill/vim-json'
-
+" NeoBundle 'ervandew/supertab'
+" NeoBundle 'AutoComplPop'
 
 " syntastic
 " ==========================
@@ -393,31 +418,41 @@ filetype plugin indent on
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
-
-colorscheme molokai
-" Let h/l can move across line
-set whichwrap+=<,>,h,l
+" }}}
+" Emacs hotkeys {{{
 cnoremap <c-b> <Left>
+inoremap <c-b> <Left>
 cnoremap <c-f> <Right>
-noremap <c-a> <Home>
-noremap <c-e> <End>
+inoremap <c-f> <Right>
+cnoremap <c-a> <Home>
+inoremap <c-a> <Home>
+cnoremap <c-e> <End>
+inoremap <c-e> <End>
+" cnoremap <c-d> <Del>
 inoremap <c-d> <Del>
 inoremap <c-h> <BS>
-set noshowcmd
-vnoremap <Space><Space> zf
-nnoremap <silent> <Space><Space> @=(foldlevel('.') ? 'za' : '\<Space>')<CR>
-
+cnoremap <c-h> <BS>
+inoremap <c-s> <c-o>:update<CR>
+inoremap <c-s> <c-o>:update<CR>
+noremap <c-z> u
+inoremap <c-z> <c-o>u
+noremap <c-y> <c-r>
+inoremap <c-y> <c-r>
+vnoremap <c-c> "+y
+" vnoremap <c-insert> "+y
+" }}}
+" Other vimrc {{{
 " Use fork vimrc if available {
 if filereadable(expand("~/.vimrc.fork"))
     source ~/.vimrc.fork
 endif
-" })}
+" }
 
 " Use local vimrc if available {
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
-" }"
+" }
 
 " Use local gvimrc if available and gui is running {
 if has('gui_running')
@@ -425,4 +460,7 @@ if has('gui_running')
         source ~/.gvimrc.local
     endif
 endif
-" }"
+" }
+" }}}
+set whichwrap+=<,>,h,l
+colorscheme molokai
