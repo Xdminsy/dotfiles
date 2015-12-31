@@ -39,41 +39,41 @@ nnoremap g# g#zzzv
 " map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 noremap <leader>bg :call ToggleBG()<CR>
-nmap <Leader>s :shell<CR>
+nnoremap <Leader>s :shell<CR>
 " Edit the .bashrc"
-nmap <silent> <leader>eb :e ~/.bashrc<CR>
+nnoremap <silent> <leader>eb :e ~/.bashrc<CR>
 " Edit the .vimrc"
-nmap <silent> <leader>ev :vsp ~/.vimrc<CR>
-nnoremap <leader>sv :source ~/.vimrc<CR>
+nnoremap <silent> <leader>ev :tabedit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<CR>
-map <leader>te :tabedit<Space>
-map <leader>to :tabonly<CR>
-map <leader>tc :tabclose<CR>
-map <leader>tm :tabmove<Space>
-map <C-h> :tabprevious<CR>
-map <C-l> :tabnext<CR>
+noremap <leader>tn :tabnew<CR>
+noremap <leader>te :tabedit<Space>
+noremap <leader>to :tabonly<CR>
+noremap <leader>tc :tabclose<CR>
+noremap <leader>tm :tabmove<Space>
+noremap <C-h> :tabprevious<CR>
+noremap <C-l> :tabnext<CR>
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+noremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
 
 " Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+noremap <leader>ss :setlocal spell!<cr>
 
 " Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
+noremap <leader>sn ]s
+noremap <leader>sp [s
+noremap <leader>sa zg
+noremap <leader>s? z=
 " }}}
 " Functions {{{
 function! ToggleBG()
@@ -126,15 +126,18 @@ endfunction
 
 " }}}
 " Autocmds {{{
-autocmd BufWinLeave *.* silent! mkview " Make Vim save view (state) (folds, cursor, etc)
-autocmd BufWinEnter *.* silent! loadview " Make Vim load view (state) (folds, cursor, etc)
-" To have Vim jump to the last position when reopening a file
-" autocmd BufReadPost * exe "normal! g`\""
+augroup mine
+    autocmd BufWinLeave *.* silent! mkview " Make Vim save view (state) (folds, cursor, etc)
+    autocmd BufWinEnter *.* silent! loadview " Make Vim load view (state) (folds, cursor, etc)
+    " To have Vim jump to the last position when reopening a file
+    " autocmd BufReadPost * exe "normal! g`\""
+augroup END
 " }}}
 " Sets {{{
+set shortmess=atI   " 启动的时候不显示那个援助乌干达儿童的提示"
 set virtualedit=block
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+" Set 4 lines to the cursor - when moving vertically using j/k
+set scrolloff=4
 " Height of the command bar
 set cmdheight=1
 set colorcolumn=80
@@ -261,8 +264,10 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
-NeoBundle  'Shougo/unite.vim'
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'sickill/vim-pasta'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'rking/ag.vim'
 
 " You can specify revision/branch/tag.
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
@@ -420,19 +425,13 @@ filetype plugin indent on
 NeoBundleCheck
 " }}}
 " Emacs hotkeys {{{
-cnoremap <c-b> <Left>
-inoremap <c-b> <Left>
-cnoremap <c-f> <Right>
-inoremap <c-f> <Right>
-cnoremap <c-a> <Home>
-inoremap <c-a> <Home>
-cnoremap <c-e> <End>
-inoremap <c-e> <End>
+map! <c-b> <Left>
+map! <c-f> <Right>
+map! <c-a> <Home>
+map! <c-e> <End>
 " cnoremap <c-d> <Del>
 inoremap <c-d> <Del>
-inoremap <c-h> <BS>
-cnoremap <c-h> <BS>
-inoremap <c-s> <c-o>:update<CR>
+map! <c-h> <BS>
 inoremap <c-s> <c-o>:update<CR>
 noremap <c-z> u
 inoremap <c-z> <c-o>u
@@ -462,5 +461,8 @@ if has('gui_running')
 endif
 " }
 " }}}
+" End {{{
 set whichwrap+=<,>,h,l
 colorscheme molokai
+" set paste
+" }}}
