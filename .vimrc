@@ -162,7 +162,7 @@ set wrap
 set showcmd
 " 设置历史记录条数
 set history=100
-set backup
+set nobackup
 set writebackup
 set noswapfile
 " 突出现实当前行列、高亮当前行列
@@ -240,50 +240,64 @@ filetype plugin on
 " 启动智能补全
 filetype plugin indent on
 " }}}
-" NeoBundle Scripts {{{
+" Vundle Scripts {{{
+" Neobundle Start {{{
 if has('vim_starting')
 if &compatible
 set nocompatible               " Be iMproved
 endif
 
 " Required:
-set runtimepath+=~/.vim/bundle/neobundle.vim/
+
+" set runtimepath+=~/.vim/bundle/neobundle.vim/
+
 endif
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle'))
+" call neobundle#begin(expand('~/.vim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+" NeoBundleFetch 'Shougo/neobundle.vim'
+" }}}
+" Vundle Start {{{
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+" }}}
 
 " Add or remove your Bundles here:
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'sickill/vim-pasta'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'rking/ag.vim'
+Plugin 'Shougo/neosnippet.vim'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'tpope/vim-fugitive'
+Plugin 'thinca/vim-quickrun'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'Shougo/unite.vim'
+Plugin 'sickill/vim-pasta'
+Plugin 'rking/ag.vim'
 
 " You can specify revision/branch/tag.
-NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+Plugin 'Shougo/vimshell', { 'rev' : '3787e5' }
 
 " === The-NERD-tree 目录导航插件 ===
-NeoBundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 " 开启目录导航快捷键映射成<Leader>t
 nnoremap <Leader>t :NERDTreeToggle<CR>
 " 高亮鼠标所在的当前行
 " let NERDTreeHighlightCursorline=1
-NeoBundle 'bling/vim-airline'
+Plugin 'bling/vim-airline'
 set laststatus=2
 " === A 头文件和实现文件自动切换插件 ===
-NeoBundle 'vim-scripts/a.vim'
-"=== ctrlp 文件搜索插件 不需要外部依赖包 ===
-NeoBundle 'kien/ctrlp.vim'
+Plugin 'vim-scripts/a.vim'
 " 设置开始文件搜索的快捷键
 let g:ctrlp_map = '<leader>p'
 " 设置默认忽略搜索的文件格式
@@ -291,7 +305,7 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|.rvm$'
 " 设置搜索时显示的搜索结果最大条数
 let g:ctrlp_max_height=15
 " === YouCompleteMe 自动补全插件===
-NeoBundle 'Valloric/YouCompleteMe', {
+Plugin 'Valloric/YouCompleteMe', {
                 \ 'build' : {
                 \     'mac' : './install.py --clang-completer --system-libclang --omnisharp-completer',
                 \     'unix' : './install.py --clang-completer --system-libclang --omnisharp-completer',
@@ -316,77 +330,78 @@ let g:ycm_min_num_of_chars_for_completion = 1
 " let g:ycm_autoclose_preview_window_after_completion=1
 
 
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 " === 自动补全单引号、双引号、括号等 ===
-NeoBundle 'Raimondi/delimitMate'
+Plugin 'Raimondi/delimitMate'
 " === 主题solarized ===
-NeoBundle 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 " let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 " === 主题 molokai ===
-NeoBundle 'tomasr/molokai'
+Plugin 'tomasr/molokai'
 set background=dark
 set t_Co=256
 " === indentLine代码排版缩进标识 ===
-NeoBundle 'Yggdroot/indentLine'
+Plugin 'Yggdroot/indentLine'
 let g:indentLine_noConcealCursor = 1
 let g:indentLine_color_term = 0
 " 缩进的显示标识|
 let g:indentLine_char = '¦'
 " === vim-trailing-whitespace将代码行最后无效的空格标红 ===
-NeoBundle 'bronson/vim-trailing-whitespace'
+Plugin 'bronson/vim-trailing-whitespace'
 " === markdown编辑插件 ===
-NeoBundle 'plasticboy/vim-markdown'
+Plugin 'plasticboy/vim-markdown'
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:vim_markdown_folding_disabled=1
 " === golang编辑插件 ===
-NeoBundle 'jnwhiteh/vim-golang'
+Plugin 'jnwhiteh/vim-golang'
 " 自动检测文件编码
-NeoBundle 'FencView.vim'
+Plugin 'FencView.vim'
 
-NeoBundle 'wavded/vim-stylus'
-NeoBundle 'elixir-lang/vim-elixir'
-NeoBundle 'wting/rust.vim'
-NeoBundle 'VimClojure'
-NeoBundle 'nono/jquery.vim'
-NeoBundle 'moll/vim-node'
-NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'StanAngeloff/php.vim'
-NeoBundle 'JulesWang/css.vim'
-NeoBundle 'derekwyatt/vim-scala'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'pangloss/vim-javascript'
-" NeoBundle 'xuhdev/SingleCompile'
-NeoBundle 'tpope/vim-dispatch'
-NeoBundle 'TagHighlight'
-NeoBundle 'klen/python-mode'
-NeoBundle 'easymotion/vim-easymotion'
+Plugin 'wavded/vim-stylus'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'wting/rust.vim'
+Plugin 'VimClojure'
+Plugin 'nono/jquery.vim'
+Plugin 'moll/vim-node'
+Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'StanAngeloff/php.vim'
+Plugin 'JulesWang/css.vim'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'mattn/emmet-vim'
+Plugin 'othree/html5.vim'
+Plugin 'pangloss/vim-javascript'
+" Plugin 'xuhdev/SingleCompile'
+Plugin 'tpope/vim-dispatch'
+Plugin 'TagHighlight'
+Plugin 'klen/python-mode'
+" let g:pymode_python = 'python3'
+Plugin 'easymotion/vim-easymotion'
 let g:EasyMotion_leader_key = '<Space>'
-NeoBundle 'taglist.vim'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'tomtom/tcomment_vim'
+Plugin 'taglist.vim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'godlygeek/tabular'
+Plugin 'tomtom/tcomment_vim'
 nnoremap <C-k> :TComment<CR>
-NeoBundle 'bling/vim-bufferline'
-NeoBundle 'mhinz/vim-startify'
+Plugin 'bling/vim-bufferline'
+Plugin 'mhinz/vim-startify'
 let g:startify_list_order = ['files', 'dir', 'bookmarks', 'sessions']
 let g:startify_bookmarks = [ '~/.vimrc' ]
-NeoBundle 'junegunn/goyo.vim'
-NeoBundle 'AndrewRadev/splitjoin.vim'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'unblevable/quick-scope'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'xuhdev/SingleCompile'
-NeoBundle 'Shougo/vimshell.vim'
-NeoBundle 'Shougo/vimproc', {
+Plugin 'junegunn/goyo.vim'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'unblevable/quick-scope'
+Plugin 'majutsushi/tagbar'
+Plugin 'xuhdev/SingleCompile'
+Plugin 'Shougo/vimshell.vim'
+Plugin 'Shougo/vimproc', {
                 \ 'build' : {
                 \     'windows' : 'make -f make_mingw32.mak',
                 \     'cygwin' : 'make -f make_cygwin.mak',
@@ -394,14 +409,14 @@ NeoBundle 'Shougo/vimproc', {
                 \     'unix' : 'make -f make_unix.mak',
                 \    },
                 \ }
-NeoBundle 'mattn/calendar-vim'
-NeoBundle 'leshill/vim-json'
-" NeoBundle 'ervandew/supertab'
-" NeoBundle 'AutoComplPop'
+Plugin 'mattn/calendar-vim'
+Plugin 'leshill/vim-json'
+" Plugin 'ervandew/supertab'
+" Plugin 'AutoComplPop'
 
 " syntastic
 " ==========================
-NeoBundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 let g:syntastic_check_on_open = 1
 let g:syntastic_cpp_include_dirs = ['/usr/include/']
 let g:syntastic_cpp_remove_include_errors = 1
@@ -414,15 +429,23 @@ let g:syntastic_warning_symbol = '⚠'
 "whether to show balloons
 let g:syntastic_enable_balloons = 1
 
+
+" NeoBundle End {{{
 " Required:
-call neobundle#end()
+"call neobundle#end()
 
 " Required:
-filetype plugin indent on
+"filetype plugin indent on
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
-NeoBundleCheck
+"NeoBundleCheck
+" }}}
+" Vundle End {{{
+call vundle#end()
+filetype plugin indent on
+" }}}
+
 " }}}
 " Emacs hotkeys {{{
 map! <c-b> <Left>
