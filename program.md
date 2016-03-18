@@ -5,6 +5,8 @@ git http://git-scm.com/
 fasd https://github.com/clvv/fasd
 tmux https://tmux.github.io/
 gpakosz .tmux https://github.com/gpakosz/.tmux
+tldr https://github.com/tldr-pages/tldr
+ranger http://ranger.nongnu.org/
 
 ## programming environment
 jdk http://www.oracle.com/technetwork/java/javase/downloads/index.html
@@ -34,19 +36,33 @@ Node https://nodejs.org/
 nasm yasm as
 CSharp
 
-## windows programs
+## Programs
+Open Broadcaster Software https://obsproject.com/
+chrome https://www.google.com/chrome/
+Sublime Text 3 http://www.sublimetext.com/3
+Flux https://justgetflux.com/
+Pidgin https://pidgin.im/
+Dropbox https://www.dropbox.com/
+VirtualBox https://www.virtualbox.org/
+Wireshark https://www.wireshark.org/
+Steam http://store.steampowered.com/
+7zip http://www.7-zip.org/
+
+Cow https://github.com/cyfdecyf/cow
+Lantern http://getlantern.org/
+ShadowSocks `sudo pip install shadowsocks`
+GoAgent
+
+## Windows Programs
 babun https://github.com/babun/babun http://babun.github.io/
 Cmder http://cmder.net/
 Gow https://github.com/bmatzelle/gow/
-chrome https://www.google.com/chrome/
 clover http://cn.ejie.me/
 Notepad++ http://notepad-plus-plus.org/
 Notepad2-mod https://xhmikosr.github.io/notepad2-mod/
 CCleaner https://www.piriform.com/CCLEANER
 Rolan http://www.irolan.com/
 Everything http://www.voidtools.com/
-Sublime Text 3 http://www.sublimetext.com/3
-Flux https://justgetflux.com/
 Bitvise https://www.bitvise.com/
 QQ http://im.qq.com/
 Sumatra pdf http://www.sumatrapdfreader.org/
@@ -57,36 +73,27 @@ Foobar2000 https://www.foobar2000.org/
 酷我 http://mbox.kuwo.cn/
 Cheat Engine http://www.cheatengine.org/
 Seer http://sourceforge.net/projects/ccseer/
-Pidgin https://pidgin.im/
-Dropbox https://www.dropbox.com/
+Syncthing https://syncthing.net/ ,https://github.com/syncthing/syncthing
+BitTorrent Sync https://www.getsync.com/
 Wox http://www.getwox.com/
 Honeyview http://www.bandisoft.com/honeyview/
 FileZilla Client https://filezilla-project.org/download.php
 VMware Workstation https://www.vmware.com/products/workstation
-VirtualBox https://www.virtualbox.org/
 Fiddler http://www.telerik.com/fiddler/
-Wireshark https://www.wireshark.org/
 AWIcons https://www.awicons.com/
 Genymotion https://www.genymotion.com/
 MultiBit HD https://multibit.org/
-Steam http://store.steampowered.com/
 Ditto http://ditto-cp.sourceforge.net/
 Q-Dir http://www.softwareok.com/?Download=Q-Dir
 eXtraButtons http://www.xtrabuttons.com/
-
+Fences
 Screen to gif https://screentogif.codeplex.com/
 LICECap http://cockos.com/licecap/
-
-7zip http://www.7-zip.org/
 Bandizip http://www.bandisoft.com/bandizip/
-
-Cow https://github.com/cyfdecyf/cow
-Lantern http://getlantern.org/
-ShadowSocks `sudo pip install shadowsocks`
-GoAgent
 
 ## mobile programs
 termux http://termux.com/
+简书 http://www.jianshu.com/apps
 
 ## chrome extensions
 Better History https://chrome.google.com/webstore/detail/better-history/obciceimmggglbmelaidpjlmodcebijb
