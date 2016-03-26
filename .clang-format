@@ -1,0 +1,20 @@
+---
+BasedOnStyle: LLVM
+IndentWidth: 4
+ColumnLimit: 120
+---
+Language: Cpp
+# Force pointers to the type for C++.
+DerivePointerAlignment: false
+PointerAlignment: Left
+KeepEmptyLinesAtTheStartOfBlocks: false
+Standard: Cpp11
+---
+Language: JavaScript
+# Use 100 columns for JS.
+ColumnLimit: 100
+---
+Language: Proto
+# Don't format .proto files.
+DisableFormat: true
+...
