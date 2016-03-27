@@ -54,8 +54,8 @@ noremap <leader>te :tabedit<Space>
 noremap <leader>to :tabonly<CR>
 noremap <leader>tc :tabclose<CR>
 noremap <leader>tm :tabmove<Space>
-noremap <C-h> :tabprevious<CR>
-noremap <C-l> :tabnext<CR>
+noremap <leader>th :tabprevious<CR>
+noremap <leader>tl :tabnext<CR>
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
 " Opens a new tab with the current buffer's path
@@ -74,6 +74,8 @@ noremap <leader>sn ]s
 noremap <leader>sp [s
 noremap <leader>sa zg
 noremap <leader>s? z=
+
+noremap 0 ^
 " }}}
 " Functions {{{
 function! ToggleBG()
@@ -175,12 +177,10 @@ set autoindent
 set smartindent
 set modelines=1
 set cindent
-" 开启语法高亮功能
-syntax enable syntax on
-" 指定配色方案为256色
-set t_Co=256
-" 设置搜索时忽略大小写
-set ignorecase
+syntax enable syntax on " 开启语法高亮功能
+set t_Co=256      " 指定配色方案为256色
+set ignorecase    " 设置搜索时忽略大小写
+set smartcase     " 如果有大写就区别大小写匹配"
 " In many terminal emulators the mouse works just fine, thus enable it.
 set mouse=a
 set wildmenu            " visual autocomplete for command menu"
@@ -220,6 +220,7 @@ set tabline=%!MyTabLine()
 set shortmess=at
 " Set up tab tooltips with each buffer name
 set guitabtooltip=%F
+set pastetoggle=<F12>
 if has("gui_running")
     set guioptions-=m "Remove menubar"
     set guioptions-=T "Remove toolbar"
@@ -411,6 +412,8 @@ Plugin 'Shougo/vimproc', {
                 \ }
 Plugin 'mattn/calendar-vim'
 Plugin 'leshill/vim-json'
+Plugin 'eagletmt/neco-ghc'
+Plugin 'zah/nim.vim'
 " Plugin 'ervandew/supertab'
 " Plugin 'AutoComplPop'
 
@@ -421,8 +424,9 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_cpp_include_dirs = ['/usr/include/']
 let g:syntastic_cpp_remove_include_errors = 1
 let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_checkers = ['clang++']
 let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libstdc++'
+let g:syntastic_cpp_compiler_options = ' -std=c++14 -stdlib=libstdc++'
 "set error or warning signs
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
@@ -454,7 +458,7 @@ map! <c-a> <Home>
 map! <c-e> <End>
 " cnoremap <c-d> <Del>
 inoremap <c-d> <Del>
-map! <c-h> <BS>
+" map! <c-h> <BS>
 inoremap <c-s> <c-o>:update<CR>
 noremap <c-z> u
 inoremap <c-z> <c-o>u

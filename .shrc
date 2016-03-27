@@ -1,15 +1,16 @@
 # For bash prompt
 PS1='\033[36m\u@\033[34m\h:\033[32m\W \033[01;31m>\033[33m>\033[34m>\033[m '
 # For zsh prompt
+# source ~/mine/github/zsh-git-prompt/zshrc.sh #For git_super_status, it should be in ~/.zshrc, https://github.com/olivierverdier/zsh-git-prompt
 RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[m%}')
-PROMPT=$(echo '%{\033[36m%}%n@%{\033[34m%}%M:%{\033[32m%}%1d %{\033[01;31m%}>%{\033[33m%}>%{\033[34m%}>%{\033[m%} ')
+PROMPT=$(echo '%{\033[36m%}%n@%{\033[34m%}%M:%{\033[32m%}%1~ $(git_super_status)%{\033[01;31m%}>%{\033[33m%}>%{\033[34m%}>%{\033[m%} ')
 
 alias rot13="tr a-zA-Z n-za-mN-ZA-M"
-alias ls="ls --color=auto -hF"
+# alias ls="ls --color=auto -hF"
 alias vi="vim"
 alias j="jobs"
 export EDITOR="vim"
-export PATH=~/npm-global/bin:$PATH
+export PATH=/usr/lib/emscripten:~/.gem/ruby/2.3.0/bin:~/npm-global/bin:$PATH
 umask 022
 
 # fortune | cowsay
@@ -38,6 +39,8 @@ export PATH=~/mine/lib/jdk1.8.0_65/bin:$PATH
 alias nethackalt="ssh nethack@alt.org"
 alias updatedate='sudo ntpdate pool.ntp.org'
 
+alias irk='racket -i -l xrepl'
+alias timeit='python -mtimeit'
 
 alias dpid="sudo docker inspect --format '{{.State.Pid}}'"
 alias dip="sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}'"

@@ -52,7 +52,7 @@ flags = [
 # a "-std=<something>".
 # For a C project, you would set this to something like 'c99' instead of
 # 'c++11'.
-'-std=c++11',
+'-std=c++14',
 # ...and the same thing goes for the magic -x option which specifies the
 # language that the files to be compiled are written in. This is mostly
 # relevant for c++ headers.
@@ -81,6 +81,8 @@ flags = [
 './tests/gmock',
 '-isystem',
 './tests/gmock/include',
+'-isystem',
+'/usr/include',
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
@@ -100,7 +102,7 @@ if os.path.exists( compilation_database_folder ):
 else:
   database = None
 
-SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]
+SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm', '.hpp' ]
 
 def DirectoryOfThisScript():
   return os.path.dirname( os.path.abspath( __file__ ) )
