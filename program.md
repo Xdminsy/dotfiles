@@ -1,13 +1,5 @@
 # Programs that I need and like
 
-## terminal programs
-git http://git-scm.com/
-fasd https://github.com/clvv/fasd
-tmux https://tmux.github.io/
-gpakosz .tmux https://github.com/gpakosz/.tmux
-tldr https://github.com/tldr-pages/tldr
-ranger http://ranger.nongnu.org/
-
 ## programming environment
 jdk http://www.oracle.com/technetwork/java/javase/downloads/index.html
 c/c++ http://tdm-gcc.tdragon.net/download
@@ -54,6 +46,7 @@ ShadowSocks `sudo pip install shadowsocks`
 GoAgent
 
 ## Windows Programs
+Zeal https://zealdocs.org/
 babun https://github.com/babun/babun http://babun.github.io/
 Cmder http://cmder.net/
 Gow https://github.com/bmatzelle/gow/
@@ -90,6 +83,7 @@ Fences
 Screen to gif https://screentogif.codeplex.com/
 LICECap http://cockos.com/licecap/
 Bandizip http://www.bandisoft.com/bandizip/
+IObit Uninstaller
 
 ## mobile programs
 termux http://termux.com/
