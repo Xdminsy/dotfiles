@@ -14,19 +14,17 @@
 * [Rust](https://www.rust-lang.org/)
 * [PHP](https://www.php.net/)
 * [Nim](http://nim-lang.org/)
-
 * [Wolfram Mathematica](https://www.wolfram.com/mathematica/)
 * [Android Studio](http://developer.android.com/sdk/index.html/)
 * [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 * [Visual Studio](https://www.visualstudio.com/)
 * [QT Creator](http://www.qt.io/ide/)
-
 * [ngrok](https://ngrok.com/)
 * [Nginx](https://www.nginx.com/)
 * [Docker](http://www.docker.com/)
 * [Node](https://nodejs.org/)
-nasm yasm as
-CSharp
+* nasm
+* yasm
 
 ## Programs
 * [Open Broadcaster Software](https://obsproject.com/)
@@ -39,11 +37,10 @@ CSharp
 * [Wireshark](https://www.wireshark.org/)
 * [Steam](http://store.steampowered.com/)
 * [7zip](http://www.7-zip.org/)
-
 * [Cow](https://github.com/cyfdecyf/cow)
 * [Lantern](http://getlantern.org/)
-ShadowSocks `sudo pip install shadowsocks`
-GoAgent
+* ShadowSocks `sudo pip install shadowsocks`
+* GoAgent
 
 ## Windows Programs
 * [Zeal](https://zealdocs.org/)
@@ -79,31 +76,31 @@ GoAgent
 * [Ditto](http://ditto-cp.sourceforge.net/)
 * [Q-Dir](http://www.softwareok.com/?Download=Q-Dir)
 * [eXtraButtons](http://www.xtrabuttons.com/)
-Fences
+* Fences
 * [Screen to gif](https://screentogif.codeplex.com/)
 * [LICECap](http://cockos.com/licecap/)
 * [Bandizip](http://www.bandisoft.com/bandizip/)
-IObit Uninstaller
+* IObit Uninstaller
 
 ## mobile programs
 * [termux](http://termux.com/)
 * [简书](http://www.jianshu.com/apps)
 
 ## chrome extensions
-* [Better History](https://chrome.google.com/webstore/detail/better-history/)obciceimmggglbmelaidpjlmodcebijb
-* [Adblock Plus](https://chrome.google.com/webstore/detail/adblock-plus/)cfhdojbkjhnklbpkdaibdccddilifddb
-* [* [AutoPagerize](http://autopagerize.net/](https://chrome.google.com/webstore/))detail/autopagerize/igiofjhpmpihnifddepnpngfjhkfenbp
-* [crxMouse Chrome Gestures](https://chrome.google.com/webstore/detail/)crxmouse-chrome-gestures/jlgkpaicikihijadgifklkbpdajbkhjo
-* [Ghostery](https://chrome.google.com/webstore/detail/ghostery/)mlomiejdfkolichcflejclcbmpeaniij
-* [Google Dictionary](https://chrome.google.com/webstore/detail/)google-dictionary-by-goog/mgijmajocgfcbeboacabfgobmjgjcoja
-* [Google Input Tools](https://chrome.google.com/webstore/detail/)google-input-tools/mclkkofklkfljcocdinagocijmpgbhab
-* [Google Translate](https://chrome.google.com/webstore/detail/google-translate/)aapbdbdomjkkjkaonfhkkikfgjllcleb
-* [Gmail™ Notifier](http://add0n.com/gmail-notifier.html](https://)chrome.google.com* [)/webstore/detail/gmail-notifier/dcjichoefijpinlfnjghokpkojhlhkgl
-* [I'm a Gentleman](https://chrome.google.com/webstore/detail/im-a-gentleman/)afjaicccalbbickikgdegaihmajaidpd
-* [Imagus](https://97e572bee9692acbd88571f49c074e24ffd9c03b.googledrive.com/host/)0Bx8fnUCX4W2IUTNPT0s2eUFDQms/
-* [Perfect YaHei](https://chrome.google.com/webstore/)detail/%E5%81%8F%E7%88%B1%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91%E5%AD%97%E4%BD%93/jjeknnigbkhhilfjhoijbddeaihdpmdi
-* [Proxy SwitchyOmega](https://chrome.google.com/webstore/detail/)proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif
-* [RSS Feed Reader](https://chrome.google.com/webstore/detail/rss-feed-reader/)pnjaodmkngahhkoihejjehlcdlnohgmp
-* [WOT](https://chrome.google.com/webstore/detail/wot-web-of-trust-website/)bhmmomiinigofkjcapegjjndpbikblnp
-* [Vimium](https://chrome.google.com/webstore/detail/vimium/)dbepggeogbaibhgnhhndojpepiihcmeb
+* [Better History](https://chrome.google.com/webstore/detail/better-history/obciceimmggglbmelaidpjlmodcebijb)
+* [Adblock Plus](https://chrome.google.com/webstore/detail/adblock-plus/cfhdojbkjhnklbpkdaibdccddilifddb)
+* [AutoPagerize](http://autopagerize.net/](https://chrome.google.com/webstore/detail/autopagerize/igiofjhpmpihnifddepnpngfjhkfenbp)
+* [crxMouse Chrome Gestures](https://chrome.google.com/webstore/detail/crxmouse-chrome-gestures/jlgkpaicikihijadgifklkbpdajbkhjo)
+* [Ghostery](https://chrome.google.com/webstore/detail/ghostery/mlomiejdfkolichcflejclcbmpeaniij)
+* [Google Dictionary](https://chrome.google.com/webstore/detail/google-dictionary-by-goog/mgijmajocgfcbeboacabfgobmjgjcoja)
+* [Google Input Tools](https://chrome.google.com/webstore/detail/google-input-tools/mclkkofklkfljcocdinagocijmpgbhab)
+* [Google Translate](https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb)
+* [Gmail™ Notifier](http://add0n.com/gmail-notifier.html](https://chrome.google.com* [/webstore/detail/gmail-notifier/dcjichoefijpinlfnjghokpkojhlhkgl)
+* [I'm a Gentleman](https://chrome.google.com/webstore/detail/im-a-gentleman/afjaicccalbbickikgdegaihmajaidpd)
+* [Imagus](https://97e572bee9692acbd88571f49c074e24ffd9c03b.googledrive.com/host/0Bx8fnUCX4W2IUTNPT0s2eUFDQms/)
+* [Perfect YaHei](https://chrome.google.com/webstore/detail/%E5%81%8F%E7%88%B1%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91%E5%AD%97%E4%BD%93/jjeknnigbkhhilfjhoijbddeaihdpmdi)
+* [Proxy SwitchyOmega](https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif)
+* [RSS Feed Reader](https://chrome.google.com/webstore/detail/rss-feed-reader/pnjaodmkngahhkoihejjehlcdlnohgmp)
+* [WOT](https://chrome.google.com/webstore/detail/wot-web-of-trust-website/bhmmomiinigofkjcapegjjndpbikblnp)
+* [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb)
 * [Wikiwand](http://www.wikiwand.com/#/install)
