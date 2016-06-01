@@ -44,7 +44,7 @@
 
 ## Windows Programs
 * [Zeal](https://zealdocs.org/)
-* [* [babun](https://github.com/babun/babun](http://babun.github.io/))
+* [Babun](http://babun.github.io/)
 * [Cmder](http://cmder.net/)
 * [Gow](https://github.com/bmatzelle/gow/)
 * [clover](http://cn.ejie.me/)
@@ -63,7 +63,7 @@
 * [酷我](http://mbox.kuwo.cn/)
 * [Cheat Engine](http://www.cheatengine.org/)
 * [Seer](http://sourceforge.net/projects/ccseer/)
-* [Syncthing](https://syncthing.net/ ](https://github.com/syncthing/syncthing)
+* [Syncthing](https://syncthing.net/)
 * [BitTorrent Sync](https://www.getsync.com/)
 * [Wox](http://www.getwox.com/)
 * [Honeyview](http://www.bandisoft.com/honeyview/)
@@ -89,13 +89,13 @@
 ## chrome extensions
 * [Better History](https://chrome.google.com/webstore/detail/better-history/obciceimmggglbmelaidpjlmodcebijb)
 * [Adblock Plus](https://chrome.google.com/webstore/detail/adblock-plus/cfhdojbkjhnklbpkdaibdccddilifddb)
-* [AutoPagerize](http://autopagerize.net/](https://chrome.google.com/webstore/detail/autopagerize/igiofjhpmpihnifddepnpngfjhkfenbp)
+* [AutoPagerize](https://chrome.google.com/webstore/detail/autopagerize/igiofjhpmpihnifddepnpngfjhkfenbp)
 * [crxMouse Chrome Gestures](https://chrome.google.com/webstore/detail/crxmouse-chrome-gestures/jlgkpaicikihijadgifklkbpdajbkhjo)
 * [Ghostery](https://chrome.google.com/webstore/detail/ghostery/mlomiejdfkolichcflejclcbmpeaniij)
 * [Google Dictionary](https://chrome.google.com/webstore/detail/google-dictionary-by-goog/mgijmajocgfcbeboacabfgobmjgjcoja)
 * [Google Input Tools](https://chrome.google.com/webstore/detail/google-input-tools/mclkkofklkfljcocdinagocijmpgbhab)
 * [Google Translate](https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb)
-* [Gmail™ Notifier](http://add0n.com/gmail-notifier.html](https://chrome.google.com* [/webstore/detail/gmail-notifier/dcjichoefijpinlfnjghokpkojhlhkgl)
+* [Gmail™ Notifier](https://chrome.google.com/webstore/detail/gmail-notifier/dcjichoefijpinlfnjghokpkojhlhkgl)
 * [I'm a Gentleman](https://chrome.google.com/webstore/detail/im-a-gentleman/afjaicccalbbickikgdegaihmajaidpd)
 * [Imagus](https://97e572bee9692acbd88571f49c074e24ffd9c03b.googledrive.com/host/0Bx8fnUCX4W2IUTNPT0s2eUFDQms/)
 * [Perfect YaHei](https://chrome.google.com/webstore/detail/%E5%81%8F%E7%88%B1%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91%E5%AD%97%E4%BD%93/jjeknnigbkhhilfjhoijbddeaihdpmdi)
