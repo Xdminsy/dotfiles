@@ -2,15 +2,23 @@
 (define-key global-map "\C-h" 'backward-delete-char)
 
 (require 'package)
-(require 'cl)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+(setq package-archives '(("popkit" . "https://elpa.popkit.org/packages/")
+			 ("gnu" . "http://elpa.gnu.org/packages/")
 			 ("marmalade" . "https://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 
 (defvar my-packages
-  '(clojure-mode cider helm color-theme-sanityinc-tomorrow)
+  '(clojure-mode
+      cider
+      helm
+      color-theme-sanityinc-tomorrow
+      autopair
+      cl
+      auto-complete)
   "A list of packages to ensure are installed at launch.")
+
+(require 'cl)
 
 (defun my-packages-installed-p ()
   (loop for p in my-packages
@@ -28,8 +36,17 @@
 (require 'color-theme)
 (color-theme-initialize)
 (require 'helm)
-;; (global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x C-f") 'helm-find-files) 
 (helm-mode t)
+
+;; (add-to-list 'load-path "~/.emacs.d/elpa/autopair")
+
+(require 'autopair)
+(autopair-global-mode)
+(ac-config-default)
+
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
