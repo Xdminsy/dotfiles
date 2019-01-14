@@ -83,3 +83,5 @@ function denter() {
         fi
     fi
 }
+
+# vim: filetype=sh
