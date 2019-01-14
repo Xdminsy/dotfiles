@@ -1,4 +1,3 @@
-" vim:foldmethod=marker:foldlevel=0
 " Maps {{{
 inoremap jk <ESC>
 " let g:mapleader = "\<Space>"
@@ -126,6 +125,27 @@ function! MyTabLine()
     return s
 endfunction
 
+" Thanks to David Ljung Madison
+" # Function to permanently delete views created by 'mkview'
+function! MyDeleteView()
+    let path = fnamemodify(bufname('%'),':p')
+    " vim's odd =~ escaping for /
+    let path = substitute(path, '=', '==', 'g')
+    if empty($HOME)
+    else
+        let path = substitute(path, '^'.$HOME, '\~', '')
+    endif
+    let path = substitute(path, '/', '=+', 'g') . '='
+    " view directory
+    let path = &viewdir.'/'.path
+    call delete(path)
+    echo "Deleted: ".path
+endfunction
+" # Command Delview (and it's abbreviation 'delview')
+command! Delview call MyDeleteView()
+" Lower-case user commands: http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev
+cabbrev delview <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Delview' : 'delview')<CR>
+
 " }}}
 " Autocmds {{{
 augroup mine
@@ -143,7 +163,7 @@ set scrolloff=4
 " Height of the command bar
 set cmdheight=1
 set colorcolumn=80
-set visualbell noerrorbells " don't beep
+set novisualbell noerrorbells " don't beep
 set guioptions=a            " hide scrollbars/menu/tabs
 set ttyfast
 " Set to auto read when a file is changed from the outside
@@ -175,7 +195,8 @@ set showmatch
 " 设置C/C++方式自动对齐
 set autoindent
 set smartindent
-set modelines=1
+set modeline
+set modelines=5
 set cindent
 syntax enable syntax on " 开启语法高亮功能
 set t_Co=256      " 指定配色方案为256色
@@ -241,7 +262,7 @@ filetype plugin on
 " 启动智能补全
 filetype plugin indent on
 " }}}
-" Vundle Scripts {{{
+" Plugin Scripts {{{
 " Neobundle Start {{{
 if has('vim_starting')
 if &compatible
@@ -287,10 +308,13 @@ Plugin 'sickill/vim-pasta'
 Plugin 'rking/ag.vim'
 
 " You can specify revision/branch/tag.
-Plugin 'Shougo/vimshell', { 'rev' : '3787e5' }
+" Plugin 'Shougo/vimshell', { 'rev' : '3787e5' }
+Plugin 'Shougo/vimshell'
 
 " === The-NERD-tree 目录导航插件 ===
 Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 " 开启目录导航快捷键映射成<Leader>t
 nnoremap <Leader>t :NERDTreeToggle<CR>
 " 高亮鼠标所在的当前行
@@ -306,15 +330,16 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|.rvm$'
 " 设置搜索时显示的搜索结果最大条数
 let g:ctrlp_max_height=15
 " === YouCompleteMe 自动补全插件===
-Plugin 'Valloric/YouCompleteMe', {
-                \ 'build' : {
-                \     'mac' : './install.py --clang-completer --system-libclang --omnisharp-completer',
-                \     'unix' : './install.py --clang-completer --system-libclang --omnisharp-completer',
-                \     'windows' : './install.py --clang-completer --system-libclang --omnisharp-completer',
-                \     'cygwin' : './install.py --clang-completer --system-libclang --omnisharp-completer'
-                \    }
-                \ }
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe', {
+"                \ 'build' : {
+"                \     'mac' : './install.py --clang-completer --system-libclang --omnisharp-completer',
+"                \     'unix' : './install.py --clang-completer --system-libclang --omnisharp-completer',
+"                \     'windows' : './install.py --clang-completer --system-libclang --omnisharp-completer',
+"                \     'cygwin' : './install.py --clang-completer --system-libclang --omnisharp-completer'
+"                \    }
+"                \ }
+let g:ycm_global_ycm_extra_conf = '~/dotfiles/.ycm_extra_conf.py'
 let g:EclimCompletionMethod = 'omnifunc'
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
@@ -331,8 +356,8 @@ let g:ycm_min_num_of_chars_for_completion = 1
 " let g:ycm_autoclose_preview_window_after_completion=1
 
 
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+" Plugin 'SirVer/ultisnips'
+" Plugin 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-p>"
@@ -364,12 +389,12 @@ let g:vim_markdown_folding_disabled=1
 Plugin 'jnwhiteh/vim-golang'
 " 自动检测文件编码
 Plugin 'FencView.vim'
-
+Plugin 'idris-hackers/idris-vim'
 Plugin 'wavded/vim-stylus'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'wting/rust.vim'
 Plugin 'VimClojure'
-Plugin 'nono/jquery.vim'
+" Plugin 'nono/jquery.vim'
 Plugin 'moll/vim-node'
 Plugin 'shawncplus/phpcomplete.vim'
 Plugin 'StanAngeloff/php.vim'
@@ -385,7 +410,7 @@ Plugin 'klen/python-mode'
 " let g:pymode_python = 'python3'
 Plugin 'easymotion/vim-easymotion'
 let g:EasyMotion_leader_key = '<Space>'
-Plugin 'taglist.vim'
+" Plugin 'taglist.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'godlygeek/tabular'
@@ -414,6 +439,7 @@ Plugin 'mattn/calendar-vim'
 Plugin 'leshill/vim-json'
 Plugin 'eagletmt/neco-ghc'
 Plugin 'zah/nim.vim'
+Plugin 'metakirby5/codi.vim'
 " Plugin 'ervandew/supertab'
 " Plugin 'AutoComplPop'
 
@@ -492,4 +518,5 @@ endif
 set whichwrap+=<,>,h,l
 colorscheme molokai
 " set paste
+" vim:foldmethod=marker:foldlevel=0
 " }}}
