@@ -39,11 +39,19 @@ alias .....='cd ../../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
 
-alias bc='bc -l'
-alias apt="sudo apt"
 alias g="git"
 alias gpom="git push origin master"
 alias gs="git status"
+alias gl='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short'
+alias ga='git add'
+alias gaa='git add --all'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gcam='git commit -vam'
+alias gd='git diff'
+
+alias bc='bc -l'
+alias apt="sudo apt"
 alias "?=man"
 alias rot13="tr a-zA-Z n-za-mN-ZA-M"
 # alias ls="ls --color=auto -hF"
