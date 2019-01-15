@@ -40,9 +40,12 @@ alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
 
 alias g="git"
+alias gp='git push'
 alias gpom="git push origin master"
+alias gl='git pull'
+alias glom='git pull origin master'
 alias gs="git status"
-alias gl='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short'
+alias glog='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short'
 alias ga='git add'
 alias gaa='git add --all'
 alias gc='git commit'
