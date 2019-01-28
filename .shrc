@@ -61,7 +61,7 @@ alias rot13="tr a-zA-Z n-za-mN-ZA-M"
 alias vi="vim"
 alias h='history'
 alias j="jobs"
-alias nethackalt="ssh nethack@alt.org"
+alias nao="ssh nethack@alt.org"
 alias updatedate='sudo ntpdate pool.ntp.org'
 alias irk='racket -i -l xrepl'
 alias timeit='python -mtimeit'
@@ -72,6 +72,9 @@ alias reboot='sudo reboot'
 alias poweroff='sudo poweroff'
 alias halt='sudo halt'
 alias shutdown='sudo shutdown'
+alias grep='grep -E --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias egrep='grep -E --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias fgrep='grep -F --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
 #the implementation refs from https://github.com/jpetazzo/nsenter/blob/master/docker-enter
 function denter() {
