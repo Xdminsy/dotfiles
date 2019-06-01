@@ -75,6 +75,7 @@ alias shutdown='sudo shutdown'
 alias grep='grep -E --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias egrep='grep -E --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias fgrep='grep -F --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias summ='python -c "print(sum(sum(map(int, s.split())) for s in __import__(\"sys\").stdin))"'
 
 #the implementation refs from https://github.com/jpetazzo/nsenter/blob/master/docker-enter
 function denter() {
