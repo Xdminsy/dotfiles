@@ -3,7 +3,7 @@ inoremap jk <ESC>
 " let g:mapleader = "\<Space>"
 let g:mapleader = ";"
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q<CR>
+nnoremap <Leader>q :conf q<CR>
 nnoremap <Leader>wq :wq<CR>
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
@@ -202,8 +202,7 @@ syntax enable syntax on " 开启语法高亮功能
 set t_Co=256      " 指定配色方案为256色
 set ignorecase    " 设置搜索时忽略大小写
 set smartcase     " 如果有大写就区别大小写匹配"
-" In many terminal emulators the mouse works just fine, thus enable it.
-set mouse=a
+" set mouse=a " Enable mouse for all previous mode
 set wildmenu            " visual autocomplete for command menu"
 set mousehide
 " 禁止gui光标闪烁
@@ -242,6 +241,8 @@ set shortmess=at
 " Set up tab tooltips with each buffer name
 set guitabtooltip=%F
 set pastetoggle=<F12>
+set belloff=all " Disable all annoying bells
+set t_ut= " Prevent wrong background color
 if has("gui_running")
     set guioptions-=m "Remove menubar"
     set guioptions-=T "Remove toolbar"
@@ -296,7 +297,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " }}}
 
-" Add or remove your Bundles here:
+Plugin 'matchit.zip'
+Plugin 'tpope/vim-surround'
 Plugin 'Shougo/neosnippet.vim'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'tpope/vim-fugitive'
@@ -307,9 +309,8 @@ Plugin 'Shougo/unite.vim'
 Plugin 'sickill/vim-pasta'
 Plugin 'rking/ag.vim'
 
-" You can specify revision/branch/tag.
-" Plugin 'Shougo/vimshell', { 'rev' : '3787e5' }
-Plugin 'Shougo/vimshell'
+" Plugin 'Shougo/vimshell'
+Plugin 'shougo/deol.nvim'
 
 " === The-NERD-tree 目录导航插件 ===
 Plugin 'scrooloose/nerdtree'
@@ -330,7 +331,7 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|.rvm$'
 " 设置搜索时显示的搜索结果最大条数
 let g:ctrlp_max_height=15
 " === YouCompleteMe 自动补全插件===
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 " Plugin 'Valloric/YouCompleteMe', {
 "                \ 'build' : {
 "                \     'mac' : './install.py --clang-completer --system-libclang --omnisharp-completer',
@@ -488,8 +489,8 @@ inoremap <c-d> <Del>
 inoremap <c-s> <c-o>:update<CR>
 noremap <c-z> u
 inoremap <c-z> <c-o>u
-noremap <c-y> <c-r>
-inoremap <c-y> <c-r>
+" noremap <c-y> <c-r>
+" inoremap <c-y> <c-o><c-r>
 vnoremap <c-c> "+y
 " vnoremap <c-insert> "+y
 " }}}
@@ -517,6 +518,7 @@ endif
 " End {{{
 set whichwrap+=<,>,h,l
 colorscheme molokai
+highlight Visual term=reverse cterm=reverse guibg=Grey
 " set paste
 " vim:foldmethod=marker:foldlevel=0
 " }}}
