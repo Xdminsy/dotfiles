@@ -75,6 +75,23 @@ noremap <leader>sa zg
 noremap <leader>s? z=
 
 noremap 0 ^
+" Emacs hotkeys {{{
+map! <c-b> <Left>
+map! <c-f> <Right>
+map! <c-a> <Home>
+map! <c-e> <End>
+" cnoremap <c-d> <Del>
+inoremap <c-d> <Del>
+" map! <c-h> <BS>
+inoremap <c-s> <c-o>:update<CR>
+noremap <c-z> u
+inoremap <c-z> <c-o>u
+" noremap <c-y> <c-r>
+" inoremap <c-y> <c-o><c-r>
+vnoremap <c-c> "+y
+nnoremap <c-p> "+p
+" vnoremap <c-insert> "+y
+" }}}
 " }}}
 " Functions {{{
 function! ToggleBG()
@@ -156,52 +173,39 @@ augroup mine
 augroup END
 " }}}
 " Sets {{{
-set shortmess=atI   " 启动的时候不显示那个援助乌干达儿童的提示"
+set nocompatible
+set shortmess=atI
 set virtualedit=block
-" Set 4 lines to the cursor - when moving vertically using j/k
+set whichwrap+=<,>,h,l
 set scrolloff=4
-" Height of the command bar
 set cmdheight=1
 set colorcolumn=80
 set novisualbell noerrorbells " don't beep
-set guioptions=a            " hide scrollbars/menu/tabs
 set ttyfast
-" Set to auto read when a file is changed from the outside
 set autoread
-" 关闭vi的一致性模式 避免以前版本的一些Bug和局限
-set nocompatible
-" 配置backspace键工作方式
 set backspace=indent,eol,start
-" 显示行号
 set number
-" Makes search act like search in modern browsers
 set incsearch
+set hlsearch
 set ruler
-" 当一行文字很长时取消换行
 set nowrap
-set wrap
-" 在状态栏显示正在输入的命令
 set showcmd
-" 设置历史记录条数
 set history=100
 set nobackup
 set writebackup
 set noswapfile
-" 突出现实当前行列、高亮当前行列
 set cursorline
-" set cursorcolumn
-" 设置匹配模式 类似当输入一个左括号时会匹配相应的那个右括号
+set nocursorcolumn
 set showmatch
-" 设置C/C++方式自动对齐
 set autoindent
 set smartindent
 set modeline
 set modelines=5
 set cindent
-syntax enable syntax on " 开启语法高亮功能
-set t_Co=256      " 指定配色方案为256色
-set ignorecase    " 设置搜索时忽略大小写
-set smartcase     " 如果有大写就区别大小写匹配"
+syntax enable syntax on
+set t_Co=256
+set ignorecase
+set smartcase
 " set mouse=a " Enable mouse for all previous mode
 set wildmenu            " visual autocomplete for command menu"
 set mousehide
@@ -243,24 +247,6 @@ set guitabtooltip=%F
 set pastetoggle=<F12>
 set belloff=all " Disable all annoying bells
 set t_ut= " Prevent wrong background color
-if has("gui_running")
-    set guioptions-=m "Remove menubar"
-    set guioptions-=T "Remove toolbar"
-    set guioptions-=r "Remove v_scroll bar"
-    set mousemodel=extend
-    set guifont=Consolas:h10
-    language messages en_US.utf-8
-    set lines=40 columns=120
-endif
-" }}}
-" filetype {{{
-" 检测文件类型
-filetype on
-" 针对不同的文件采用不同的缩进方式
-filetype indent on
-" 允许插件
-filetype plugin on
-" 启动智能补全
 filetype plugin indent on
 " }}}
 " Plugin Scripts {{{
@@ -298,6 +284,7 @@ Plugin 'VundleVim/Vundle.vim'
 " }}}
 
 Plugin 'matchit.zip'
+Plugin 'neoclide/coc.nvim'
 Plugin 'tpope/vim-surround'
 Plugin 'Shougo/neosnippet.vim'
 Plugin 'Shougo/neosnippet-snippets'
@@ -307,20 +294,18 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Shougo/unite.vim'
 Plugin 'sickill/vim-pasta'
-Plugin 'rking/ag.vim'
-
-" Plugin 'Shougo/vimshell'
+Plugin 'jremmen/vim-ripgrep'
+Plugin 'junegunn/fzf'
 Plugin 'shougo/deol.nvim'
+Plugin 'ryanoasis/vim-devicons'
 
-" === The-NERD-tree 目录导航插件 ===
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-" 开启目录导航快捷键映射成<Leader>t
-nnoremap <Leader>t :NERDTreeToggle<CR>
-" 高亮鼠标所在的当前行
-" let NERDTreeHighlightCursorline=1
+let g:nerdtree_tabs_open_on_gui_startup=2
+nnoremap <Leader>n :NERDTreeToggle<CR>
 Plugin 'bling/vim-airline'
+let g:airline_theme='dark'
 set laststatus=2
 " === A 头文件和实现文件自动切换插件 ===
 Plugin 'vim-scripts/a.vim'
@@ -330,7 +315,6 @@ let g:ctrlp_map = '<leader>p'
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|.rvm$'
 " 设置搜索时显示的搜索结果最大条数
 let g:ctrlp_max_height=15
-" === YouCompleteMe 自动补全插件===
 " Plugin 'Valloric/YouCompleteMe'
 " Plugin 'Valloric/YouCompleteMe', {
 "                \ 'build' : {
@@ -365,12 +349,10 @@ let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 " === 自动补全单引号、双引号、括号等 ===
 Plugin 'Raimondi/delimitMate'
-" === 主题solarized ===
 Plugin 'altercation/vim-colors-solarized'
 " let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
-" === 主题 molokai ===
 Plugin 'tomasr/molokai'
 set background=dark
 set t_Co=256
@@ -388,8 +370,7 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:vim_markdown_folding_disabled=1
 " === golang编辑插件 ===
 Plugin 'jnwhiteh/vim-golang'
-" 自动检测文件编码
-Plugin 'FencView.vim'
+Plugin 'mbbill/fencview'
 Plugin 'idris-hackers/idris-vim'
 Plugin 'wavded/vim-stylus'
 Plugin 'elixir-lang/vim-elixir'
@@ -404,7 +385,6 @@ Plugin 'derekwyatt/vim-scala'
 Plugin 'mattn/emmet-vim'
 Plugin 'othree/html5.vim'
 Plugin 'pangloss/vim-javascript'
-" Plugin 'xuhdev/SingleCompile'
 Plugin 'tpope/vim-dispatch'
 Plugin 'TagHighlight'
 Plugin 'klen/python-mode'
@@ -427,7 +407,6 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'unblevable/quick-scope'
 Plugin 'majutsushi/tagbar'
 Plugin 'xuhdev/SingleCompile'
-Plugin 'Shougo/vimshell.vim'
 Plugin 'Shougo/vimproc', {
                 \ 'build' : {
                 \     'windows' : 'make -f make_mingw32.mak',
@@ -478,21 +457,20 @@ filetype plugin indent on
 " }}}
 
 " }}}
-" Emacs hotkeys {{{
-map! <c-b> <Left>
-map! <c-f> <Right>
-map! <c-a> <Home>
-map! <c-e> <End>
-" cnoremap <c-d> <Del>
-inoremap <c-d> <Del>
-" map! <c-h> <BS>
-inoremap <c-s> <c-o>:update<CR>
-noremap <c-z> u
-inoremap <c-z> <c-o>u
-" noremap <c-y> <c-r>
-" inoremap <c-y> <c-o><c-r>
-vnoremap <c-c> "+y
-" vnoremap <c-insert> "+y
+" Gvim {{{
+if has('gui_running')
+    " set guioptions-=m "Remove menubar"
+    " set guioptions-=T "Remove toolbar"
+    " set guioptions-=r "Remove v_scroll bar"
+    " set guioptions=c
+    " set mousemodel=extend
+    language messages en_US.utf-8
+    set guifont=Sarasa_Mono_CL:h10:cANSI:qDRAFT
+    set lines=29 columns=140
+endif
+if has('nvim')
+    set guifont=Sarasa\ Mono\ CL:h10:cANSI:qDRAFT
+endif
 " }}}
 " Other vimrc {{{
 " Use fork vimrc if available {
@@ -516,9 +494,11 @@ endif
 " }
 " }}}
 " End {{{
-set whichwrap+=<,>,h,l
-colorscheme molokai
+silent! colorscheme molokai
 highlight Visual term=reverse cterm=reverse guibg=Grey
-" set paste
+highlight Normal ctermbg=NONE " Use Windows Terminal's animated background image.
+highlight Folded ctermbg=NONE " Use Windows Terminal's animated background image.
+highlight TabLineFill cterm=NONE
+lang en_US
 " vim:foldmethod=marker:foldlevel=0
 " }}}
