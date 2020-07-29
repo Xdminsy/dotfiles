@@ -36,9 +36,9 @@ Import-Module z
 Import-Module posh-git
 Import-Module PSFzf
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
-Remove-Variable HOME -Force
-New-Variable HOME -Value $env:HOME -Option ReadOnly # Make $HOME same with your environment
-$ExecutionContext.SessionState.Drive.Current.Provider.Home = $HOME # Also make ~ to be the new Home
+# Remove-Variable HOME -Force
+# New-Variable HOME -Value $env:HOME -Option ReadOnly # Make $HOME same with your environment
+# $ExecutionContext.SessionState.Drive.Current.Provider.Home = $HOME # Also make ~ to be the new Home
 Set-Alias .. cd..
 Set-Alias * Select
 Set-Alias lw Get-ChildItemColorFormatWide
