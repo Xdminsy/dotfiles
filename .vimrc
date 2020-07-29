@@ -5,12 +5,10 @@ let g:mapleader = ";"
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :conf q<CR>
 nnoremap <Leader>wq :wq<CR>
-" 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
-" 设置快捷键将系统剪贴板内容粘贴至 vim
-nmap <Leader>p "+p
-" 依次遍历子窗口
+nnoremap <Leader>p "+p
 nnoremap ;nw <C-W><C-W>
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 nnoremap <F6> :set nonumber!<CR>:set foldcolumn=0<CR>
 
 " Add a bit extra margin to the left
@@ -20,6 +18,7 @@ nnoremap <F6> :set nonumber!<CR>:set foldcolumn=0<CR>
 " For regular expressions turn very magic on
 :nnoremap / /\v
 :cnoremap %s/ %s/\v
+cnoremap <c-g> <c-c><esc>
 
 " Select last inserted text
 nnoremap gV `[v`]
@@ -37,7 +36,7 @@ nnoremap g* g*zzzv
 nnoremap g# g#zzzv
 " map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
-noremap <leader>bg :call ToggleBG()<CR>
+" noremap <leader>bg :call ToggleBG()<CR>
 nnoremap <Leader>s :shell<CR>
 " Edit the .bashrc"
 nnoremap <silent> <leader>eb :e ~/.bashrc<CR>
@@ -247,6 +246,8 @@ set guitabtooltip=%F
 set pastetoggle=<F12>
 set belloff=all " Disable all annoying bells
 set t_ut= " Prevent wrong background color
+set splitbelow
+set splitright
 filetype plugin indent on
 " }}}
 " Plugin Scripts {{{
@@ -284,7 +285,8 @@ Plugin 'VundleVim/Vundle.vim'
 " }}}
 
 Plugin 'matchit.zip'
-Plugin 'neoclide/coc.nvim'
+" Plugin 'neoclide/coc.nvim'
+" let g:coc_global_extensions=[ 'coc-powershell']
 Plugin 'tpope/vim-surround'
 Plugin 'Shougo/neosnippet.vim'
 Plugin 'Shougo/neosnippet-snippets'
@@ -385,6 +387,7 @@ Plugin 'derekwyatt/vim-scala'
 Plugin 'mattn/emmet-vim'
 Plugin 'othree/html5.vim'
 Plugin 'pangloss/vim-javascript'
+Plugin 'leafgarland/typescript-vim'
 Plugin 'tpope/vim-dispatch'
 Plugin 'TagHighlight'
 Plugin 'klen/python-mode'
@@ -464,6 +467,7 @@ if has('gui_running')
     " set guioptions-=r "Remove v_scroll bar"
     " set guioptions=c
     " set mousemodel=extend
+    set guioptions= " Remove all guioptions
     language messages en_US.utf-8
     set guifont=Sarasa_Mono_CL:h10:cANSI:qDRAFT
     set lines=29 columns=140
