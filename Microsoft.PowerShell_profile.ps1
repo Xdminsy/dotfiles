@@ -11,29 +11,6 @@ function ConvertTo-Comment{
   [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
 
-<#
-# Ooops, cannot invoke editor like vim while using hotkey.
-$env:EDITOR="code"
-$EDITOR=$env:EDITOR
-function Edit-CommandLine {
-  # https://github.com/zsh-users/zsh/blob/3d7215cc8277b39cd1e24ce5a04376d45bfbabf0/Functions/Zle/edit-command-line
-  $line = 0
-  $cursor = 0
-  [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
-  $temp = New-TemporaryFile
-  Out-File $temp -InputObject $line
-  $ed = $env:EDITOR
-  switch($ed){
-    "vim" {Invoke-Expression "$ed -c `"normal! ${cursor}go`" -- $temp"; Break}
-    "emacs" {Invoke-Expression ("$ed +" + ($line.Length) + " $temp"); Break}
-    default {Invoke-Expression "$ed $temp"}
-  }
-  [Microsoft.PowerShell.PSConsoleReadLine]::NextLine()
-  [Microsoft.PowerShell.PSConsoleReadLine]::Insert((cat $temp))
-}
-Set-PSReadLineKeyHandler -Chord "ctrl+x,ctrl+e" -ScriptBlock {Edit-CommandLine}
-#>
-
 function Open-ProcessFolder{
   param(
     [Parameter(Mandatory = $true, ParameterSetName = "Name")]
