@@ -1,0 +1,32 @@
+inoremap jk <ESC>
+let mapleader=";"
+set easymotion
+set ignorecase
+set smartcase
+set scrolloff=3
+set ignorecase
+set smartcase
+set scrolloff=3 " 3 lines above/below cursor when scrolling
+set surround
+set clipboard+=unnamed
+set ideajoin
+set multiple-cursors
+imap <c-a> <c-o>^
+imap <c-e> <End>
+imap <c-b> <Left>
+imap <c-f> <Right>
+imap <c-p> <Up>
+imap <c-n> <Down>
+imap <c-j> <Enter>
+imap <c-d> <Del>
+imap <c-v> <c-o>:action EditorPaste<cr>
+imap <c-x><c-a> <c-o>:action $SelectAll<cr>
+nmap <Leader>n :action FileChooser.NewFile<cr>
+" imap <c-u> <c-o>d^<cr>
+vmap <c-c> y
+nmap <Leader>w :w<CR>
+nmap <Leader>q :q<CR>
+nmap <Leader>wq :wq<CR>
+
+map <Space> <Plug>(easymotion-prefix)
+map <Space>l
