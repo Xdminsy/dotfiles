@@ -57,7 +57,7 @@ alias bc='bc -l'
 alias apt="sudo apt"
 alias "?=man"
 alias rot13="tr a-zA-Z n-za-mN-ZA-M"
-# alias ls="ls --color=auto -hF"
+alias ls="ls --color=auto -hF"
 alias vi="vim"
 alias h='history'
 alias j="jobs"
@@ -76,6 +76,8 @@ alias grep='grep -E --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias egrep='grep -E --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias fgrep='grep -F --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias summ='python -c "print(sum(sum(map(int, s.split())) for s in __import__(\"sys\").stdin))"'
+alias weather='curl -s wttr.in | head -n -2'
+alias ranger='. ranger'
 
 #the implementation refs from https://github.com/jpetazzo/nsenter/blob/master/docker-enter
 function denter() {

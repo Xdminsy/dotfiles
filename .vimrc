@@ -284,10 +284,18 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " }}}
 
+" Favorite {{{
+Plugin 'tpope/vim-surround'
+Plugin 'easymotion/vim-easymotion'
+let g:EasyMotion_leader_key = '<Space>'
+Plugin 'tomtom/tcomment_vim'
+nnoremap <C-k> :TComment<CR>
+
+" Favorite }}}
+
 Plugin 'matchit.zip'
 " Plugin 'neoclide/coc.nvim'
 " let g:coc_global_extensions=[ 'coc-powershell']
-Plugin 'tpope/vim-surround'
 Plugin 'Shougo/neosnippet.vim'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'tpope/vim-fugitive'
@@ -317,7 +325,7 @@ let g:ctrlp_map = '<leader>p'
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|.rvm$'
 " 设置搜索时显示的搜索结果最大条数
 let g:ctrlp_max_height=15
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 " Plugin 'Valloric/YouCompleteMe', {
 "                \ 'build' : {
 "                \     'mac' : './install.py --clang-completer --system-libclang --omnisharp-completer',
@@ -345,10 +353,10 @@ let g:ycm_min_num_of_chars_for_completion = 1
 
 " Plugin 'SirVer/ultisnips'
 " Plugin 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger="<c-l>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
+" let g:UltiSnipsExpandTrigger="<c-l>"
+" let g:UltiSnipsJumpForwardTrigger="<c-n>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+" let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 " === 自动补全单引号、双引号、括号等 ===
 Plugin 'Raimondi/delimitMate'
 Plugin 'altercation/vim-colors-solarized'
@@ -370,19 +378,18 @@ Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'plasticboy/vim-markdown'
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:vim_markdown_folding_disabled=1
-" === golang编辑插件 ===
-Plugin 'jnwhiteh/vim-golang'
+Plugin 'fatih/vim-go'
 Plugin 'mbbill/fencview'
-Plugin 'idris-hackers/idris-vim'
-Plugin 'wavded/vim-stylus'
-Plugin 'elixir-lang/vim-elixir'
+" Plugin 'idris-hackers/idris-vim'
+" Plugin 'wavded/vim-stylus'
+" Plugin 'elixir-lang/vim-elixir'
 Plugin 'wting/rust.vim'
-Plugin 'VimClojure'
+" Plugin 'VimClojure'
 " Plugin 'nono/jquery.vim'
 Plugin 'moll/vim-node'
-Plugin 'shawncplus/phpcomplete.vim'
-Plugin 'StanAngeloff/php.vim'
-Plugin 'JulesWang/css.vim'
+" Plugin 'shawncplus/phpcomplete.vim'
+" Plugin 'StanAngeloff/php.vim'
+" Plugin 'JulesWang/css.vim'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'mattn/emmet-vim'
 Plugin 'othree/html5.vim'
@@ -390,16 +397,12 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'tpope/vim-dispatch'
 Plugin 'TagHighlight'
-Plugin 'klen/python-mode'
+" Plugin 'klen/python-mode'
 " let g:pymode_python = 'python3'
-Plugin 'easymotion/vim-easymotion'
-let g:EasyMotion_leader_key = '<Space>'
 " Plugin 'taglist.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'godlygeek/tabular'
-Plugin 'tomtom/tcomment_vim'
-nnoremap <C-k> :TComment<CR>
 Plugin 'bling/vim-bufferline'
 Plugin 'mhinz/vim-startify'
 let g:startify_list_order = ['files', 'dir', 'bookmarks', 'sessions']
@@ -418,11 +421,11 @@ Plugin 'Shougo/vimproc', {
                 \     'unix' : 'make -f make_unix.mak',
                 \    },
                 \ }
-Plugin 'mattn/calendar-vim'
-Plugin 'leshill/vim-json'
-Plugin 'eagletmt/neco-ghc'
-Plugin 'zah/nim.vim'
-Plugin 'metakirby5/codi.vim'
+" Plugin 'mattn/calendar-vim'
+" Plugin 'leshill/vim-json'
+" Plugin 'eagletmt/neco-ghc'
+" Plugin 'zah/nim.vim'
+" Plugin 'metakirby5/codi.vim'
 " Plugin 'ervandew/supertab'
 " Plugin 'AutoComplPop'
 
@@ -435,7 +438,7 @@ let g:syntastic_cpp_remove_include_errors = 1
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_checkers = ['clang++']
 let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++14 -stdlib=libstdc++'
+let g:syntastic_cpp_compiler_options = ' -std=c++17 -stdlib=libstdc++'
 "set error or warning signs
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
@@ -503,6 +506,6 @@ highlight Visual term=reverse cterm=reverse guibg=Grey
 highlight Normal ctermbg=NONE " Use Windows Terminal's animated background image.
 highlight Folded ctermbg=NONE " Use Windows Terminal's animated background image.
 highlight TabLineFill cterm=NONE
-lang en_US
+lang en_US.UTF-8
 " vim:foldmethod=marker:foldlevel=0
 " }}}
