@@ -1,0 +1,320 @@
+# Author: Xdminsy
+# Version: 0.0.1
+# Copied a lot from the internet :)
+#
+# See https://nethackwiki.com/wiki/Options
+# Change in-game options use `O` or `m O` in 3.7
+# Lines started by `#` are comments
+
+### Starting characters are at end of file
+
+### Custom names
+OPTIONS=name:rin
+OPTIONS=catname:pusheen
+OPTIONS=dogname:cerberus
+OPTIONS=horsename:nightmare
+OPTIONS=fruit:chocolate
+
+### Interface
+## Only with curses (or tiles) can you enable permanent inventory shown on right.
+## Nethack need be compiled with -NCURSES
+OPTIONS=windowtype:curses
+
+## permanent inventory shown on right pane, don't know how to page it.
+OPTIONS=perm_invent
+
+## Skip tutorial
+OPTIONS=notutorial
+
+### Change symbols
+## use IBMgraphics or DECgraphics
+## View the file `symbols` in nethack directory for details
+# OPTIONS=symset:default
+OPTIONS=symset:curses
+# OPTIONS=symset:DECgraphics
+# OPTIONS=symset:IBMgraphics
+
+### Custom symbols
+## BOULDER=48 is ascii code for character `0`
+## SYMBOLS are specified by characters themselves
+BOULDER=48
+SYMBOLS=S_corr:#
+SYMBOLS=S_litcorr:#
+SYMBOLS=S_ghost:8
+
+### Custom settings
+## If going to wield mattock as an weapon, disable autodig
+## Else wielding pickaxe means ready for digging something
+OPTIONS=autodig
+
+## Check for door traps before hand, or not carelessly bump into a closed door
+OPTIONS=!autoopen
+
+## A lot of usable items if you have means to remove curse
+## Disable bones if considering this makes game too easy
+OPTIONS=bones
+
+## Okay I don't know what exactly this option do
+OPTIONS=!cmdassist
+
+## Confirm attacks on peaceful creatures.
+OPTIONS=confirm
+
+## If more information is available for an object looked at with
+## the `what is /` command, ask if you want to see it
+OPTIONS=help
+
+## Wielding something pushs currently wielded weapon into alternate weapon slot
+OPTIONS=!pushweapon
+
+## Prevent you from attaking your pets, not working when hallu or blind
+## If do what to harm pets use `F` fight command.
+OPTIONS=safe_pet
+
+## No annoying terminal's beep
+OPTIONS=silent
+
+## Display certain things in reverse video
+OPTIONS=use_inverse
+
+## Show out-of-sight areas of lit rooms
+OPTIONS=dark_room
+
+## Use inverse for pets
+OPTIONS=hilite_pet
+
+## Use inverse for piles of items
+OPTIONS=hilite_pile
+
+## Sort items by name. One of "none", "loot", or "full"
+#OPTIONS=sortloot:full
+
+## Require explicit yes for some prompts
+OPTIONS=paranoid_confirmation:Confirm quit attack pray wand Remove
+
+### Conducts
+
+## Start with no armor
+#OPTIONS=nudist
+
+## start as permanently blind
+#OPTIONS=blind
+
+## Show exact experience point
+OPTIONS=showexp
+
+## Shows your approximate accumulated score on the bottom line.
+## Only available if NetHack was compiled with SCORE_ON_BOTL.
+OPTIONS=showscore
+
+## Displays elapsed game time, in turns
+## Very useful for estimating prayer timeouts, spell lifespan, and more.
+OPTIONS=time
+
+## Control all colorful functions
+OPTIONS=color
+
+## Automatically describe the terrain under cursor when asked to get a location on the map.
+OPTIONS=autodescribe
+
+## Display coordinates when `/` whatis or `;` far look.
+## possible settings are:
+## c - compass ('east' or '3s' or '2n,4w')
+## f - full compass ('east' or '3south' or '2north,4west')
+## m - map <x,y> (map column x=0 is not used)
+## s - screen [row,column] (row is offset to match tty usage)
+## n - none (no coordinates shown). Default.
+OPTIONS=whatis_coord:c
+
+## Distinguish visually between lit and unlit corridors
+OPTIONS=!lit_corridor
+
+## Enable extended command shortcuts, quite useful
+OPTIONS=altmeta
+
+## Do not omit any "uncursed" from inventory list
+## distinguish between uncursed and unknown beatitude
+OPTIONS=!implicit_uncursed
+
+## Controls the prompts at the end of the game.
+OPTIONS=disclose:yi +avgco
+
+## Don't display an introductory message when starting the game.
+## You can still see your god in ctrl+x
+OPTIONS=!legacy
+
+## Prints the top ten high scores in a window rather than stdout
+OPTIONS=toptenwin
+
+### Colored menus. Regular expressions allowed.
+OPTIONS=menu_headings:inverse
+OPTIONS=menucolors
+MENUCOLOR="gold piece"=yellow
+MENUCOLOR="[Bb]lessed"=cyan
+MENUCOLOR="[Hh]oly"=cyan
+MENUCOLOR=" \+[1-9] "=lightcyan
+MENUCOLOR=" \-[1-9] "=orange
+MENUCOLOR="[Cc]ursed"=red
+MENUCOLOR="[Uu]nholy"=red
+MENUCOLOR="[Uu]ncursed"=green
+MENUCOLOR=".*(being worn|wielded|weapon in hand)"=gray&underline
+MENUCOLOR="[Cc]ursed.*(being worn|wielded|weapon in hand)"=red&underline
+MENUCOLOR="[Uu]nholy.*(being worn|wielded|weapon in hand)"=red&underline
+MENUCOLOR="[Uu]ncursed.*(being worn|wielded|weapon in hand)"=green&underline
+MENUCOLOR="[Bb]lessed.*(being worn|wielded|weapon in hand)"=cyan&underline
+
+## Real Amulet of Yendor
+MENUCOLOR="Amulet of Yendor named"=magenta&underline
+
+## Artifact
+MENUCOLOR="Magicbane"=bright magenta&underline
+
+
+### Messages
+OPTIONS=msghistory:60
+## How recalled messages (ctrl-p) are displayed.
+OPTIONS=msg_window:combination
+## Messagetypes
+## displacing pets. hide the message.
+MSGTYPE=hide "You swap places with your .*"
+## items on floor. don't repeat the message.
+# MSGTYPE=norep "You see here a .*"
+# MSGTYPE=norep "You see here an .*"
+# MSGTYPE=norep "Things that are here.*"
+## delayed instadeaths. always prompt for -more-
+# MSGTYPE=stop "You are slowing down."
+# MSGTYPE=stop "You find it hard to breathe."
+# MSGTYPE=stop "You are turning a little .*"
+## moving up or down stairs
+# MSGTYPE=hide "You descend .*"
+# MSGTYPE=hide "You (climb|fly) (up|down) .*"
+
+
+### Status line
+## Shown as 2 or 3 lines
+OPTIONS=statuslines:2
+## Use status hilites
+OPTIONS=statushilites
+## HP
+OPTIONS=hitpointbar
+OPTIONS=hilite_status:hitpoints/100%/lightcyan&normal
+OPTIONS=hilite_status:hitpoints/<100%/green&normal
+OPTIONS=hilite_status:hitpoints/<66%/yellow&normal
+OPTIONS=hilite_status:hitpoints/<50%/orange&normal
+OPTIONS=hilite_status:hitpoints/<33%/red&bold
+OPTIONS=hilite_status:hitpoints/<15%/red&inverse
+## Pw
+OPTIONS=hilite_status:power/100%/lightcyan&normal
+OPTIONS=hilite_status:power/<100%/green&normal
+OPTIONS=hilite_status:power/<66%/yellow&normal
+OPTIONS=hilite_status:power/<50%/orange&normal
+OPTIONS=hilite_status:power/<33%/red&bold
+## Carry
+OPTIONS=hilite_status:cap/burdened/yellow/stressed/orange/strained/red&bold/overtaxed/red&inverse/overloaded/red&inverse&blink
+## Hunger
+OPTIONS=hilite_status:hunger/satiated/yellow/hungry/orange/weak/red&bold/fainting/red&inverse/fainted/red&inverse&blink
+## Mental
+OPTIONS=hilite_status:condition/hallu/yellow
+OPTIONS=hilite_status:condition/conf/orange
+OPTIONS=hilite_status:condition/stun/red&bold
+## Health
+OPTIONS=hilite_status:condition/termill/red&inverse
+OPTIONS=hilite_status:condition/foodpois/red&inverse
+OPTIONS=hilite_status:condition/slime/red&inverse
+# Str, Con, Dex, Int, Wis, Cha
+OPTIONS=hilite_status:characteristics/up/green/down/red
+# gold
+OPTIONS=hilite_status: gold/always/yellow/up/green/down/brown
+
+### Auto Pickup rules
+
+OPTIONS=autopickup
+OPTIONS=pickup_thrown
+OPTIONS=pickup_types:$
+OPTIONS=pickup_burden:unencumbered
+
+## Name the real Amulet of Yendor to prevent forgeries
+AUTOPICKUP_EXCEPTION=">Amulet of Yendor"
+AUTOPICKUP_EXCEPTION="<Amulet of Yendor named"
+
+AUTOPICKUP_EXCEPTION=">scroll .* scare monster"
+
+## Wands used up can be saved for polypiling or recharging
+## But don't autopick these wand I manually drop somewhere
+AUTOPICKUP_EXCEPTION=">:0)"
+AUTOPICKUP_EXCEPTION="> named empty"
+AUTOPICKUP_EXCEPTION="> nothing"
+
+## lichen and lizard corpse never rot
+## lichen corpse can identify potion of acid
+AUTOPICKUP_EXCEPTION="<lichen corpse" 
+## lizard corpse prevents stoning
+AUTOPICKUP_EXCEPTION="<lizard corpse" 
+
+## Don't carelessly let pet eats useful corpse
+AUTOPICKUP_EXCEPTION="<floating eye corpse"
+AUTOPICKUP_EXCEPTION="<wraith corpse"
+# AUTOPICKUP_EXCEPTION="<newt corpse"
+
+## If you like bothering keeping ammo away from enemies
+# AUTOPICKUP_EXCEPTION="<arrow"
+# AUTOPICKUP_EXCEPTION="<elven arrow"
+# AUTOPICKUP_EXCEPTION="<orcish arrow"
+# AUTOPICKUP_EXCEPTION="<silver arrow"
+# AUTOPICKUP_EXCEPTION="<runed arrow"
+# AUTOPICKUP_EXCEPTION="<crude arrow"
+# AUTOPICKUP_EXCEPTION="< ya"
+# AUTOPICKUP_EXCEPTION="<bamboo arrow"
+# AUTOPICKUP_EXCEPTION="<crossbow bolt"
+# AUTOPICKUP_EXCEPTION="<shuriken"
+# AUTOPICKUP_EXCEPTION="<throwing star"
+# AUTOPICKUP_EXCEPTION="<dart"
+
+# AUTOPICKUP_EXCEPTION="<dagger"
+# AUTOPICKUP_EXCEPTION="<elven dagger"
+# AUTOPICKUP_EXCEPTION="<orcish dagger"
+# AUTOPICKUP_EXCEPTION="<runed dagger"
+# AUTOPICKUP_EXCEPTION="<crude dagger"
+# AUTOPICKUP_EXCEPTION="<knife"
+AUTOPICKUP_EXCEPTION="<silver dagger"
+
+## Autopick artifacts
+## Well I only use Magicbane as Wizard :)
+## Sometimes it slips from fingers
+AUTOPICKUP_EXCEPTION="Magicbane"
+
+AUTOPICKUP_EXCEPTION="> loadstone"
+AUTOPICKUP_EXCEPTION="<stone called luck"
+AUTOPICKUP_EXCEPTION="< luckstone"
+#AUTOPICKUP_EXCEPTION="< touchstone"
+AUTOPICKUP_EXCEPTION="> rock"
+AUTOPICKUP_EXCEPTION="> gray stone"
+
+AUTOPICKUP_EXCEPTION=">^[a0-9]+ stone"
+
+AUTOPICKUP_EXCEPTION="> box"
+AUTOPICKUP_EXCEPTION="> chest"
+
+AUTOPICKUP_EXCEPTION="> cursed"
+
+# Custom named pickups
+AUTOPICKUP_EXCEPTION="< named ammo"
+
+AUTOPICKUP_EXCEPTION="<<"
+AUTOPICKUP_EXCEPTION=">>"
+AUTOPICKUP_EXCEPTION="< named .*<"
+AUTOPICKUP_EXCEPTION="> named .*>"
+
+
+### Starting characters
+CHOOSE=human wizard
+# CHOOSE=neutral human wizard,human tourist,valkyrie
+
+[human wizard]
+OPTIONS=role:wizard,race:human,align:random,gender:random
+[chaotic elf wizard]
+OPTIONS=role:wizard,race:elf,align:chaotic,gender:random
+[human tourist]
+OPTIONS=role:tourist,race:human,align:neutral,gender:random
+[valkyrie]
+OPTIONS=role:valkyrie,race:random,align:lawful,gender:random
