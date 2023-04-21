@@ -23,8 +23,8 @@ OPTIONS=windowtype:curses
 ## permanent inventory shown on right pane, don't know how to page it.
 OPTIONS=perm_invent
 
-## Skip tutorial
-OPTIONS=notutorial
+## Control all colorful functions
+OPTIONS=color
 
 ### Change symbols
 ## use IBMgraphics or DECgraphics
@@ -46,6 +46,13 @@ SYMBOLS=S_ghost:8
 ## If going to wield mattock as an weapon, disable autodig
 ## Else wielding pickaxe means ready for digging something
 OPTIONS=autodig
+
+## Use vi-styles movement keys, hjklyubn
+## Explitly set to override global settings in servers like nao.
+OPTIONS=number_pad:0
+
+## Skip tutorial
+OPTIONS=notutorial
 
 ## Check for door traps before hand, or not carelessly bump into a closed door
 OPTIONS=!autoopen
@@ -111,9 +118,6 @@ OPTIONS=showscore
 ## Very useful for estimating prayer timeouts, spell lifespan, and more.
 OPTIONS=time
 
-## Control all colorful functions
-OPTIONS=color
-
 ## Automatically describe the terrain under cursor when asked to get a location on the map.
 OPTIONS=autodescribe
 
@@ -169,6 +173,10 @@ MENUCOLOR="Amulet of Yendor named"=magenta&underline
 ## Artifact
 MENUCOLOR="Magicbane"=bright magenta&underline
 
+## Setting options often changed
+
+## To pick what lies on sokoban holes.
+MENUCOLOR="pickup_types"=green
 
 ### Messages
 OPTIONS=msghistory:60
