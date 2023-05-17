@@ -1,6 +1,5 @@
 # Author: Xdminsy
-# Version: 0.0.1
-# Copied a lot from the internet :)
+# Version: 0.0.2
 #
 # See https://nethackwiki.com/wiki/Options
 # Change in-game options use `O` or `m O` in 3.7
@@ -20,11 +19,25 @@ OPTIONS=fruit:chocolate
 ## Nethack need be compiled with -NCURSES
 OPTIONS=windowtype:curses
 
+# OPTIONS=align_message:bottom
+OPTIONS=align_status:bottom
+
 ## permanent inventory shown on right pane, don't know how to page it.
 OPTIONS=perm_invent
 
 ## Control all colorful functions
 OPTIONS=color
+
+## Show exact experience point
+OPTIONS=showexp
+
+## Shows your approximate accumulated score on the bottom line.
+## Only available if NetHack was compiled with SCORE_ON_BOTL.
+OPTIONS=showscore
+
+## Displays elapsed game time, in turns
+## Very useful for estimating prayer timeouts, spell lifespan, and more.
+OPTIONS=time
 
 ### Change symbols
 ## use IBMgraphics or DECgraphics
@@ -99,7 +112,7 @@ OPTIONS=hilite_pile
 ## Require explicit yes for some prompts
 OPTIONS=paranoid_confirmation:Confirm quit attack pray wand Remove
 
-### Conducts
+## Conducts
 
 ## Start with no armor
 #OPTIONS=nudist
@@ -107,16 +120,6 @@ OPTIONS=paranoid_confirmation:Confirm quit attack pray wand Remove
 ## start as permanently blind
 #OPTIONS=blind
 
-## Show exact experience point
-OPTIONS=showexp
-
-## Shows your approximate accumulated score on the bottom line.
-## Only available if NetHack was compiled with SCORE_ON_BOTL.
-OPTIONS=showscore
-
-## Displays elapsed game time, in turns
-## Very useful for estimating prayer timeouts, spell lifespan, and more.
-OPTIONS=time
 
 ## Automatically describe the terrain under cursor when asked to get a location on the map.
 OPTIONS=autodescribe
@@ -133,7 +136,8 @@ OPTIONS=whatis_coord:c
 ## Distinguish visually between lit and unlit corridors
 OPTIONS=!lit_corridor
 
-## Enable extended command shortcuts, quite useful
+## Enable extended command shortcuts, quite useful.
+## Alt-p for #pray and alt-l for #loot, etc.
 OPTIONS=altmeta
 
 ## Do not omit any "uncursed" from inventory list
@@ -156,8 +160,8 @@ OPTIONS=menucolors
 MENUCOLOR="gold piece"=yellow
 MENUCOLOR="[Bb]lessed"=cyan
 MENUCOLOR="[Hh]oly"=cyan
-MENUCOLOR=" \+[1-9] "=lightcyan
-MENUCOLOR=" \-[1-9] "=orange
+# MENUCOLOR=" \+[1-9] "=lightcyan
+# MENUCOLOR=" \-[1-9] "=orange
 MENUCOLOR="[Cc]ursed"=red
 MENUCOLOR="[Uu]nholy"=red
 MENUCOLOR="[Uu]ncursed"=green
@@ -167,14 +171,60 @@ MENUCOLOR="[Uu]nholy.*(being worn|wielded|weapon in hand)"=red&underline
 MENUCOLOR="[Uu]ncursed.*(being worn|wielded|weapon in hand)"=green&underline
 MENUCOLOR="[Bb]lessed.*(being worn|wielded|weapon in hand)"=cyan&underline
 
-## Real Amulet of Yendor
-MENUCOLOR="Amulet of Yendor named"=magenta&underline
+## Luckstone
+MENUCOLOR="luckstone|called luck"=blue
+MENUCOLOR="touchstone|called touch"=blue
+MENUCOLOR=" [Cc]ursed luckstone|[Cc]usred.*called luck"=red
+MENUCOLOR="loadstone|called load"=red
+
+## Gems, if you like
+MENUCOLOR="dilithium crystal"=yellow
+# So why do I often name the diamonds?
+MENUCOLOR="diamonds?( named.*)$"=yellow
+MENUCOLOR="ruby$|rubies$"=yellow
+MENUCOLOR="jacinth stone"=yellow
+MENUCOLOR="sapphires?$"=yellow
+MENUCOLOR="black opal"=yellow
+MENUCOLOR="emeralds?$"=yellow
+MENUCOLOR="turquoise stone"=yellow
+MENUCOLOR="citrine"=yellow
+MENUCOLOR="aquamarine"=yellow
+MENUCOLOR="amber stone"=yellow
+MENUCOLOR="topaz stone"=yellow
+MENUCOLOR="jet stone"=yellow
+MENUCOLOR="opals?$"=yellow
+MENUCOLOR="chrysoberyl"=yellow
+MENUCOLOR="garnet stone"=yellow
+MENUCOLOR="amethyst|stone called ame"=yellow
+MENUCOLOR="jasper stone"=yellow
+MENUCOLOR="fluorite"=yellow
+MENUCOLOR="jade stone"=yellow
+MENUCOLOR="obsidian"=yellow
+MENUCOLOR="agate stone"=yellow
+
+## Real Amulet of Yendor, name the real once picked it up!
+MENUCOLOR="Amulet of Yendor named"=blue&underline
+
+## Todo
+## Highlight for polypiling
+## Magical boots
+#MENUCOLOR="elven boots"=magenta
+#MENUCOLOR="fumble boots"=magenta
+#MENUCOLOR="jumping boots"=magenta
+#MENUCOLOR="kicking boots"=magenta
+#MENUCOLOR="levitation boots"=magenta
+#MENUCOLOR="speed boots"=magenta
+#MENUCOLOR="water walking boots"=magenta
+
 
 ## Artifact
-MENUCOLOR="Magicbane"=bright magenta&underline
 
-## Setting options often changed
+## If not wiled magicbane be careful to have other MR item
+MENUCOLOR="Magicbane"=red
+MENUCOLOR="Magicbane \(weapon in hand\)| Magicbane \(wielded"=bright magenta&underline
+MENUCOLOR="Eye of the Aethiopica"=bright magenta&underline
 
+## Highlight options often changed
 ## To pick what lies on sokoban holes.
 MENUCOLOR="pickup_types"=green
 
@@ -197,10 +247,31 @@ MSGTYPE=hide "You swap places with your .*"
 # MSGTYPE=hide "You descend .*"
 # MSGTYPE=hide "You (climb|fly) (up|down) .*"
 
+## Be delightful!
+MSGTYPE=stop "You feel healthy"
+MSGTYPE=stop "You feel especially healthy"
+MSGTYPE=stop "You have a feeling of reconciliation"
+# Correspond to my autopickup corpse
+MSGTYPE=stop "- wraith corpse"
+MSGTYPE=stop "- floating eye corpse"
+
+## Be careful!
+MSGTYPE=stop "You feel feverish"
+MSGTYPE=stop "slips? from your hand"
+MSGTYPE=stop "You fail to cast the spell correctly."
+MSGTYPE=stop "You are beginning to feel weak."
+
+## Be extreme careful for INSTADEATH!
+MSGTYPE=stop "You are slowing down"
+MSGTYPE=stop "You don't feel very well."
+MSGTYPE=stop "It constricts your throat"
+MSGTYPE=stop "You feel deathly sick."
+MSGTYPE=stop "You see here a c(hi|o)ckatrice corpse."
+
 
 ### Status line
-## Shown as 2 or 3 lines
-OPTIONS=statuslines:2
+## 2 or 3, but 2 lines are not enough
+OPTIONS=statuslines:3
 ## Use status hilites
 OPTIONS=statushilites
 ## HP
@@ -231,7 +302,7 @@ OPTIONS=hilite_status:condition/foodpois/red&inverse
 OPTIONS=hilite_status:condition/slime/red&inverse
 # Str, Con, Dex, Int, Wis, Cha
 OPTIONS=hilite_status:characteristics/up/green/down/red
-# gold
+# Gold
 OPTIONS=hilite_status: gold/always/yellow/up/green/down/brown
 
 ### Auto Pickup rules
@@ -249,14 +320,14 @@ AUTOPICKUP_EXCEPTION=">scroll .* scare monster"
 
 ## Wands used up can be saved for polypiling or recharging
 ## But don't autopick these wand I manually drop somewhere
-AUTOPICKUP_EXCEPTION=">:0)"
-AUTOPICKUP_EXCEPTION="> named empty"
+# AUTOPICKUP_EXCEPTION=">:0)"
+# AUTOPICKUP_EXCEPTION="> named empty"
 AUTOPICKUP_EXCEPTION="> nothing"
 
 ## lichen and lizard corpse never rot
 ## lichen corpse can identify potion of acid
 AUTOPICKUP_EXCEPTION="<lichen corpse" 
-## lizard corpse prevents stoning
+## lizard corpse prevents stoning, and makes you confident in bashing c.
 AUTOPICKUP_EXCEPTION="<lizard corpse" 
 
 ## Don't carelessly let pet eats useful corpse
@@ -264,7 +335,8 @@ AUTOPICKUP_EXCEPTION="<floating eye corpse"
 AUTOPICKUP_EXCEPTION="<wraith corpse"
 # AUTOPICKUP_EXCEPTION="<newt corpse"
 
-## If you like bothering keeping ammo away from enemies
+## If you like bothering keeping ammo away from enemies, I copied but disabled.
+## But you'd remember taking powerful weapons away in mine if racketing.
 # AUTOPICKUP_EXCEPTION="<arrow"
 # AUTOPICKUP_EXCEPTION="<elven arrow"
 # AUTOPICKUP_EXCEPTION="<orcish arrow"
@@ -291,6 +363,8 @@ AUTOPICKUP_EXCEPTION="<silver dagger"
 ## Sometimes it slips from fingers
 AUTOPICKUP_EXCEPTION="Magicbane"
 
+
+# Kick before picking up any gray stone and type name them.
 AUTOPICKUP_EXCEPTION="> loadstone"
 AUTOPICKUP_EXCEPTION="<stone called luck"
 AUTOPICKUP_EXCEPTION="< luckstone"
@@ -314,15 +388,17 @@ AUTOPICKUP_EXCEPTION="< named .*<"
 AUTOPICKUP_EXCEPTION="> named .*>"
 
 
-### Starting characters
-CHOOSE=human wizard
+### Starting characters, if wanna stick to one fixed character.
+# CHOOSE=human wizard
 # CHOOSE=neutral human wizard,human tourist,valkyrie
 
-[human wizard]
-OPTIONS=role:wizard,race:human,align:random,gender:random
-[chaotic elf wizard]
-OPTIONS=role:wizard,race:elf,align:chaotic,gender:random
-[human tourist]
-OPTIONS=role:tourist,race:human,align:neutral,gender:random
-[valkyrie]
-OPTIONS=role:valkyrie,race:random,align:lawful,gender:random
+#[human wizard]
+#OPTIONS=role:wizard,race:human,align:random,gender:random
+#[chaotic elf wizard]
+#OPTIONS=role:wizard,race:elf,align:chaotic,gender:random
+#[human tourist]
+#OPTIONS=role:tourist,race:human,align:neutral,gender:random
+#[human valkyrie]
+#OPTIONS=role:valkyrie,race:human,align:lawful,gender:random
+#[human rogue]
+#OPTIONS=role:rogue,race:human,align:chaotic,gender:random
