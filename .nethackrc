@@ -1,5 +1,5 @@
 # Author: Xdminsy
-# Version: 0.0.4
+# Version: 0.0.5
 #
 # See https://nethackwiki.com/wiki/Options
 # Change in-game options use `O` or `m O` in 3.7
@@ -7,12 +7,41 @@
 
 ### Starting characters are at end of file
 
-### Custom names
+### Custom names, every username has only one save file, you can have multiple saves if no fixed name.
 OPTIONS=name:rin
 OPTIONS=catname:pusheen
 OPTIONS=dogname:cerberus
 OPTIONS=horsename:nightmare
-OPTIONS=fruit:chocolate
+OPTIONS=fruit:fruit
+
+### Key settings
+## Habitual keys for items and spells
+## a) weapon, you can wa to wield it.
+## b) blindfold or towel, Pb and Rb, or for blindfold you can ab ab.
+## c) wand of create monster, zc zc, or bag of tricks, ac ac
+## d) stethoscope
+## e) second weapon.
+## f)
+## g)
+## h) unicorn horn, abab.
+## i) mirror, tooled horn, or camera
+## j)
+## k) key, credit card or lock pick
+## l) lamp or magic lamp
+## m) maigc marker
+## n)
+## o)
+## p) pickaxe, mattock, wand of digging
+## q)
+## r) touchstone, alt+r r.
+## s) bag of holding, sack
+## t) weapons in quiver, aklys, arrows, darts, daggers.
+## u)
+## v)
+## w) magic whistle, tin whistle
+## x)
+## y)
+## z)
 
 ## A lot of usable items if you have means to remove curse
 ## Disable bones if considering this makes game too easy
@@ -229,14 +258,9 @@ MENUCOLOR="dragon scales \(being worn"=yellow&underline
 
 ## Magical tools
 MENUCOLOR="bag"=yellow
-MENUCOLOR="bag of tricks|called tricks|called bot"=yellow
 MENUCOLOR="crystal ball"=yellow
 MENUCOLOR="figurine"=yellow
-MENUCOLOR="fire horn"=yellow
-MENUCOLOR="frost horn"=yellow
 MENUCOLOR="horn (of|called) plenty"=yellow
-MENUCOLOR="magic harp|harp called magic"=yellow
-MENUCOLOR="magic flute|flute called magic"=yellow
 # MENUCOLOR="unicorn horn"=yellow
 # MENUCOLOR="bag of holding|called holding|called boh"=yellow
 # MENUCOLOR="drum of earthquake|drum called earth"=yellow
@@ -270,6 +294,8 @@ MENUCOLOR="robe"=yellow
 
 ## Armors
 MENUCOLOR="mithril-coat"=yellow
+MENUCOLOR="mithril-coat \(being worn\)"=yellow&underline
+MENUCOLOR="^[Ccursed].*mithril-coat \(being worn\)"=red&underline
 
 ## Gloves
 MENUCOLOR="(old|padded|riding|fencing) gloves"=yellow
@@ -409,7 +435,7 @@ MENUCOLOR="(leather (hat|helm))( named .*)? \(being worn\)"=bright magenta&under
 ##   a cockatrice corpse when blind.
 ## When wielding a cockatrice corpse, be careful to foocubi, nymphs removing your gloves.
 ##   And spell casters who destroy your gloves.
- 
+
 MENUCOLOR="(gauntlets of dexterity|called dex)"=bright magenta
 MENUCOLOR="(gauntlets of dexterity|called dex)( named .*)? \(being worn\)"=bright magenta&underline
 MENUCOLOR="(gauntlets of power)"=bright magenta
@@ -419,6 +445,13 @@ MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)( named .*)? \(being w
 
 
 ### Weapons
+
+## Silver saber is most of the time my second weapon, or can use as first weapon early on.
+## And can easily achieve one from a captain.
+## Other choice can be silver spear or katana.
+MENUCOLOR="silver (saber|spear|dagger)"=bright magenta
+MENUCOLOR="silver (saber|spear|dagger) \(weapon in hand\)|silver (saber|spear|dagger) \(wielded"=bright magenta&underline
+
 
 ## My favorite weapons, Grayswandir + silver saber!
 ## Sometimes wish for Grayswandir for it's excellent power.
@@ -436,12 +469,6 @@ MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? 
 ## But for wizard who have their starting comr and no need to wear a robe.
 MENUCOLOR="Magicbane"=bright magenta
 MENUCOLOR="Magicbane \(weapon in hand\)|Magicbane \(wielded"=bright magenta&underline
-
-## Silver saber is most of the time my second weapon, or can use as first weapon early on.
-## And can easily achieve one from a captain.
-## Other choice can be silver spear or katana.
-MENUCOLOR="silver (saber|spear|dagger)"=bright magenta
-MENUCOLOR="silver (saber|spear|dagger) \(weapon in hand\)|silver (saber|spear|dagger) \(wielded"=bright magenta&underline
 
 ## Less favorite
 
@@ -590,13 +617,23 @@ MENUCOLOR="sack"=yellow
 MENUCOLOR="[Cc]ursed .* (magic lamp|lamp called magic)( named .*)?"=red
 MENUCOLOR="^[Cc]ursed .*(unicorn horn)( named .*)?"=red
 # MENUCOLOR="([Uu]ncursed|[Bb]lessed).*(unicorn horn)( named .*)?"=bright magenta
-MENUCOLOR="[Cc]ursed .* (bag of holding|called holding|called boh)( named .*)? containing"=red
+MENUCOLOR="^[Cc]ursed .* (bag of holding|called holding|called boh)( named .*)? containing"=red
 # MENUCOLOR="[Uu]ncursed .* (bag of holding|called holding|called boh)( named .*)? containing"=red
 
 ## Awake rodney outside the tower or your quest nemesis.
 MENUCOLOR="(drum of earthquake|drum called earth)( named .*)?"=bright magenta
-MENUCOLOR="(horn (of|called) plenty)( named .*)?"=bright magenta
+# MENUCOLOR="(horn (of|called) plenty)( named .*)?"=bright magenta
 
+## Very powerful, especially more useful if you have PYEC.
+MENUCOLOR="fire horn"=bright magenta
+MENUCOLOR="frost horn"=bright magenta
+MENUCOLOR="magic harp|harp called magic"=bright magenta
+MENUCOLOR="magic flute|flute called magic"=bright magenta
+
+## You can have some farm to get sacrifice gift.
+## Be careful to not explode your bag of holding lol.
+## And if you have pyec, you can farm till invincible.
+MENUCOLOR="bag of tricks|called tricks|called bot"=orange
 
 ### Potions
 
@@ -608,7 +645,8 @@ MENUCOLOR="potions? of gain ability"=yellow
 MENUCOLOR="([Bb]lessed) potions? of gain ability"=bright magenta
 MENUCOLOR="potions? of gain level"=yellow
 MENUCOLOR="([Bb]lessed|[Uu]ncursed) potions? of gain level"=bright magenta
-MENUCOLOR="potions? of paralysis"=bright magenta
+MENUCOLOR="potions? (of|called) paralysis"=bright magenta
+MENUCOLOR="potions? (of|called) paralysis \(wielded"=bright magenta&underline
 
 ## You may get a wish from quaffing smoky potions.
 ## The probability of getting a wish is 6.15% if no djinni created.
@@ -628,11 +666,13 @@ MENUCOLOR="[Hh]oly water|[Bb]lessed potions? called water|[Bb]lessed clear potio
 ### Scrolls
 
 MENUCOLOR="scrolls? (of|called) (enchant (weapon|armor)|id)"=yellow
-MENUCOLOR="([Cc]ursed) scrolls? (of|called) (enchant (weapon|armor)|id)"=red
-MENUCOLOR="([Uu]ncursed) scrolls? (of|called) (enchant (weapon|armor)|id)"=yellow
-MENUCOLOR="([Bb]lessed) scrolls? (of|called) (enchant (weapon|armor)|id)"=bright magenta
-MENUCOLOR="([Bb]lessed) (scrolls? of charging|scrolls? called charg)"=bright magenta
+MENUCOLOR="([Cc]ursed).*scrolls? (of|called) (enchant (weapon|armor)|id)"=orange
+MENUCOLOR="([Uu]ncursed).*scrolls? (of|called) (enchant (weapon|armor)|id)"=yellow
+MENUCOLOR="([Bb]lessed).*scrolls? (of|called) (enchant (weapon|armor)|id)"=bright magenta
+MENUCOLOR="([Bb]lessed).*(scrolls? of charging|scrolls? called charg)"=bright magenta
 MENUCOLOR="(scrolls? of gold detection|scrolls? called gold)"=bright magenta
+MENUCOLOR="scrolls? (of|called) (teleportation|tp)"=bright magenta
+MENUCOLOR="^([Cc]ursed).*scrolls? (of|called) (teleportation|tp)"=orange
 
 MENUCOLOR="([Cc]ursed) (scrolls? of genocide|scrolls? called gen)"=orange
 MENUCOLOR="([Uu]ncursed) (scrolls? of genocide|scrolls? called gen)"=yellow
@@ -650,6 +690,7 @@ MENUCOLOR="lembas wafer"=bright magenta
 MENUCOLOR="K-ration"=bright magenta
 ## Not really foods, it's the most dangerous weapon or a cause of death.
 MENUCOLOR="c[oi]ckatrice corpse"=yellow
+MENUCOLOR="c[oi]ckatrice corpse.*\(wielded\)"=yellow&underline
 ## Do not eat eggs, maybe cockatrice egg
 MENUCOLOR="egg"=yellow
 
@@ -732,6 +773,16 @@ MENUCOLOR="saber.*\[.*\]"=bright magenta
 MENUCOLOR="long sword.*\[.*\]"=bright magenta
 MENUCOLOR="divination spells.*\[.*\]"=bright magenta
 
+### Spells
+MENUCOLOR="(magic missile).*%"=bright magenta
+MENUCOLOR="(identify).*%"=bright magenta
+MENUCOLOR="(polymorph).*%"=bright magenta
+MENUCOLOR="(finger of death).*%"=bright magenta
+MENUCOLOR="(create monster).*%"=bright magenta
+## Must fail
+MENUCOLOR="100%.*%"=red
+## Confusion source
+MENUCOLOR="%.*%.*gone"=orange
 
 ### Messages
 OPTIONS=msghistory:60
@@ -769,6 +820,9 @@ MSGTYPE=stop "You hear the footsteps of a guard on patrol"
 MSGTYPE=stop "You hear someone counting"
 ## Magic lamp.
 MSGTYPE=stop "You see a puff of smoke."
+## Amulet of yendor detecting magic portal
+## You can switch amulet from flying to yendor in plane of water.
+MSGTYPE=stop "The Amulet of Yendor feels"
 
 ### Be careful!
 MSGTYPE=stop "You feel feverish"
@@ -792,6 +846,8 @@ MSGTYPE=stop "You feel a malignant aura surround the magic-absorbing blade."
 MSGTYPE=stop "You ready: .* \-"
 ## Sometimes I only see pets step onto a pile, but forget to check the message that it was reluctant.
 MSGTYPE=stop "reluctantly"
+## Water nymph from fountains, be careful they may steal you.
+MSGTYPE=stop "You attract a water nymph"
 
 
 ## Traps
@@ -802,13 +858,28 @@ MSGTYPE=stop "reluctantly"
 MSGTYPE=stop "falls asleep!"
 MSGTYPE=stop "polymorph trap"
 
-
-## Be extreme careful for INSTADEATH!
-MSGTYPE=stop "You are slowing down"
+# delayed instadeaths
+MSGTYPE=stop "The .* (grabs|swings itself around) you!"
 MSGTYPE=stop "You don't feel very well."
-MSGTYPE=stop "It constricts your throat"
+MSGTYPE=stop "You are turning a little green."
+MSGTYPE=stop "Your limbs are getting oozy."
+MSGTYPE=stop "Your skin begins to peel away."
+MSGTYPE=stop "You are turning into a green slime."
+MSGTYPE=stop "You are slowing down."
+MSGTYPE=stop "Your limbs are stiffening."
+MSGTYPE=stop "It constricts your throat!"
+MSGTYPE=stop "You find it hard to breathe."
+MSGTYPE=stop "You're gasping for air."
+MSGTYPE=stop "Your blood is having trouble reaching your brain."
+MSGTYPE=stop "You can no longer breathe."
+MSGTYPE=stop "You're turning blue."
+MSGTYPE=stop "Your consciousness is fading."
 MSGTYPE=stop "You feel deathly sick."
+MSGTYPE=stop "You feel (much|even) worse."
+
 MSGTYPE=stop "You (feel|see) here a c(hi|o)ckatrice corpse."
+MSGTYPE=stop "(picks up|wields|hits you with) (a|the) c(hi|o)ckatrice corpse"
+MSGTYPE=stop "You no longer feel secure from petrification"
 
 ## Don't speed past wrest message when wresting
 MSGTYPE=stop "You wrest .*"
@@ -954,8 +1025,16 @@ MSGTYPE=stop "\-.*(wand of polymorph|called poly)( named .*)?"
 AUTOPICKUP_EXCEPTION="<(wand (of|called) teleportation|wand called tp)( named .*)?"
 MSGTYPE=stop "\-.*(wand (of|called) teleportation|wand called tp)( named .*)?"
 
+AUTOPICKUP_EXCEPTION="<(scrolls? (called|of) (teleportation|tp))( named .*)?"
+## MSGTYPE=stop "\-.*(scrolls? (called|of) (teleportation|tp))( named .*)?"
+
 AUTOPICKUP_EXCEPTION="<(wand (called|of) sleep)( named .*)?"
 MSGTYPE=stop "\-.*(wand (called|of) sleep)( named .*)?"
+
+## It may be dangerous when monsters zap a lot create monster or read the scroll.
+AUTOPICKUP_EXCEPTION="<(create monster)( named .*)?"
+## too annoying cuz it's plentiful.
+# MSGTYPE=stop "\-.*(create monster)( named .*)?"
 
 AUTOPICKUP_EXCEPTION="<(lamp called magic|magic lamp)( named .*)?"
 MSGTYPE=stop "\-.*(lamp called magic|magic lamp)( named .*)?"
@@ -965,6 +1044,17 @@ MSGTYPE=stop "\-.*(magic marker)( named .*)?"
 
 AUTOPICKUP_EXCEPTION="<(amulet of life saving)( named .*)?"
 MSGTYPE=stop "\-.*(amulet of life saving)( named .*)?"
+
+AUTOPICKUP_EXCEPTION="<(shirt)( named .*)?"
+MSGTYPE=stop "\-.*(shirt)( named .*)?"
+
+## DO NOT TURN THIS ON! you may die instantly lol.
+## But do remember to collect c corpses in late game preventing enemies use them on you.
+# AUTOPICKUP_EXCEPTION="<(c[oi]ckatrice corpse)( named .*)?"
+# MSGTYPE=stop "\-.*(c[oi]ckatrice corpse)( named .*)?"
+
+## For convenience, you don't need to distinguish this with killer bee coprses.
+AUTOPICKUP_EXCEPTION="<(lumps? of royal jelly)"
 
 # Kick before picking up any gray stone and type name them.
 AUTOPICKUP_EXCEPTION="> loadstone"
