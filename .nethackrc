@@ -1,5 +1,5 @@
 # Author: Xdminsy
-# Version: 0.0.5
+# Version: 0.0.6
 #
 # See https://nethackwiki.com/wiki/Options
 # Change in-game options use `O` or `m O` in 3.7
@@ -189,7 +189,8 @@ OPTIONS=toptenwin
 ### Colored menus. Regular expressions allowed.
 OPTIONS=menu_headings:inverse
 OPTIONS=menucolors
-MENUCOLOR="gold piece"=yellow
+## Highlight gold in inventory, avoid highlight in peek object list.
+MENUCOLOR="gold pieces?$"=yellow
 MENUCOLOR="[Bb]lessed"=cyan
 MENUCOLOR="[Hh]oly"=cyan
 # MENUCOLOR=" \+[1-9] "=lightcyan
@@ -197,10 +198,10 @@ MENUCOLOR="[Hh]oly"=cyan
 MENUCOLOR="[Cc]ursed"=red
 MENUCOLOR="[Uu]nholy"=red
 MENUCOLOR="[Uu]ncursed"=green
-MENUCOLOR=".*(being worn|wielded|weapon in hand|\(lit\)|on.*hand)"=gray&underline
-MENUCOLOR="[Cc]ursed.*(being worn|wielded|weapon in hand|\(lit\)|on.*hand)"=red&underline
-MENUCOLOR="[Uu]ncursed.*(being worn|wielded|weapon in hand|\(lit\)|on.*hand)"=green&underline
-MENUCOLOR="[Bb]lessed.*(being worn|wielded|weapon in hand|\(lit\)|on.*hand)"=cyan&underline
+MENUCOLOR=".*(being worn|\(wielded|weapon in hand|\(lit\)|on.*hand)"=gray&underline
+MENUCOLOR="[Cc]ursed.*(being worn|\(wielded|weapon in hand|\(lit\)|on.*hand)"=red&underline
+MENUCOLOR="[Uu]ncursed.*(being worn|\(wielded|weapon in hand|\(lit\)|on.*hand)"=green&underline
+MENUCOLOR="[Bb]lessed.*(being worn|\(wielded|weapon in hand|\(lit\)|on.*hand)"=cyan&underline
 
 ## Luckstone
 MENUCOLOR="luckstone|called luck"=bright magenta
@@ -275,6 +276,7 @@ MENUCOLOR="(mirror|looking glass)"=yellow
 ## Magical boots
 MENUCOLOR="(mud|snow|riding|buckled|hiking|combat|jungle) boots"=yellow
 MENUCOLOR="elven boots|boots called elven"=yellow
+MENUCOLOR="(elven boots|boots called elven)(.*)\(being worn\)"=yellow&underline
 MENUCOLOR="fumble boots|boots called fumble"=yellow
 MENUCOLOR="jumping boots|boots called jump"=yellow
 MENUCOLOR="kicking boots|boots called kick"=yellow
@@ -290,6 +292,7 @@ MENUCOLOR="cloak of invisibility|cloak called inv"=yellow
 MENUCOLOR="cloak of magic resistance|called comr"=yellow
 MENUCOLOR="cloak of protection|called prot"=yellow
 MENUCOLOR="elven cloak|faded pall"=yellow
+MENUCOLOR="(elven cloak|faded pall).*(being worn)"=yellow&underline
 MENUCOLOR="robe"=yellow
 
 ## Armors
@@ -383,7 +386,8 @@ MENUCOLOR="(speed boots)( named .*)? \(being worn\)"=bright magenta&underline
 
 ## You may switch to jumping boots in sanctum or astral plane to jump.
 ## And quaff blessed potions of speed or cast haste self to provide the very fast speed.
-MENUCOLOR="(jumping boots|named jump)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(jumping boots|called jump(ing)?)"=bright magenta
+MENUCOLOR="(jumping boots|called jump(ing)?)( named .*)? \(being worn\)"=bright magenta&underline
 
 ## Shirt! There are plentiful shirt if polyjunk, so only enchanted are highlit.
 MENUCOLOR="(shirt)( named .*)?"=yellow
@@ -437,11 +441,11 @@ MENUCOLOR="(leather (hat|helm))( named .*)? \(being worn\)"=bright magenta&under
 ##   And spell casters who destroy your gloves.
 
 MENUCOLOR="(gauntlets of dexterity|called dex)"=bright magenta
-MENUCOLOR="(gauntlets of dexterity|called dex)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(gauntlets of dexterity|called dex)( named .*)? \(being worn"=bright magenta&underline
 MENUCOLOR="(gauntlets of power)"=bright magenta
-MENUCOLOR="(gauntlets of power)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(gauntlets of power)( named .*)? \(being worn"=bright magenta&underline
 MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)"=bright magenta
-MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)( named .*)? \(being worn"=bright magenta&underline
 
 
 ### Weapons
@@ -451,42 +455,76 @@ MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)( named .*)? \(being w
 ## Other choice can be silver spear or katana.
 MENUCOLOR="silver (saber|spear|dagger)"=bright magenta
 MENUCOLOR="silver (saber|spear|dagger) \(weapon in hand\)|silver (saber|spear|dagger) \(wielded"=bright magenta&underline
+MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? \(wielded"=bright magenta&underline
 
 
 ## My favorite weapons, Grayswandir + silver saber!
 ## Sometimes wish for Grayswandir for it's excellent power.
 ## All fears comes from lack of firepower!
-## I always wish one as long as I can train saber and already have reflection and MR.
+## As long as you have MR and reflection, and gain around -28 AC.
+## Grayswandir is never a wrong option, say once I play a Monk wielding Grayswandir.
+## -20 to-hit penalty for body armor and -3 for unskilled, didn't stop me killing everything.
+## Though actually -2 damage is crucial you'd better use Frosty or something else if unskilled.
+MENUCOLOR="Grayswandir"=bright magenta
+MENUCOLOR="Grayswandir \(weapon in hand\)|Grayswandir \(wielded"=bright magenta&underline
+
+## My second favorite weapon is Frosty, as it has enough damage.
+MENUCOLOR="((Frost|Fire) Brand)"=bright magenta
+MENUCOLOR="((Frost|Fire) Brand) \(weapon in hand\)|((Frost|Fire) Brand) \(wielded"=bright magenta&underline
+
+
+## My favorite weapons, Grayswandir + silver saber!
+## Sometimes wish for Grayswandir for it's excellent power.
+## All fears comes from lack of firepower!
+## As long as you have MR and reflection, and gain around -28 AC.
+## Grayswandir is never a wrong option, say once I play a Monk wielding Grayswandir.
+## -20 to-hit penalty for body armor and -3 for unskilled, didn't stop me killing everything.
+## Though actually -2 damage is crucial you'd better use Frosty or something else if unskilled.
 MENUCOLOR="Grayswandir"=bright magenta
 MENUCOLOR="Grayswandir \(weapon in hand\)|Grayswandir \(wielded"=bright magenta&underline
 MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? \(wielded"=bright magenta&underline
 
-## The only option for wizard in my view, Elbereth everywhere and casting spells.
-## And a great source of magic resistance for neutral players to sacrifice for.
-## Before getting magic missile and the Eye of Aethiopica I'd train daggers if I'm not racketing.
-## If unwielding magicbane be sure to have other MR item.
-## Say you may wield a potion of paralyze or cockatrice corpse at some point.
-## But for wizard who have their starting comr and no need to wear a robe.
+
+## For wizard, find an altar and sacrifice for Magicbane as soon as possible.
+## You can Elbereth everywhere and use daggers or spells to get through early game.
+## Then you are invicinble God of NetHack.
+## But I don't recommand wish Magicbane, cause it's fairly low damage.
+## You'd better have gdsm or comr to provide MR.
+## Magicbane may be disarmed by bullwhip by horned devil or archeaologist.
+## Also preventing you to wield a cockatrice corpse or potion of paralysis.
 MENUCOLOR="Magicbane"=bright magenta
 MENUCOLOR="Magicbane \(weapon in hand\)|Magicbane \(wielded"=bright magenta&underline
 
-## Less favorite
 
-## I don't play lawful oftenly, but still a great weapon with an easy obtaining method.
-## Also, in 3.7 the Valkyrie start with a spear instead of a long sword.
-## You'd like other lawful roles to find a long sword first.
-## I usually train daggers and the saber-skilled scimitars.
+## Second favorite two-weaponing build, Excalibur + katana.
+## If your role perform more good at long sword than saber, and long sword are much easier to unrestrict.
+## It's a decent artifact and way easy to obtain one as lawful.
+## May be the only advantage to be lawful, or lawful may have more useful sacrifict gifts.
+## You don't spend wish and need not to sacrifice and hope the god give you a useful one.
+## The search is extremely useful, often prevents me stepping into polytraps several times when I have no MR.
+## Say The Lady of Lake loves lawful dungeneers equally, so do I.
 MENUCOLOR="Excalibur"=bright magenta
 MENUCOLOR="Excalibur \(weapon in hand\)|Excalibur \(wielded"=bright magenta&underline
 
-MENUCOLOR="Longbow of Diana"=bright magenta
-MENUCOLOR="Excalibur \(weapon in hand\)|Excalibur \(wielded"=bright magenta&underline
-
-## katana has the highest damage among non-artifact one-handed weapons.
-## Samurai can often dual wielding Excalibur and katana.
+## Katana has the highest damage among non-artifact one-handed weapons.
+## Katana often performs better than silver saber outside Gehennom.
 MENUCOLOR="katana"=bright magenta
-MENUCOLOR="katana \(weapon in hand\)|katana \(wielded"=bright magenta&underline
+MENUCOLOR="katana( named.*)? (\(weapon in hand\)|\(wielded)"=bright magenta&underline
 
+
+## Less favorite
+
+## Decent weapon for rangers, +1 multishot in 3.7
+MENUCOLOR="Longbow of Diana"=bright magenta
+MENUCOLOR="Longbow of Diana \(weapon in hand\)|Longbow of Diana \(wielded"=bright magenta&underline
+
+## Some roles cannot train daggers or arrows, and the club can be a decent ranged weapon.
+## It weighs 15 and, can be used nearly infinitely.
+## But it's very low damage, and the chance of not returning is not low in real game.
+## So unless you are roles like caveman, don't see the need to use it as main weapon.
+## But tolerate
+MENUCOLOR="(aklys|thonged club)"=bright magenta
+MENUCOLOR="(aklys|thonged club)( named.*?)? (\(tethered weapon in hand\)|\(wielded)"=bright magenta&underline
 
 ### Rings
 
@@ -684,7 +722,7 @@ MENUCOLOR="([Bb]lessed) (scrolls? of genocide|scrolls? called gen)"=bright magen
 MENUCOLOR="wraith corpse"=yellow
 MENUCOLOR="lizard corpse"=yellow
 ## Maybe tin of spinach
-MENUCOLOR="a tin| tins"=yellow
+MENUCOLOR="a tin\b|\btins\b"=yellow
 ## The best food, you can replace all your foods with these.
 MENUCOLOR="lembas wafer"=bright magenta
 MENUCOLOR="K-ration"=bright magenta
@@ -777,12 +815,72 @@ MENUCOLOR="divination spells.*\[.*\]"=bright magenta
 MENUCOLOR="(magic missile).*%"=bright magenta
 MENUCOLOR="(identify).*%"=bright magenta
 MENUCOLOR="(polymorph).*%"=bright magenta
+MENUCOLOR="(magic mapping).*%"=bright magenta
 MENUCOLOR="(finger of death).*%"=bright magenta
 MENUCOLOR="(create monster).*%"=bright magenta
+MENUCOLOR="(charm monster).*%"=bright magenta
 ## Must fail
 MENUCOLOR="100%.*%"=red
 ## Confusion source
 MENUCOLOR="%.*%.*gone"=orange
+
+
+### Monsters
+## List monsters in farlook mode.
+## Way more faster to detect dangers.
+## Comfortable for mindless me to only notice several annoying monsters.
+
+## At night 22:00-5:59, they can remove your intrinsics.
+MENUCOLOR="(gremlin)"=red
+MENUCOLOR="([Ll]ich\b)"=red
+## Be very careful when you have no reflection.
+MENUCOLOR="(Medusa)"=red
+MENUCOLOR="(nymph)"=red
+## May take your armor off, and may stone you if you wield a c corpse.
+MENUCOLOR="((in|suc)cub(us|i))"=red
+MENUCOLOR="(Orcus)"=red
+MENUCOLOR="(Yeenoghu)"=red
+MENUCOLOR="(Demogorgon)"=red
+## Paralyse you, make sure to kill all shades before Orcus, or quaff to wake Orcus up and kill him quickly.
+## Otherwise while you're paralysing, Orcus may summon Yeenoghu and Demogorgon.
+MENUCOLOR="(shade)"=red
+## May instakill your pets, but also a choice of a good pet.
+MENUCOLOR="(purple worm)"=red
+## The only problem of ;
+## Which may destroy your escape wands and ring of levitation.
+MENUCOLOR="(electric eel)"=red
+## bullwhip
+MENUCOLOR="(horned devil)"=red
+MENUCOLOR="(\btame\b) .+"=bright magenta
+
+## Destroying your wands and rings.
+MENUCOLOR="(shocking sphere)"=red
+## Take care if you have no reflection.
+MENUCOLOR="(black dragon)"=red
+## My favorite weapon though.
+MENUCOLOR="(c(o|hi)ckatrice)"=red
+
+MENUCOLOR="(peaceful \w+ unicorn) .+"=bright magenta
+
+
+### Enlightment
+
+## Crowning
+MENUCOLOR="(You (are|were) the Hand of Elbereth)"=blue
+MENUCOLOR="(You (are|were) Envoy of Balance)"=blue
+MENUCOLOR="(You (are|were) Glory of Arioch)"=blue
+
+MENUCOLOR="(You (are|were) magic-protected)"=bright magenta
+MENUCOLOR="(You (have|had) reflection)"=bright magenta
+MENUCOLOR="(You (are|were) very fast)"=bright magenta
+MENUCOLOR="(You (have|had) free action)"=bright magenta
+MENUCOLOR="(You caused? conflict)"=bright magenta
+MENUCOLOR="(You can fly|You were flying)"=bright magenta
+MENUCOLOR="(Your life (will be|would have been) saved)"=bright magenta
+
+MENUCOLOR="(You survived)"=blue
+MENUCOLOR="(the Demigod(dess)?\.{3})"=gray&reverse
+
 
 ### Messages
 OPTIONS=msghistory:60
@@ -816,8 +914,8 @@ MSGTYPE=stop "grows up"
 ## Name the container to credit cloning.
 MSGTYPE=stop "picks up.*named midas"
 ## Money for buying protection
-MSGTYPE=stop "You hear the footsteps of a guard on patrol"
-MSGTYPE=stop "You hear someone counting"
+MSGTYPE=stop "You (dream that you )?hear the footsteps of a guard on patrol"
+MSGTYPE=stop "You (dream that you )?hear someone counting"
 ## Magic lamp.
 MSGTYPE=stop "You see a puff of smoke."
 ## Amulet of yendor detecting magic portal
@@ -848,6 +946,16 @@ MSGTYPE=stop "You ready: .* \-"
 MSGTYPE=stop "reluctantly"
 ## Water nymph from fountains, be careful they may steal you.
 MSGTYPE=stop "You attract a water nymph"
+## Lamps catches light when you are covered by fire.
+MSGTYPE=stop "catches light"
+MSGTYPE=stop "smell.*dragon"
+## Fumbling
+MSGTYPE=stop "You make a lot of noise"
+## Pets are hungry
+MSGTYPE=stop " (whinnies|mews|dog whines)."
+## Scroll of scare monster
+MSGTYPE=stop "The scrolls? turns to dust as you pick it up"
+MSGTYPE=stop "The python grabs you"
 
 
 ## Traps
@@ -877,8 +985,9 @@ MSGTYPE=stop "Your consciousness is fading."
 MSGTYPE=stop "You feel deathly sick."
 MSGTYPE=stop "You feel (much|even) worse."
 
-MSGTYPE=stop "You (feel|see) here a c(hi|o)ckatrice corpse."
-MSGTYPE=stop "(picks up|wields|hits you with) (a|the) c(hi|o)ckatrice corpse"
+MSGTYPE=stop "You hear.*atrice.*hissing"
+MSGTYPE=stop "You (feel|see) here a(n? .*) c(hi|o)ckatrice corpse."
+MSGTYPE=stop "(picks up|wields|hits you with) (a|the)(n? .*) c(hi|o)ckatrice corpse"
 MSGTYPE=stop "You no longer feel secure from petrification"
 
 ## Don't speed past wrest message when wresting
@@ -1002,6 +1111,9 @@ AUTOPICKUP_EXCEPTION="<silver dagger"
 ## I find I hardly train spear skill, so I disable this.
 # AUTOPICKUP_EXCEPTION="<silver spear"
 
+AUTOPICKUP_EXCEPTION="<katana"
+MSGTYPE=stop "[a-zA-Z] \-.*katana\."
+
 ## Autopick artifacts sometimes slips from fingers.
 ## And stop to remind you to wield it again.
 ## The ending dot is for only picking up, or else it'll stop when wield too.
@@ -1046,7 +1158,7 @@ AUTOPICKUP_EXCEPTION="<(amulet of life saving)( named .*)?"
 MSGTYPE=stop "\-.*(amulet of life saving)( named .*)?"
 
 AUTOPICKUP_EXCEPTION="<(shirt)( named .*)?"
-MSGTYPE=stop "\-.*(shirt)( named .*)?"
+MSGTYPE=stop "\-.*((T-| )shirt)( named .*)?."
 
 ## DO NOT TURN THIS ON! you may die instantly lol.
 ## But do remember to collect c corpses in late game preventing enemies use them on you.
@@ -1058,7 +1170,7 @@ AUTOPICKUP_EXCEPTION="<(lumps? of royal jelly)"
 
 # Kick before picking up any gray stone and type name them.
 AUTOPICKUP_EXCEPTION="> loadstone"
-AUTOPICKUP_EXCEPTION="<stone called luck"
+AUTOPICKUP_EXCEPTION="< stone called luck"
 AUTOPICKUP_EXCEPTION="< luckstone"
 #AUTOPICKUP_EXCEPTION="< touchstone"
 AUTOPICKUP_EXCEPTION="> rock"
