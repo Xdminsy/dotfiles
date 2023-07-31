@@ -1,5 +1,5 @@
 # Author: Xdminsy
-# Version: 0.0.6
+# Version: 0.0.7
 #
 # See https://nethackwiki.com/wiki/Options
 # Change in-game options use `O` or `m O` in 3.7
@@ -13,6 +13,7 @@ OPTIONS=catname:pusheen
 OPTIONS=dogname:cerberus
 OPTIONS=horsename:nightmare
 OPTIONS=fruit:fruit
+WIZKIT=/home/x/.wizkit
 
 ### Key settings
 ## Habitual keys for items and spells
@@ -25,7 +26,7 @@ OPTIONS=fruit:fruit
 ## g)
 ## h) unicorn horn, abab.
 ## i) mirror, tooled horn, or camera
-## j)
+## j) Switchable rings, literally ring of levitation
 ## k) key, credit card or lock pick
 ## l) lamp or magic lamp
 ## m) maigc marker
@@ -204,8 +205,8 @@ MENUCOLOR="[Uu]ncursed.*(being worn|\(wielded|weapon in hand|\(lit\)|on.*hand)"=
 MENUCOLOR="[Bb]lessed.*(being worn|\(wielded|weapon in hand|\(lit\)|on.*hand)"=cyan&underline
 
 ## Luckstone
-MENUCOLOR="luckstone|called luck"=bright magenta
-MENUCOLOR="touchstone|called touch"=bright magenta
+MENUCOLOR="luckstone|called luck"=bright blue
+MENUCOLOR="touchstone|called touch"=bright blue
 MENUCOLOR=" [Cc]ursed luckstone|[Cc]usred.*called luck"=red
 MENUCOLOR="loadstone|called load"=red
 ## Be careful to every unidentified graystone
@@ -327,20 +328,20 @@ MENUCOLOR="dunce cap"=orange
 ##   Then you are extremely vunerable to touch of death.
 ## Your quest artifact may be stolen by Rodney, then casting touch of death.
 ## Still be careful to foocubi may be summoned nasties and take off your cloak.
-MENUCOLOR="(cloak of magic resistance|called comr)"=bright magenta
-MENUCOLOR="(cloak of magic resistance|called comr)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(cloak of magic resistance|called comr)"=bright blue
+MENUCOLOR="(cloak of magic resistance|called comr)( named .*)? \(being worn\)"=bright blue&underline
 
 ## Often wear a small time when casting spells, if you play a melee role.
 ## Or I may wearing this for magic mapping gehennom.
 ## But I'd switch back to comr when and after killing Rodney.
-MENUCOLOR="(robe)"=bright magenta
-MENUCOLOR="(robe)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(robe)"=bright blue
+MENUCOLOR="(robe)( named .*)? \(being worn\)"=bright blue&underline
 
 ## Maybe useful if you lack ranged attacks but have powerful enough melee attacks.
 ## Not such useful, hardly lose expierence level when MC1.
 ## It's still acceptable if you only attack in melee.
-MENUCOLOR="(cloak of protection)"=bright magenta
-MENUCOLOR="(cloak of protection)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(cloak of protection)"=bright blue
+MENUCOLOR="(cloak of protection)( named .*)? \(being worn\)"=bright blue&underline
 
 ## You'd better switch to another more useful cloak in late game.
 MENUCOLOR="(cloak of displacement)"=yellow
@@ -349,16 +350,16 @@ MENUCOLOR="(cloak of displacement)( named .*)? \(being worn\)"=yellow&underline
 ## Favorite amulet is flying, once find, wear to the end!
 ## You may switch to "oLS once land on the Astral plane.
 ## Though it is a vanilla 3.7 or variants only amulet.
-MENUCOLOR="(amulet of flying)( named .*)?"=bright magenta
-MENUCOLOR="(amulet of flying)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(amulet of flying)( named .*)?"=bright blue
+MENUCOLOR="(amulet of flying)( named .*)? \(being worn\)"=bright blue&underline
 ## Always prepare one in main inventory in order to save yourself in emergency.
-MENUCOLOR="(amulet of life saving)( named .*)?"=bright magenta
-MENUCOLOR="(amulet of life saving)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(amulet of life saving)( named .*)?"=bright blue
+MENUCOLOR="(amulet of life saving)( named .*)? \(being worn\)"=bright blue&underline
 ## Always hoping the sokoban give reflection.
 ## Or else there are plentiful wands of death in your road to the castle.
 ## The MR is often much more difficult than reflection to obtain.
-MENUCOLOR="(amulet of reflection|called reflection|called ref)( named .*)?"=bright magenta
-MENUCOLOR="(amulet of reflection|called reflection|called ref)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(amulet of reflection|called reflection|called ref)( named .*)?"=bright blue
+MENUCOLOR="(amulet of reflection|called reflection|called ref)( named .*)? \(being worn\)"=bright blue&underline
 ## Real Amulet of Yendor, name the real once picked it up!
 MENUCOLOR="Amulet of Yendor named"=blue
 MENUCOLOR="Amulet of Yendor named.*\(being worn\)"=blue&underline
@@ -368,70 +369,70 @@ MENUCOLOR="Amulet of Yendor named.*\(being worn\)"=blue&underline
 ## Because the amulet slot is for flying.
 ## So this is the only options for reflection.
 # MENUCOLOR="(silver dragon scale mail)"=red
-MENUCOLOR="(dragon scale mail)"=bright magenta
-MENUCOLOR="(dragon scale mail)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(dragon scale mail)"=bright blue
+MENUCOLOR="(dragon scale mail)( named .*)? \(being worn\)"=bright blue&underline
 
 ## If you are roles who choose a reflection shield.
 ## Or if you like rings of levitation and relfection.
 ## And a great early wish if you afraid sdsm may degrade due to polytrap.
 # MENUCOLOR="(gray dragon scale mail)"=red
-MENUCOLOR="(gray dragon scale mail)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(gray dragon scale mail)( named .*)? \(being worn\)"=bright blue&underline
 
 ## The only permenanent source of very fast speed.
 ## You get an extra turn most of the time.
 ## And the only source of intrinsic speed in 3.7 is a quantum mechanic.
 ## But it is likely to lose if encountering shades and skeletons afterwards.
-MENUCOLOR="(speed boots)"=bright magenta
-MENUCOLOR="(speed boots)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(speed boots)"=bright blue
+MENUCOLOR="(speed boots)( named .*)? \(being worn\)"=bright blue&underline
 
 ## You may switch to jumping boots in sanctum or astral plane to jump.
 ## And quaff blessed potions of speed or cast haste self to provide the very fast speed.
-MENUCOLOR="(jumping boots|called jump(ing)?)"=bright magenta
-MENUCOLOR="(jumping boots|called jump(ing)?)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(jumping boots|called jump(ing)?)"=bright blue
+MENUCOLOR="(jumping boots|called jump(ing)?)( named .*)? \(being worn\)"=bright blue&underline
 
 ## Shirt! There are plentiful shirt if polyjunk, so only enchanted are highlit.
 MENUCOLOR="(shirt)( named .*)?"=yellow
-MENUCOLOR="(\+[1-9].*shirt)( named .*)?"=bright magenta
-MENUCOLOR="(\+[1-9].*shirt)( named .*)?.*\(being worn\)"=bright magenta&underline
+MENUCOLOR="(\+[1-9].*shirt)( named .*)?"=bright blue
+MENUCOLOR="(\+[1-9].*shirt)( named .*)?.*\(being worn\)"=bright blue&underline
 
 ## Shield of reflection are only for roles neither cast spells nor two-weapon.
 ## It has a very high spellcasting penalty.
 ## Or if you unfortunately got a boh instead of reflection from sokoban.
 ## Looking for a shield of reflection in medusa's island.
 ## Otherwise you may very likely face death ray or other nasty wands.
-MENUCOLOR="(shield of reflection|polished silver shield|smooth shield)( named .*)?"=bright magenta
-MENUCOLOR="(shield of reflection|polished silver shield|smooth shield)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(shield of reflection|polished silver shield|smooth shield)( named .*)?"=bright blue
+MENUCOLOR="(shield of reflection|polished silver shield|smooth shield)( named .*)? \(being worn\)"=bright blue&underline
 
 ## If you are wizard or a role you can't two-weapon and cast spells a lot.
 ## The small shield is the only option. Or you can ditch shields at all.
-MENUCOLOR="\+[1-9].*(small shield)( named .*)?"=bright magenta
-MENUCOLOR="\+[1-9].*(small shield)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="\+[1-9].*(small shield)( named .*)?"=bright blue
+MENUCOLOR="\+[1-9].*(small shield)( named .*)? \(being worn\)"=bright blue&underline
 
 ## Elven shield can be enchanted to +7 safely, if you can't twoweapon and don't wanna cast spells.
-MENUCOLOR="\+[1-9].*(elven shield|blue and green shield)( named .*)?"=bright magenta
-MENUCOLOR="\+[1-9].*(elven shield|blue and green shield)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="\+[1-9].*(elven shield|blue and green shield)( named .*)?"=bright blue
+MENUCOLOR="\+[1-9].*(elven shield|blue and green shield)( named .*)? \(being worn\)"=bright blue&underline
 
 
 ### Helms
 ## Be careful to every unknown magical helms, you may lose protections.
 
 ## My first choice is brilliance, but not worth wishing if not casting too much.
-MENUCOLOR="(helm of brilliance|called brilliance|called hob)( named .*)?"=bright magenta
-MENUCOLOR="(helm of brilliance|called brilliance|called hob)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(helm of brilliance|called brilliance|called hob)( named .*)?"=bright blue
+MENUCOLOR="(helm of brilliance|called brilliance|called hob)( named .*)? \(being worn\)"=bright blue&underline
 ## Betray on astral plane to ascend simpler lol.
 ## Or if farming a lot you can get some opposite artefacts.
 ## But be aware this will lose all intrinsic protections.
-MENUCOLOR="(helm of opposite alignment|helm called (ho)?op|helm called hooa)( named .*)?"=bright magenta
-MENUCOLOR="(helm of opposite alignment|helm called (ho)?op|helm called hooa)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(helm of opposite alignment|helm called (ho)?op|helm called hooa)( named .*)?"=bright blue
+MENUCOLOR="(helm of opposite alignment|helm called (ho)?op|helm called hooa)( named .*)? \(being worn\)"=bright blue&underline
 ## Better than nothing, but not too useful, but is useful for vegan monks.
-MENUCOLOR="(helm of telepathy|called tele|called hot)( named .*)?"=bright magenta
-MENUCOLOR="(helm of telepathy|called tele|called hot)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(helm of telepathy|called tele|called hot)( named .*)?"=bright blue
+MENUCOLOR="(helm of telepathy|called tele|called hot)( named .*)? \(being worn\)"=bright blue&underline
 ## Useful for wizards for clairvoyance, but ther brilliance is better.
 ## And wizards can cast magic mapping oftimes in gehennom.
-MENUCOLOR="(cornuthaum|called cornuthaum)( named .*)?"=bright magenta
-MENUCOLOR="(cornuthaum|called cornuthaum)( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(cornuthaum|called cornuthaum)( named .*)?"=bright blue
+MENUCOLOR="(cornuthaum|called cornuthaum)( named .*)? \(being worn\)"=bright blue&underline
 ## Elven armors can be safely enchant to +7
-MENUCOLOR="(leather (hat|helm))( named .*)? \(being worn\)"=bright magenta&underline
+MENUCOLOR="(leather (hat|helm))( named .*)? \(being worn\)"=bright blue&underline
 
 
 ### Gloves
@@ -440,12 +441,12 @@ MENUCOLOR="(leather (hat|helm))( named .*)? \(being worn\)"=bright magenta&under
 ## When wielding a cockatrice corpse, be careful to foocubi, nymphs removing your gloves.
 ##   And spell casters who destroy your gloves.
 
-MENUCOLOR="(gauntlets of dexterity|called dex)"=bright magenta
-MENUCOLOR="(gauntlets of dexterity|called dex)( named .*)? \(being worn"=bright magenta&underline
-MENUCOLOR="(gauntlets of power)"=bright magenta
-MENUCOLOR="(gauntlets of power)( named .*)? \(being worn"=bright magenta&underline
-MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)"=bright magenta
-MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)( named .*)? \(being worn"=bright magenta&underline
+MENUCOLOR="(gauntlets of dexterity|called dex)"=bright blue
+MENUCOLOR="(gauntlets of dexterity|called dex)( named .*)? \(being worn"=bright blue&underline
+MENUCOLOR="(gauntlets of power)"=bright blue
+MENUCOLOR="(gauntlets of power)( named .*)? \(being worn"=bright blue&underline
+MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)"=bright blue
+MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)( named .*)? \(being worn"=bright blue&underline
 
 
 ### Weapons
@@ -453,9 +454,9 @@ MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)( named .*)? \(being w
 ## Silver saber is most of the time my second weapon, or can use as first weapon early on.
 ## And can easily achieve one from a captain.
 ## Other choice can be silver spear or katana.
-MENUCOLOR="silver (saber|spear|dagger)"=bright magenta
-MENUCOLOR="silver (saber|spear|dagger) \(weapon in hand\)|silver (saber|spear|dagger) \(wielded"=bright magenta&underline
-MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? \(wielded"=bright magenta&underline
+MENUCOLOR="silver (saber|spear|dagger)"=bright blue
+MENUCOLOR="silver (saber|spear|dagger) \(weapon in hand\)|silver (saber|spear|dagger) \(wielded"=bright blue&underline
+MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? \(wielded"=bright blue&underline
 
 
 ## My favorite weapons, Grayswandir + silver saber!
@@ -465,12 +466,12 @@ MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? 
 ## Grayswandir is never a wrong option, say once I play a Monk wielding Grayswandir.
 ## -20 to-hit penalty for body armor and -3 for unskilled, didn't stop me killing everything.
 ## Though actually -2 damage is crucial you'd better use Frosty or something else if unskilled.
-MENUCOLOR="Grayswandir"=bright magenta
-MENUCOLOR="Grayswandir \(weapon in hand\)|Grayswandir \(wielded"=bright magenta&underline
+MENUCOLOR="Grayswandir"=bright blue
+MENUCOLOR="Grayswandir \(weapon in hand\)|Grayswandir \(wielded"=bright blue&underline
 
 ## My second favorite weapon is Frosty, as it has enough damage.
-MENUCOLOR="((Frost|Fire) Brand)"=bright magenta
-MENUCOLOR="((Frost|Fire) Brand) \(weapon in hand\)|((Frost|Fire) Brand) \(wielded"=bright magenta&underline
+MENUCOLOR="((Frost|Fire) Brand)"=bright blue
+MENUCOLOR="((Frost|Fire) Brand) \(weapon in hand\)|((Frost|Fire) Brand) \(wielded"=bright blue&underline
 
 
 ## My favorite weapons, Grayswandir + silver saber!
@@ -480,9 +481,9 @@ MENUCOLOR="((Frost|Fire) Brand) \(weapon in hand\)|((Frost|Fire) Brand) \(wielde
 ## Grayswandir is never a wrong option, say once I play a Monk wielding Grayswandir.
 ## -20 to-hit penalty for body armor and -3 for unskilled, didn't stop me killing everything.
 ## Though actually -2 damage is crucial you'd better use Frosty or something else if unskilled.
-MENUCOLOR="Grayswandir"=bright magenta
-MENUCOLOR="Grayswandir \(weapon in hand\)|Grayswandir \(wielded"=bright magenta&underline
-MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? \(wielded"=bright magenta&underline
+MENUCOLOR="Grayswandir"=bright blue
+MENUCOLOR="Grayswandir \(weapon in hand\)|Grayswandir \(wielded"=bright blue&underline
+MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? \(wielded"=bright blue&underline
 
 
 ## For wizard, find an altar and sacrifice for Magicbane as soon as possible.
@@ -492,8 +493,8 @@ MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? 
 ## You'd better have gdsm or comr to provide MR.
 ## Magicbane may be disarmed by bullwhip by horned devil or archeaologist.
 ## Also preventing you to wield a cockatrice corpse or potion of paralysis.
-MENUCOLOR="Magicbane"=bright magenta
-MENUCOLOR="Magicbane \(weapon in hand\)|Magicbane \(wielded"=bright magenta&underline
+MENUCOLOR="Magicbane"=bright blue
+MENUCOLOR="Magicbane \(weapon in hand\)|Magicbane \(wielded"=bright blue&underline
 
 
 ## Second favorite two-weaponing build, Excalibur + katana.
@@ -503,28 +504,28 @@ MENUCOLOR="Magicbane \(weapon in hand\)|Magicbane \(wielded"=bright magenta&unde
 ## You don't spend wish and need not to sacrifice and hope the god give you a useful one.
 ## The search is extremely useful, often prevents me stepping into polytraps several times when I have no MR.
 ## Say The Lady of Lake loves lawful dungeneers equally, so do I.
-MENUCOLOR="Excalibur"=bright magenta
-MENUCOLOR="Excalibur \(weapon in hand\)|Excalibur \(wielded"=bright magenta&underline
+MENUCOLOR="Excalibur"=bright blue
+MENUCOLOR="Excalibur \(weapon in hand\)|Excalibur \(wielded"=bright blue&underline
 
 ## Katana has the highest damage among non-artifact one-handed weapons.
 ## Katana often performs better than silver saber outside Gehennom.
-MENUCOLOR="katana"=bright magenta
-MENUCOLOR="katana( named.*)? (\(weapon in hand\)|\(wielded)"=bright magenta&underline
+MENUCOLOR="katana"=bright blue
+MENUCOLOR="katana( named.*)? (\(weapon in hand\)|\(wielded)"=bright blue&underline
 
 
 ## Less favorite
 
 ## Decent weapon for rangers, +1 multishot in 3.7
-MENUCOLOR="Longbow of Diana"=bright magenta
-MENUCOLOR="Longbow of Diana \(weapon in hand\)|Longbow of Diana \(wielded"=bright magenta&underline
+MENUCOLOR="Longbow of Diana"=bright blue
+MENUCOLOR="Longbow of Diana \(weapon in hand\)|Longbow of Diana \(wielded"=bright blue&underline
 
 ## Some roles cannot train daggers or arrows, and the club can be a decent ranged weapon.
 ## It weighs 15 and, can be used nearly infinitely.
 ## But it's very low damage, and the chance of not returning is not low in real game.
 ## So unless you are roles like caveman, don't see the need to use it as main weapon.
 ## But tolerate
-MENUCOLOR="(aklys|thonged club)"=bright magenta
-MENUCOLOR="(aklys|thonged club)( named.*?)? (\(tethered weapon in hand\)|\(wielded)"=bright magenta&underline
+MENUCOLOR="(aklys|thonged club)"=bright blue
+MENUCOLOR="(aklys|thonged club)( named.*?)? (\(tethered weapon in hand\)|\(wielded)"=bright blue&underline
 
 ### Rings
 
@@ -534,15 +535,15 @@ MENUCOLOR="(aklys|thonged club)( named.*?)? (\(tethered weapon in hand\)|\(wield
 
 ## The only source of free action.
 ## Though in 3.7 the orange dragon scale mail provide free action too.
-MENUCOLOR="(ring of free action|ring called free)"=bright magenta
-MENUCOLOR="(ring of free action|ring called free)( named .*)? \(on.*\)"=bright magenta&underline
+MENUCOLOR="(ring of free action|ring called free)"=bright blue
+MENUCOLOR="(ring of free action|ring called free)( named .*)? \(on.*\)"=bright blue&underline
 ## Great in gehennom, not worth eating tengu if not farming too much.
-MENUCOLOR="(ring of teleport control|ring called teleport control|ring called tpc)"=bright magenta
-MENUCOLOR="(ring of teleport control|ring called teleport control|ring called tpc)( named .*)? \(on.*\)"=bright magenta&underline
-MENUCOLOR="(ring of conflict|ring called conflict)"=bright magenta
-MENUCOLOR="(ring of conflict|ring called conflict)( named .*)? \(on.*\)"=bright magenta&underline
-MENUCOLOR="[Cc]ursed .* (ring of conflict|ring called conflict)"=bright magenta
-MENUCOLOR="(ring of polymorph control|ring called polymorph control|ring called polyc)( named .*)? \(on.*\)"=bright magenta&underline
+MENUCOLOR="(ring of teleport control|ring called teleport control|ring called tpc)"=bright blue
+MENUCOLOR="(ring of teleport control|ring called teleport control|ring called tpc)( named .*)? \(on.*\)"=bright blue&underline
+MENUCOLOR="(ring of conflict|ring called conflict)"=bright blue
+MENUCOLOR="(ring of conflict|ring called conflict)( named .*)? \(on.*\)"=bright blue&underline
+MENUCOLOR="[Cc]ursed .* (ring of conflict|ring called conflict)"=bright blue
+MENUCOLOR="(ring of polymorph control|ring called polymorph control|ring called polyc)( named .*)? \(on.*\)"=bright blue&underline
 ## If you're a weaponless monk finding a silver ring in the list lol
 MENUCOLOR="(ring.*\(silver\))( named .*)?"=green
 
@@ -552,14 +553,14 @@ MENUCOLOR="(ring.*\(silver\))( named .*)?"=green
 ## Always formally identify the wishing wand before zap the second time!
 ## Prepare a identify scroll before entering the castle.
 ## It may likely wrest when 0:0 if you are unlucky.
-MENUCOLOR="(wand of wishing|called wish)( named .*)?"=bright magenta
-MENUCOLOR="(wand of death|called death)( named .*)?"=bright magenta
+MENUCOLOR="(wand of wishing|called wish)( named .*)?"=bright blue
+MENUCOLOR="(wand of death|called death)( named .*)?"=bright blue
 ## Source of many ascensions kits. Should wish one if lack a lot.
 ## The amulet and rings and shirt are easy to polypile.
 ## And poly horns to get bag of holding or magic markers.
-MENUCOLOR="(wand of polymorph|wand called poly)( named .*)?"=bright magenta
+MENUCOLOR="(wand of polymorph|wand called poly)( named .*)?"=bright blue
 ## Extremely useful in avoiding combat in end game or an escape way in early game.
-MENUCOLOR="(wand of teleportation|wand called tp|wand called teleportation)( named .*)?"=bright magenta
+MENUCOLOR="(wand of teleportation|wand called tp|wand called teleportation)( named .*)?"=bright blue
 ## Sleep is quite useful to kill a lot nasty monsters who have no sleep resistance.
 ## For example Monk quest nemesis, minotaurs or some dragons.
 ## And the wand of sleep do not respect magic resistance, made it more useful than sleep spell.
@@ -567,7 +568,7 @@ MENUCOLOR="(wand of teleportation|wand called tp|wand called teleportation)( nam
 ## You can eat elf zombies or elf mummies, eaten immediately, they have 40% chance of causing food poisoning.
 ## You can apply unicorn horn, quaff holy water, or one kind of potion of healing.
 ## Or eating a non-cursed eucalyptus leaf.
-MENUCOLOR="(wand of sleep|wand called sleep)( named .*)?"=bright magenta
+MENUCOLOR="(wand of sleep|wand called sleep)( named .*)?"=bright blue
 
 ### Tools
 
@@ -589,8 +590,8 @@ MENUCOLOR="(Book of the Dead|papyrus spellbook)"=bright blue
 ## The branchport may not be that useful.
 ## So be sure if you really need the only main feature it provides, the faster energy regen.
 ## Not worth an early wish, you may wish in castle if you really need it.
-MENUCOLOR="Eye of the Aethiopica"=bright magenta
-MENUCOLOR="Eye of the Aethiopica \(being worn\)"=bright magenta&underline
+MENUCOLOR="Eye of the Aethiopica"=bright blue
+MENUCOLOR="Eye of the Aethiopica \(being worn\)"=bright blue&underline
 ## For neutral, you can always wish PYEC instead of one dragon scale mail as an early wish.
 ## As you often can reach about -10 AC after reaching minetown, the power of PYEC is much greater than
 ## The MR protect you from death ray, and annoying polytraps or teleporters.
@@ -603,7 +604,7 @@ MENUCOLOR="Eye of the Aethiopica \(being worn\)"=bright magenta&underline
 ## With PYEC you can cast an attacking wand dozens of times.
 ## You can polypile with one /oPoly dozens of times without need to polypiling or writing many scrolls of charging.
 ## But remember, PYEC has a cooldown, so in astral plane, be sure to have some scrolls of charging if you want to charge many wands.
-MENUCOLOR="Platinum Yendorian Express Card"=bright magenta&underline
+MENUCOLOR="Platinum Yendorian Express Card"=bright blue&underline
 ## Maybe best artifact wish for chaotic players.
 ## You gain teleport control and half physical damage, both are very very useful.
 ## The warning is acceptable, you can detect monsters which can be seen through telepathy.
@@ -613,60 +614,60 @@ MENUCOLOR="Platinum Yendorian Express Card"=bright magenta&underline
 ## If it's an early wish, you need first obtain a source of MR or reflection.
 ## You can deal with most of the tourble cases with your careful operations.
 ## But the random death ray, oops, you can only prevent which by having reflection or MR assp.
-MENUCOLOR="Master Key of Thievery"=bright magenta&underline
+MENUCOLOR="Master Key of Thievery"=bright blue&underline
 ## The Orb of Fate is so heavy, but the half damage is awesome.
 ## The levelport, requires you to have teleport control, or else not so useful.
 ## You can still wish one if neutral.
 ## But, oftentimes, as you AC reach -30, your damage is much more important.
 ## So I'd prefer Grayswandir, and Grayswandir don't require your alignment, though requrie you saber skill.
-MENUCOLOR="The Orb of Fate"=bright magenta&underline
+MENUCOLOR="The Orb of Fate"=bright blue&underline
 
 ## As an early wish, better wish one source of reflection or magic resistance.
 ## If you have one of which, you are immune to the death ray.
 ## In 3.7 purple L only spawns in Gehennom so MR is not so emergent.
 ## You can wish one great artifact like PYEC, EOTA, OOF or MKOT, or my favorite Grayswandir!
 ## Or a wand of polymorph to polypiling and gain everything.
-MENUCOLOR="(magic lamp|lamp called magic)"=bright magenta
-MENUCOLOR="(magic lamp|lamp called magic)( named .*)? \(lit\)"=bright magenta&underline
+MENUCOLOR="(magic lamp|lamp called magic)"=bright blue
+MENUCOLOR="(magic lamp|lamp called magic)( named .*)? \(lit\)"=bright blue&underline
 
 ## Not so useful, oftimes I let pets die in sokoban zoo.
-MENUCOLOR="(magic whistle|whistle called magic)"=bright magenta
+MENUCOLOR="(magic whistle|whistle called magic)"=bright blue
 
 ## For spellcasting wizard to write some useful books first.
 ## The most useful ones are polymorph, identify, create monster and magic missile.
 ## Others mainly write enchant armor, charging and gold detection(for detection portals in end game).
-MENUCOLOR="(magic marker)( named .*)?"=bright magenta
-MENUCOLOR="(bag of holding|called holding|called boh)( named .*)?"=bright magenta
-MENUCOLOR="(bag of holding|called holding|called boh)( named .*)? containing"=bright magenta&underline
+MENUCOLOR="(magic marker)( named .*)?"=bright blue
+MENUCOLOR="(bag of holding|called holding|called boh)( named .*)?"=bright blue
+MENUCOLOR="(bag of holding|called holding|called boh)( named .*)? containing"=bright blue&underline
 ## To grease your bag of holding to prevent water going into which.
-MENUCOLOR="(can of grease)( named .*)?"=bright magenta
-MENUCOLOR="(stethoscope)( named .*)?"=bright magenta
+MENUCOLOR="(can of grease)( named .*)?"=bright blue
+MENUCOLOR="(stethoscope)( named .*)?"=bright blue
 ## Though uncursed unicorn horn is decent, but better blessing it when you get spare holy waters.
 ## To get a better change of dispelling debuffs and a defense againt being cursed.
 MENUCOLOR="unicorn horn"=yellow
-MENUCOLOR="([Bb]lessed).*(unicorn horn)( named .*)?"=bright magenta
+MENUCOLOR="([Bb]lessed).*(unicorn horn)( named .*)?"=bright blue
 ## Best locking and unlocking tool, not essensial in end game but whatever.
 MENUCOLOR=" key"=yellow
-MENUCOLOR="(ed).*key"=bright magenta
+MENUCOLOR="(ed).*key"=bright blue
 ## When you don't have bag of holding, a sack or oilskin sack is important to protect your items.
 MENUCOLOR="sack"=yellow
 
 ## Be careful for cursing in end game.
 MENUCOLOR="[Cc]ursed .* (magic lamp|lamp called magic)( named .*)?"=red
 MENUCOLOR="^[Cc]ursed .*(unicorn horn)( named .*)?"=red
-# MENUCOLOR="([Uu]ncursed|[Bb]lessed).*(unicorn horn)( named .*)?"=bright magenta
+# MENUCOLOR="([Uu]ncursed|[Bb]lessed).*(unicorn horn)( named .*)?"=bright blue
 MENUCOLOR="^[Cc]ursed .* (bag of holding|called holding|called boh)( named .*)? containing"=red
 # MENUCOLOR="[Uu]ncursed .* (bag of holding|called holding|called boh)( named .*)? containing"=red
 
 ## Awake rodney outside the tower or your quest nemesis.
-MENUCOLOR="(drum of earthquake|drum called earth)( named .*)?"=bright magenta
-# MENUCOLOR="(horn (of|called) plenty)( named .*)?"=bright magenta
+MENUCOLOR="(drum of earthquake|drum called earth)( named .*)?"=bright blue
+# MENUCOLOR="(horn (of|called) plenty)( named .*)?"=bright blue
 
 ## Very powerful, especially more useful if you have PYEC.
-MENUCOLOR="fire horn"=bright magenta
-MENUCOLOR="frost horn"=bright magenta
-MENUCOLOR="magic harp|harp called magic"=bright magenta
-MENUCOLOR="magic flute|flute called magic"=bright magenta
+MENUCOLOR="fire horn"=bright blue
+MENUCOLOR="frost horn"=bright blue
+MENUCOLOR="magic harp|harp called magic"=bright blue
+MENUCOLOR="magic flute|flute called magic"=bright blue
 
 ## You can have some farm to get sacrifice gift.
 ## Be careful to not explode your bag of holding lol.
@@ -676,15 +677,15 @@ MENUCOLOR="bag of tricks|called tricks|called bot"=orange
 ### Potions
 
 MENUCOLOR="potions? of extra healing"=yellow
-MENUCOLOR="([Bb]lessed|[Uu]ncursed) potions? of extra healing"=bright magenta
+MENUCOLOR="([Bb]lessed|[Uu]ncursed) potions? of extra healing"=bright blue
 MENUCOLOR="potions? of full healing"=yellow
-MENUCOLOR="([Bb]lessed|[Uu]ncursed) potions? of full healing"=bright magenta
+MENUCOLOR="([Bb]lessed|[Uu]ncursed) potions? of full healing"=bright blue
 MENUCOLOR="potions? of gain ability"=yellow
-MENUCOLOR="([Bb]lessed) potions? of gain ability"=bright magenta
+MENUCOLOR="([Bb]lessed) potions? of gain ability"=bright blue
 MENUCOLOR="potions? of gain level"=yellow
-MENUCOLOR="([Bb]lessed|[Uu]ncursed) potions? of gain level"=bright magenta
-MENUCOLOR="potions? (of|called) paralysis"=bright magenta
-MENUCOLOR="potions? (of|called) paralysis \(wielded"=bright magenta&underline
+MENUCOLOR="([Bb]lessed|[Uu]ncursed) potions? of gain level"=bright blue
+MENUCOLOR="potions? (of|called) paralysis"=bright blue
+MENUCOLOR="potions? (of|called) paralysis \(wielded"=bright blue&underline
 
 ## You may get a wish from quaffing smoky potions.
 ## The probability of getting a wish is 6.15% if no djinni created.
@@ -697,7 +698,7 @@ MENUCOLOR="([Cc]ursed) potions? of gain level"=bright blue
 MENUCOLOR="unholy water"=bright blue
 MENUCOLOR="([Cc]ursed) (clear potions?|potions? called water)"=bright blue
 MENUCOLOR="[Uu]ncursed (clear potions?|potions? called water)"=yellow
-MENUCOLOR="[Hh]oly water|[Bb]lessed potions? called water|[Bb]lessed clear potions?"=bright magenta
+MENUCOLOR="[Hh]oly water|[Bb]lessed potions? called water|[Bb]lessed clear potions?"=bright blue
 
 
 
@@ -706,26 +707,26 @@ MENUCOLOR="[Hh]oly water|[Bb]lessed potions? called water|[Bb]lessed clear potio
 MENUCOLOR="scrolls? (of|called) (enchant (weapon|armor)|id)"=yellow
 MENUCOLOR="([Cc]ursed).*scrolls? (of|called) (enchant (weapon|armor)|id)"=orange
 MENUCOLOR="([Uu]ncursed).*scrolls? (of|called) (enchant (weapon|armor)|id)"=yellow
-MENUCOLOR="([Bb]lessed).*scrolls? (of|called) (enchant (weapon|armor)|id)"=bright magenta
-MENUCOLOR="([Bb]lessed).*(scrolls? of charging|scrolls? called charg)"=bright magenta
-MENUCOLOR="(scrolls? of gold detection|scrolls? called gold)"=bright magenta
-MENUCOLOR="scrolls? (of|called) (teleportation|tp)"=bright magenta
+MENUCOLOR="([Bb]lessed).*scrolls? (of|called) (enchant (weapon|armor)|id)"=bright blue
+MENUCOLOR="([Bb]lessed).*(scrolls? of charging|scrolls? called charg)"=bright blue
+MENUCOLOR="(scrolls? of gold detection|scrolls? called gold)"=bright blue
+MENUCOLOR="scrolls? (of|called) (teleportation|tp)"=bright blue
 MENUCOLOR="^([Cc]ursed).*scrolls? (of|called) (teleportation|tp)"=orange
 
 MENUCOLOR="([Cc]ursed) (scrolls? of genocide|scrolls? called gen)"=orange
 MENUCOLOR="([Uu]ncursed) (scrolls? of genocide|scrolls? called gen)"=yellow
-MENUCOLOR="([Bb]lessed) (scrolls? of genocide|scrolls? called gen)"=bright magenta
+MENUCOLOR="([Bb]lessed) (scrolls? of genocide|scrolls? called gen)"=bright blue
 
 
 ### Foods
 
-MENUCOLOR="wraith corpse"=yellow
-MENUCOLOR="lizard corpse"=yellow
+MENUCOLOR="wraith corpse"=bright blue
+MENUCOLOR="lizard corpse"=bright blue
 ## Maybe tin of spinach
 MENUCOLOR="a tin\b|\btins\b"=yellow
 ## The best food, you can replace all your foods with these.
-MENUCOLOR="lembas wafer"=bright magenta
-MENUCOLOR="K-ration"=bright magenta
+MENUCOLOR="lembas wafer"=bright blue
+MENUCOLOR="K-ration"=bright blue
 ## Not really foods, it's the most dangerous weapon or a cause of death.
 MENUCOLOR="c[oi]ckatrice corpse"=yellow
 MENUCOLOR="c[oi]ckatrice corpse.*\(wielded\)"=yellow&underline
@@ -761,22 +762,22 @@ MENUCOLOR="^\s*Level.*ltp"=green&reverse
 
 ## stash for stash, or books or artifacts or something.
 ## I'd annote bk-mm for magic missile or bk-id for identify etc.
-MENUCOLOR="^\s*Level.*(stash)"=bright magenta&reverse
-MENUCOLOR="^\s*Level.*(bk|book)"=bright magenta&reverse
-MENUCOLOR="^\s*Level.*art"=bright magenta&reverse
+MENUCOLOR="^\s*Level.*(stash)"=bright blue&reverse
+MENUCOLOR="^\s*Level.*(bk|book)"=bright blue&reverse
+MENUCOLOR="^\s*Level.*art"=bright blue&reverse
 ## You may use glass orb to find the portals if no spare markers.
-MENUCOLOR="^\s*Level.*item"=bright magenta&reverse
-MENUCOLOR="^\s*Level.*orb"=bright magenta&reverse
-MENUCOLOR="^\s*Level.*pick"=bright magenta&reverse
-MENUCOLOR="^\s*Level.*boh"=bright magenta&reverse
+MENUCOLOR="^\s*Level.*item"=bright blue&reverse
+MENUCOLOR="^\s*Level.*orb"=bright blue&reverse
+MENUCOLOR="^\s*Level.*pick"=bright blue&reverse
+MENUCOLOR="^\s*Level.*boh"=bright blue&reverse
 ## 1h means one unicorn horns, 3m means 3 magical polyfodders!
-MENUCOLOR="^\s*Level.*([0-9]+[hm])"=bright magenta&reverse
+MENUCOLOR="^\s*Level.*([0-9]+[hm])"=bright blue&reverse
 
 ## Foocubi, you may come later to gain level.
-MENUCOLOR="^\s*Level.*([0-9]+[hm])"=bright magenta&reverse
+MENUCOLOR="^\s*Level.*([0-9]+[hm])"=bright blue&reverse
 ## I don't kill cockatrice until I use their coprse to kill enemies.
 ## Like entering sanctum or the wizard tower.
-MENUCOLOR="^\s*Level.*(\"c\")"=bright magenta&reverse
+MENUCOLOR="^\s*Level.*(\"c\")"=bright blue&reverse
 
 ## Rodney level and Vlad entrace and Fake tower level,
 MENUCOLOR="^\s*Level.*rodney"=blue&reverse
@@ -805,27 +806,27 @@ MENUCOLOR="Vlad's Tower:"=bright blue&reverse
 MENUCOLOR="The Elemental Planes:"=bright blue&reverse
 
 ### Enhancement
-MENUCOLOR="two weapon combat.*\[.*\]"=bright magenta
-MENUCOLOR="dagger.*\[.*\]"=bright magenta
-MENUCOLOR="saber.*\[.*\]"=bright magenta
-MENUCOLOR="long sword.*\[.*\]"=bright magenta
-MENUCOLOR="divination spells.*\[.*\]"=bright magenta
+MENUCOLOR="two weapon combat.*\[.*\]"=bright blue
+MENUCOLOR="dagger.*\[.*\]"=bright blue
+MENUCOLOR="saber.*\[.*\]"=bright blue
+MENUCOLOR="long sword.*\[.*\]"=bright blue
+MENUCOLOR="divination spells.*\[.*\]"=bright blue
 
 ### Spells
-MENUCOLOR="(magic missile).*%"=bright magenta
-MENUCOLOR="(identify).*%"=bright magenta
-MENUCOLOR="(polymorph).*%"=bright magenta
-MENUCOLOR="(magic mapping).*%"=bright magenta
-MENUCOLOR="(finger of death).*%"=bright magenta
-MENUCOLOR="(create monster).*%"=bright magenta
-MENUCOLOR="(charm monster).*%"=bright magenta
+MENUCOLOR="(magic missile).*%"=bright blue
+MENUCOLOR="(identify).*%"=bright blue
+MENUCOLOR="(polymorph).*%"=bright blue
+MENUCOLOR="(magic mapping).*%"=bright blue
+MENUCOLOR="(finger of death).*%"=bright blue
+MENUCOLOR="(create monster).*%"=bright blue
+MENUCOLOR="(charm monster).*%"=bright blue
 ## Must fail
 MENUCOLOR="100%.*%"=red
 ## Confusion source
 MENUCOLOR="%.*%.*gone"=orange
 
 
-### Monsters
+### Monsters!
 ## List monsters in farlook mode.
 ## Way more faster to detect dangers.
 ## Comfortable for mindless me to only notice several annoying monsters.
@@ -851,7 +852,11 @@ MENUCOLOR="(purple worm)"=red
 MENUCOLOR="(electric eel)"=red
 ## bullwhip
 MENUCOLOR="(horned devil)"=red
-MENUCOLOR="(\btame\b) .+"=bright magenta
+MENUCOLOR="(balrog)"=red
+MENUCOLOR="(\bpeaceful\b) .+"=green
+MENUCOLOR="(\btame\b) .+"=bright blue
+MENUCOLOR="(lizard)"=yellow
+MENUCOLOR="(lizard corpse)"=bright blue
 
 ## Destroying your wands and rings.
 MENUCOLOR="(shocking sphere)"=red
@@ -860,7 +865,7 @@ MENUCOLOR="(black dragon)"=red
 ## My favorite weapon though.
 MENUCOLOR="(c(o|hi)ckatrice)"=red
 
-MENUCOLOR="(peaceful \w+ unicorn) .+"=bright magenta
+MENUCOLOR="(peaceful \w+ unicorn) .+"=bright blue
 
 
 ### Enlightment
@@ -870,13 +875,13 @@ MENUCOLOR="(You (are|were) the Hand of Elbereth)"=blue
 MENUCOLOR="(You (are|were) Envoy of Balance)"=blue
 MENUCOLOR="(You (are|were) Glory of Arioch)"=blue
 
-MENUCOLOR="(You (are|were) magic-protected)"=bright magenta
-MENUCOLOR="(You (have|had) reflection)"=bright magenta
-MENUCOLOR="(You (are|were) very fast)"=bright magenta
-MENUCOLOR="(You (have|had) free action)"=bright magenta
-MENUCOLOR="(You caused? conflict)"=bright magenta
-MENUCOLOR="(You can fly|You were flying)"=bright magenta
-MENUCOLOR="(Your life (will be|would have been) saved)"=bright magenta
+MENUCOLOR="(You (are|were) magic-protected)"=bright blue
+MENUCOLOR="(You (have|had) reflection)"=bright blue
+MENUCOLOR="(You (are|were) very fast)"=bright blue
+MENUCOLOR="(You (have|had) free action)"=bright blue
+MENUCOLOR="(You caused? conflict)"=bright blue
+MENUCOLOR="(You can fly|You were flying)"=bright blue
+MENUCOLOR="(Your life (will be|would have been) saved)"=bright blue
 
 MENUCOLOR="(You survived)"=blue
 MENUCOLOR="(the Demigod(dess)?\.{3})"=gray&reverse
@@ -911,8 +916,10 @@ MSGTYPE=stop "You have a feeling of reconciliation"
 MSGTYPE=stop "You feel more confident"
 # Important for racketing, don't dive into mine with little pets.
 MSGTYPE=stop "grows up"
-## Name the container to credit cloning.
-MSGTYPE=stop "picks up.*named midas"
+## Name the container or any expensive item to credit cloning.
+## You could just repeat pressing s or dot.
+## But you cannot name an artifact.
+MSGTYPE=stop "(drops|picks up).*named midas"
 ## Money for buying protection
 MSGTYPE=stop "You (dream that you )?hear the footsteps of a guard on patrol"
 MSGTYPE=stop "You (dream that you )?hear someone counting"
@@ -956,6 +963,15 @@ MSGTYPE=stop " (whinnies|mews|dog whines)."
 ## Scroll of scare monster
 MSGTYPE=stop "The scrolls? turns to dust as you pick it up"
 MSGTYPE=stop "The python grabs you"
+## Rodney
+MSGTYPE=stop "The Wizard of Yendor suddenly appears next to you"
+## Pet death
+MSGTYPE=stop "You hear the rumble of distant thunder"
+MSGTYPE=stop "You feel sad for a moment."
+MSGTYPE=stop ".* starves."
+MSGTYPE=stop "You have a (peculiarly)? (sad|melancholy) feeling for a moment, then it passes."
+MSGTYPE=stop "is confused from hunger."
+MSGTYPE=stop "You feel worried about your"
 
 
 ## Traps
@@ -1144,7 +1160,7 @@ AUTOPICKUP_EXCEPTION="<(wand (called|of) sleep)( named .*)?"
 MSGTYPE=stop "\-.*(wand (called|of) sleep)( named .*)?"
 
 ## It may be dangerous when monsters zap a lot create monster or read the scroll.
-AUTOPICKUP_EXCEPTION="<(create monster)( named .*)?"
+AUTOPICKUP_EXCEPTION="<(wand|scrolls?) of (create monster)( named .*)?"
 ## too annoying cuz it's plentiful.
 # MSGTYPE=stop "\-.*(create monster)( named .*)?"
 
