@@ -1,19 +1,24 @@
 # Author: Xdminsy
-# Version: 0.0.7
+# Version: 0.0.10
 #
 # See https://nethackwiki.com/wiki/Options
-# Change in-game options use `O` or `m O` in 3.7
+# Change in-game options use `O` in 3.6 and variants or `m O` in 3.7
 # Lines started by `#` are comments
 
 ### Starting characters are at end of file
 
-### Custom names, every username has only one save file, you can have multiple saves if no fixed name.
+
+## Custom names, every username has only one save file
+## You can have multiple saves if no fixed name.
+## If you don't specify name in config file
+##   nethack will ask you everytime you start the game.
 OPTIONS=name:rin
 OPTIONS=catname:pusheen
 OPTIONS=dogname:cerberus
 OPTIONS=horsename:nightmare
 OPTIONS=fruit:fruit
-WIZKIT=/home/x/.wizkit
+WIZKIT=~/.wizkit
+
 
 ### Key settings
 ## Habitual keys for items and spells
@@ -44,20 +49,73 @@ WIZKIT=/home/x/.wizkit
 ## y)
 ## z)
 
+### Variants config here, you may disable when playing specific one.
+
+### 3.7
+## Do not ask if need tutorial every game, and no farlook tip.
+# OPTIONS=!tutorial, !tip
+
+### EvilHack
+
+## Display item weight
+OPTIONS=invweight
+
+## Infidel start with a tamed lesser homunculus.
+## Wizard start with a pseudodragon.
+## Convict start with a sewer rat.
+## Depending on roles, Drow start with a large spider.
+# OPTIONS=homunname:hades,pseudoname:doragon,ratname:mickey,spidername:broodmother
+
+## When you farlook a monster, it will show it's detailed data.
+## But actually it's default true in evilhack and hackem.
+# OPTIONS=lookup_data
+
+## Show realtime, [disabled, play time, wallclock time]
+OPTIONS=realtime:play
+
+### Options.
+## As you enable altmeta, the nearly only manually typed # command is terrain.
+## Cuz only terrain has no default keybinding.
+## m for map :)
+# BIND=M-M:terrain
+BIND=%:terrain
+## I used to use alt+A to annotate in 3.7, but doesn't work in EvilHack
+## And binding M-A doesn't work in EvilHack too, so let's use !.
+BIND=!:annotate
+
+
 ## A lot of usable items if you have means to remove curse
 ## Disable bones if considering this makes game too easy
-OPTIONS=nobones
+OPTIONS=!bones
 
 ### Interface
 ## Only with curses (or tiles) can you enable permanent inventory shown on right.
 ## Nethack need be compiled with -NCURSES
+## curses: TUI (Terminal UI) for better console experience.
+## tty: plain console ui, cannot list inventory items on right
+## mswin: NetHackW.exe, GUI for windows
+## X11: GUI for *nix.
 OPTIONS=windowtype:curses
+
+
+## 0: Off, never show borders
+## 1: On, always show borders
+## 2: Auto, on if display is at least (24+2)x(80+2)
+## 3: On, except forced off for perm_invent
+## 4: Auto, except forced off for perm_invent
+OPTIONS=windowborder:1
+
+# OPTIONS=term_cols:161
+# OPTIONS=term_rows:41
 
 # OPTIONS=align_message:bottom
 OPTIONS=align_status:bottom
 
-## permanent inventory shown on right pane, don't know how to page it.
+## permanent inventory shown on right pane, you could press | and page it.
 OPTIONS=perm_invent
+
+## Popup a dialog when input.
+OPTIONS=popup_dialog
 
 ## Control all colorful functions
 OPTIONS=color
@@ -89,20 +147,37 @@ SYMBOLS=S_corr:#
 SYMBOLS=S_litcorr:#
 SYMBOLS=S_ghost:8
 
+
+### GUI settings. For windows client.
+## Make backgrounds all black, more consistently with ascii graphics.
+OPTIONS=windowcolors:menu #ffffff/#000000 message #ffffff/#000000 status #ffffff/#000000 text #ffffff/#000000
+## Disable the welcome to nethack window popup, no need to click ok every time.
+OPTIONS=!splash_screen
+## Display 10 (default 4) messages at same time, only affects window port.
+## In curses port, you just resize the terminal, and the messages will expand.
+OPTIONS=vary_msgcount:10
+
+
+
 ### Custom settings
 ## If going to wield mattock as an weapon, disable autodig
 ## Else wielding pickaxe means ready for digging something
-OPTIONS=autodig
+OPTIONS=!autodig
 
 ## Use vi-styles movement keys, hjklyubn
 ## Explitly set to override global settings in servers like nao.
 OPTIONS=number_pad:0
 
-## Skip tutorial
-OPTIONS=notutorial
 
 ## Check for door traps before hand, or not carelessly bump into a closed door
 OPTIONS=!autoopen
+
+## If you really want rest, press . or s
+OPTIONS=!rest_on_space
+
+## Auto display a list of items if the count is less than pile_limit.
+## Highly depends on your terminal size.
+Options=pile_limit:10
 
 
 ## Okay I don't know what exactly this option do
@@ -125,6 +200,19 @@ OPTIONS=safe_pet
 ## No annoying terminal's beep
 OPTIONS=silent
 
+## Enable travel, press _ and then select the destination to travel to.
+OPTIONS=travel
+
+## runmode: teleport, run, walk, crawl
+## the teleport is the fastest when travelling.
+OPTIONS=runmode:teleport
+
+## Instead of @, you are represented by h or G if playing dwarf or gnome.
+## You may accidentaly bless genocide h as a dwarf and suicide.
+## I typically only play human so whatever :)
+## But in 3.7 the mind flayers cannot make you amnesia so not worth genociding.
+OPTIONS=!showrace
+
 ## Display certain things in reverse video
 OPTIONS=use_inverse
 
@@ -136,6 +224,12 @@ OPTIONS=hilite_pet
 
 ## Use inverse for piles of items
 OPTIONS=hilite_pile
+
+## If you like the the animated magical attacks, you could enable these.
+OPTIONS=!sparkle, !timed_delay
+
+## Skip farsight when clairvoyance occurs.
+OPTIONS=quick_farsight
 
 ## Sort items by name. One of "none", "loot", or "full"
 #OPTIONS=sortloot:full
@@ -190,8 +284,11 @@ OPTIONS=toptenwin
 ### Colored menus. Regular expressions allowed.
 OPTIONS=menu_headings:inverse
 OPTIONS=menucolors
+
+
+
 ## Highlight gold in inventory, avoid highlight in peek object list.
-MENUCOLOR="gold pieces?$"=yellow
+MENUCOLOR="gold pieces?( \(.* aum\))?$"=yellow
 MENUCOLOR="[Bb]lessed"=cyan
 MENUCOLOR="[Hh]oly"=cyan
 # MENUCOLOR=" \+[1-9] "=lightcyan
@@ -199,10 +296,198 @@ MENUCOLOR="[Hh]oly"=cyan
 MENUCOLOR="[Cc]ursed"=red
 MENUCOLOR="[Uu]nholy"=red
 MENUCOLOR="[Uu]ncursed"=green
-MENUCOLOR=".*(being worn|\(wielded|weapon in hand|\(lit\)|on.*hand)"=gray&underline
-MENUCOLOR="[Cc]ursed.*(being worn|\(wielded|weapon in hand|\(lit\)|on.*hand)"=red&underline
-MENUCOLOR="[Uu]ncursed.*(being worn|\(wielded|weapon in hand|\(lit\)|on.*hand)"=green&underline
-MENUCOLOR="[Bb]lessed.*(being worn|\(wielded|weapon in hand|\(lit\)|on.*hand)"=cyan&underline
+MENUCOLOR=".*(being worn|\(wielded|weapon in|lit\)|\(on (left|right)|at the ready|in quiver)"=gray&underline
+MENUCOLOR="[Cc]ursed.*(being worn|\(wielded|weapon in|lit\)|\(on (left|right)|at the ready|in quiver)"=red&underline
+MENUCOLOR="[Uu]ncursed.*(being worn|\(wielded|weapon in|lit\)|\(on (left|right)|at the ready|in quiver)"=green&underline
+MENUCOLOR="[Bb]lessed.*(being worn|\(wielded|weapon in|lit\)|\(on (left|right)|at the ready|in quiver)"=cyan&underline
+
+
+### Monsters!
+## Name of some items may contain the monster name, so place before items.
+## List monsters in farlook mode.
+## Way more faster to detect dangers.
+## Comfortable for mindless me to only notice several annoying monsters.
+## Bright blue indicates bosses, cyan means good, red means dangerous.
+
+## At night 22:00-5:59, they can remove your intrinsics.
+MENUCOLOR="(gremlin)"=red
+MENUCOLOR="([Ll]ich\b)"=red
+## Be very careful when you have no reflection.
+MENUCOLOR="(Medusa)"=bright blue
+MENUCOLOR="(nymph)"=red
+## May take your armor off, and may stone you if you wield a c corpse.
+MENUCOLOR="((in|suc)cub(us|i))"=red
+
+## Werecreatures are no joke in early game, and weredemons in evilhack are evil.
+MENUCOLOR="(were(rat|jackal|wolf|demon))"=red
+
+MENUCOLOR="(Archon)"=red
+
+## Bosses
+MENUCOLOR="(Croesus)"=bright blue
+MENUCOLOR="(Wizard of Yendor)"=bright blue
+MENUCOLOR="(Vlad the Impaler)"=bright blue
+
+## Demons
+MENUCOLOR="(Juiblex)"=bright blue
+MENUCOLOR="(Baalzebub)"=bright blue
+MENUCOLOR="(Geryon)"=bright blue
+MENUCOLOR="(Dispater)"=bright blue
+MENUCOLOR="(Yeenoghu)"=bright blue
+MENUCOLOR="(Asmodeus)"=bright blue
+MENUCOLOR="(Demogorgon)"=bright blue
+MENUCOLOR="(Lucifer)"=bright blue
+MENUCOLOR="(Orcus)"=bright blue
+
+## Riders
+MENUCOLOR="(Death)"=bright blue
+MENUCOLOR="(Pestilense)"=bright blue
+MENUCOLOR="(Famine)"=bright blue
+
+
+
+
+
+## Paralyse you, make sure to kill all shades before Orcus, or quaff to wake Orcus up and kill him quickly.
+## Otherwise while you're paralysing, Orcus may summon Yeenoghu and Demogorgon.
+MENUCOLOR="(shade)"=red
+## May instakill your pets, but also a good choice as a pet.
+MENUCOLOR="(purple worm)"=red
+## The only problem of ;
+## Which may destroy your escape wands and ring of levitation.
+MENUCOLOR="(electric eel)"=red
+## bullwhip
+MENUCOLOR="(horned devil)"=red
+MENUCOLOR="(balrog)"=red
+
+MENUCOLOR="(\bpeaceful\b) .+"=green
+
+MENUCOLOR="(\btame\b) .+"=cyan
+
+
+MENUCOLOR="(lizard)"=yellow
+## Good item. Always carry one in open inventory.
+MENUCOLOR="(lizard corpse)"=bright blue
+
+MENUCOLOR="(high priest)"=red
+
+
+## Destroying your wands and rings.
+MENUCOLOR="(shocking sphere)"=red
+## Take care if you have no reflection.
+MENUCOLOR="(black dragon)"=red
+## My favorite weapon though :P.
+MENUCOLOR="(c(o|hi)ckatrice)"=red
+
+MENUCOLOR="(minotaur)"=red
+
+MENUCOLOR="(peaceful \w+ unicorn) .+"=cyan
+
+### Quest leader and nemesis
+## Archeologist
+MENUCOLOR="(Lord Carnarvon)"=bright blue
+MENUCOLOR="(Minion of Huhetotl)"=bright blue
+## Barbarian
+MENUCOLOR="(Pelias)"=bright blue
+MENUCOLOR="(Thoth Amon)"=bright blue
+## Caveman
+MENUCOLOR="(Shaman Karnov)"=bright blue
+MENUCOLOR="(Chromatic Dragon)"=bright blue
+## Convict
+MENUCOLOR="(Robert the Lifer)"=bright blue
+MENUCOLOR="(Warden Arianna)"=bright blue
+## Healer
+MENUCOLOR="(Hippocrates)"=bright blue
+MENUCOLOR="(Cyclops)"=bright blue
+## Infidel
+MENUCOLOR="(Archbishop of Moloch)"=bright blue
+MENUCOLOR="(Paladin of Anu)"=bright blue
+## Knight
+MENUCOLOR="(King Arthur)"=bright blue
+MENUCOLOR="(Ixoth)"=bright blue
+## Monk
+MENUCOLOR="(Grand Master)"=bright blue
+MENUCOLOR="(Master Kaen)"=bright blue
+## Priest
+MENUCOLOR="(Arch Priest)"=bright blue
+MENUCOLOR="(Nalzok)"=bright blue
+## Ranger
+MENUCOLOR="(Orion)"=bright blue
+MENUCOLOR="(Scorpius)"=bright blue
+## Rogue
+MENUCOLOR="(Master of Thieves)"=bright blue
+MENUCOLOR="(Master Assassin)"=bright blue
+## Samurai
+MENUCOLOR="(Lord Sato)"=bright blue
+MENUCOLOR="(Ashikaga Takauji)"=bright blue
+## Tourist
+MENUCOLOR="(Twoflower)"=bright blue
+MENUCOLOR="(Master of Thieves)"=bright blue
+## Valkyrie
+MENUCOLOR="(Norn)"=bright blue
+MENUCOLOR="(Lord Surtur)"=bright blue
+## Wizard
+MENUCOLOR="(Neferet the Green)"=bright blue
+MENUCOLOR="(Dark One)"=bright blue
+
+
+
+## |EvilHack|
+MENUCOLOR="(water elemental)"=red
+MENUCOLOR="(gelatinous cube)"=red
+MENUCOLOR="( dragon)"=red
+MENUCOLOR="(vorpal jabberwock)"=red
+MENUCOLOR="(shambling horror)"=red
+MENUCOLOR="(magical eye)"=red
+MENUCOLOR="(beholder)"=red
+MENUCOLOR="(magical eye)"=red
+MENUCOLOR="(alhoon)"=red
+MENUCOLOR="(neothelid)"=red
+MENUCOLOR="(basilisk)"=red
+MENUCOLOR="(Archangel)"=red
+MENUCOLOR="(snow golem)"=red
+MENUCOLOR="(salamander)"=red
+
+
+## |EvilHack| Bosses
+MENUCOLOR="(Goblin King)"=bright blue
+MENUCOLOR="(Kas)"=bright blue
+MENUCOLOR="(Vecna)"=bright blue
+MENUCOLOR="(Kathryn)"=bright blue
+MENUCOLOR="(Bourdon)"=bright blue
+MENUCOLOR="(Ozzy)"=bright blue
+MENUCOLOR="(Cerberus)"=bright blue
+MENUCOLOR="(Aphrodite)"=bright blue
+MENUCOLOR="(The Abominable Snowman)"=bright blue
+MENUCOLOR="(Charon)"=bright blue
+MENUCOLOR="(The Rat King)"=bright blue
+MENUCOLOR="(Cerberus)"=bright blue
+
+
+### |EvilHack| Player monsters
+MENUCOLOR="[Aa]rcheologist called"=red
+MENUCOLOR="[Bb]arbarian called"=red
+MENUCOLOR="[Cc]aveman called"=red
+MENUCOLOR="[Cc]onvict called"=red
+MENUCOLOR="[Hh]ealer called"=red
+MENUCOLOR="[Ii]nfidel called"=red
+MENUCOLOR="[Kk]night called"=red
+MENUCOLOR="[Mm]onk called"=red
+MENUCOLOR="[Pp]riest called"=red
+MENUCOLOR="[Rr]anger called"=red
+MENUCOLOR="[Rr]ogue called"=red
+MENUCOLOR="[Ss]amurai called"=red
+MENUCOLOR="[Tt]ourist called"=red
+MENUCOLOR="[Vv]alkyrie called"=red
+MENUCOLOR="[Ww]izard called"=red
+
+## |EvilHack| Demons
+MENUCOLOR="(Baphomet)"=bright blue
+MENUCOLOR="(Lolth)"=bright blue
+MENUCOLOR="(Mephistopheles)"=bright blue
+MENUCOLOR="(Tiamat)"=bright blue
+MENUCOLOR="(Graz.zt)"=bright blue
+
 
 ## Luckstone
 MENUCOLOR="luckstone|called luck"=bright blue
@@ -212,34 +497,27 @@ MENUCOLOR="loadstone|called load"=red
 ## Be careful to every unidentified graystone
 MENUCOLOR="gray stone"=red
 
-## May blow up bag of holding
-MENUCOLOR="wand of cancellation"=red
-MENUCOLOR="(named|called) cancel"=red
-MENUCOLOR="bag of tricks"=red
-## Once I price-id a steel wand and named steel 200, forget to engrave-id it.
-## And blow up my boh, so should be careful to 200 wands.
-## The better is to remeber engraving test all wands.
-MENUCOLOR="wand called .* (200|vanish)"=red
-
 ## Same race as human
-MENUCOLOR="doppelganger"=red
+MENUCOLOR="doppelganger corpse"=red
+MENUCOLOR="were.* corpse"=red
 
-## Gems, if you like
+## I don't bother with gems color, just make yellow to distinguish from glasses.
+## Throwing gems at co-aligned unicorn is the best way to increase luck.
 MENUCOLOR="dilithium crystal"=yellow
 # So why do I often name the diamonds?
-MENUCOLOR="diamonds?( named.*)?$"=yellow
-MENUCOLOR="ruby$|rubies$"=yellow
+MENUCOLOR="diamonds?( named.*)?( \(.* aum\))?$"=yellow
+MENUCOLOR="(rub(y|ies))( named.*)?( \(.* aum\))?$"=yellow
 MENUCOLOR="jacinth stone"=yellow
-MENUCOLOR="sapphires?$"=yellow
+MENUCOLOR="sapphires?( named.*)?( \(.* aum\))?$"=yellow
 MENUCOLOR="black opal"=yellow
-MENUCOLOR="emeralds?( worth.*)?$"=yellow
+MENUCOLOR="emeralds?( worth.*)?( named.*)?( \(.* aum\))?$"=yellow
 MENUCOLOR="turquoise stone"=yellow
 MENUCOLOR="citrine"=yellow
 MENUCOLOR="aquamarine"=yellow
 MENUCOLOR="amber stone"=yellow
 MENUCOLOR="topaz stone"=yellow
 MENUCOLOR="jet stone"=yellow
-MENUCOLOR="opals?( worth.*)?$"=yellow
+MENUCOLOR="opals?( worth.*)?( named.*)?( \(.* aum\))?$"=yellow
 MENUCOLOR="chrysoberyl"=yellow
 MENUCOLOR="garnet stone"=yellow
 MENUCOLOR="amethyst|stone called ame"=yellow
@@ -273,23 +551,39 @@ MENUCOLOR="horn (of|called) plenty"=yellow
 ## Normal tools
 ## Collect to -2 luck in demand if you don't wanna crown when altar farming.
 MENUCOLOR="(mirror|looking glass)"=yellow
+## For credit cloning :), weighs 300, comparing to 600 aum chest.
+MENUCOLOR="(large box)"=yellow
+
+## Two containers in EvilHack that cannot be opened by normal unlocking tools.
+## Iron safe need stethoscope and crystal chest need magical unlocking means.
+MENUCOLOR="(iron safe)"=yellow
+MENUCOLOR="(crystal chest)"=yellow
+
+## |EvilHack|
+## Wizard know magical items, they are items of special object property.
+## Like a t-shirt of drain resistance.
+MENUCOLOR="(magical)"=yellow
+MENUCOLOR="(magical).*(being worn|\(wielded|weapon in|lit\)|\(on (left|right)|at the ready|in quiver)"=yellow&underline
 
 ## Magical boots
-MENUCOLOR="(mud|snow|riding|buckled|hiking|combat|jungle) boots"=yellow
+MENUCOLOR="(mud|snow|riding|buckled|hiking|combat|jungle|logger) boots"=yellow
+MENUCOLOR="(mud|snow|riding|buckled|hiking|combat|jungle|logger) boots(.*)\(being worn"=yellow&underline
 MENUCOLOR="elven boots|boots called elven"=yellow
-MENUCOLOR="(elven boots|boots called elven)(.*)\(being worn\)"=yellow&underline
+MENUCOLOR="(elven boots|boots called elven)(.*)\(being worn"=yellow&underline
 MENUCOLOR="fumble boots|boots called fumble"=yellow
 MENUCOLOR="jumping boots|boots called jump"=yellow
 MENUCOLOR="kicking boots|boots called kick"=yellow
 MENUCOLOR="levitation boots|boots called lev"=yellow
+MENUCOLOR="(levitation boots|boots called lev)(.*)\(being worn"=yellow&underline
 MENUCOLOR="speed boots|boots called speed"=yellow
 MENUCOLOR="water walking boots|boots called water"=yellow
 
 ## Cloaks
 MENUCOLOR="tattered cape|ornamental cope|opera cloak|piece of cloth"=yellow
 MENUCOLOR="alchemy smock|apron"=yellow
-MENUCOLOR="cloak of displacement"=yellow
-MENUCOLOR="cloak of invisibility|cloak called inv"=yellow
+MENUCOLOR="cloak (called|of) displace"=yellow
+MENUCOLOR="(cloak of invisibility|cloak called inv)"=yellow
+MENUCOLOR="(cloak of invisibility|cloak called inv)(.*)\(being worn"=yellow&underline
 MENUCOLOR="cloak of magic resistance|called comr"=yellow
 MENUCOLOR="cloak of protection|called prot"=yellow
 MENUCOLOR="elven cloak|faded pall"=yellow
@@ -299,10 +593,12 @@ MENUCOLOR="robe"=yellow
 ## Armors
 MENUCOLOR="mithril-coat"=yellow
 MENUCOLOR="mithril-coat \(being worn\)"=yellow&underline
-MENUCOLOR="^[Ccursed].*mithril-coat \(being worn\)"=red&underline
+MENUCOLOR="^[Ccursed].*mithril-coat \(being worn"=red&underline
+
 
 ## Gloves
-MENUCOLOR="(old|padded|riding|fencing) gloves"=yellow
+MENUCOLOR="(old|padded|riding|fencing|falconry|boxing) gloves"=yellow
+MENUCOLOR="(old|padded|riding|fencing|falconry|boxing) gloves(.*)\(being worn"=yellow&underline
 MENUCOLOR="gloves called (dex|fumbl|power)"=yellow
 MENUCOLOR="gauntlets of (dexterity|fumbling|power)"=yellow
 
@@ -314,7 +610,21 @@ MENUCOLOR="dunce cap"=orange
 
 
 
+
 ### Ascension kits
+
+### Materials
+## Materials in EvilHack, or some other variants, haven't play that much.
+## These lines should place before objects.
+MENUCOLOR="(dragonhide .*)"=bright blue
+MENUCOLOR="(dragonhide .*).*(being worn|\(wielded|weapon in|lit\)|\(on (left|right)|at the ready|in quiver)"=bright blue&underline
+
+## There're some mithril weapons, so only yellow if not being worn.
+MENUCOLOR="(mithril .*)"=yellow
+MENUCOLOR="(mithril .*).*(\(being worn|\(wielded|weapon in|lit\)|\(on (left|right)|at the ready|in quiver)"=bright blue&underline
+## You can wear cloth helm to see if it is oilskin, oilskin one can protect from h.
+MENUCOLOR="(cloth .*(hat|helm|dented pot|dunce cap|skull cap|toque))"=yellow
+MENUCOLOR="(cloth .*(hat|helm|dented pot|dunce cap|skull cap|toque))( named .*)? \((being worn|weapon in)"=bright blue&underline
 
 ### Cloak
 
@@ -329,23 +639,33 @@ MENUCOLOR="dunce cap"=orange
 ## Your quest artifact may be stolen by Rodney, then casting touch of death.
 ## Still be careful to foocubi may be summoned nasties and take off your cloak.
 MENUCOLOR="(cloak of magic resistance|called comr)"=bright blue
-MENUCOLOR="(cloak of magic resistance|called comr)( named .*)? \(being worn\)"=bright blue&underline
+MENUCOLOR="(cloak of magic resistance|called comr).*\(being worn"=bright blue&underline
 
 ## Often wear a small time when casting spells, if you play a melee role.
 ## Or I may wearing this for magic mapping gehennom.
 ## But I'd switch back to comr when and after killing Rodney.
 MENUCOLOR="(robe)"=bright blue
-MENUCOLOR="(robe)( named .*)? \(being worn\)"=bright blue&underline
+MENUCOLOR="(robe).*\(being worn\)"=bright blue&underline
 
 ## Maybe useful if you lack ranged attacks but have powerful enough melee attacks.
 ## Not such useful, hardly lose expierence level when MC1.
 ## It's still acceptable if you only attack in melee.
 MENUCOLOR="(cloak of protection)"=bright blue
-MENUCOLOR="(cloak of protection)( named .*)? \(being worn\)"=bright blue&underline
+MENUCOLOR="(cloak of protection).*\(being worn\)"=bright blue&underline
 
 ## You'd better switch to another more useful cloak in late game.
 MENUCOLOR="(cloak of displacement)"=yellow
-MENUCOLOR="(cloak of displacement)( named .*)? \(being worn\)"=yellow&underline
+MENUCOLOR="(cloak of displacement).*\(being worn\)"=yellow&underline
+
+## May not be ideal ascension kit, but it provide extrinsic poison resistance.
+## You can then eat poisonous corpses to gain intrinsic one.
+## And very helpful in EvilHack where you are much harder to gain resistance.
+MENUCOLOR="alchemy smock|apron"=yellow
+MENUCOLOR="(alchemy smock|apron( named .*)?) \(being worn\)"=yellow&underline
+
+
+
+### Amulets.
 
 ## Favorite amulet is flying, once find, wear to the end!
 ## You may switch to "oLS once land on the Astral plane.
@@ -363,20 +683,48 @@ MENUCOLOR="(amulet of reflection|called reflection|called ref)( named .*)? \(bei
 ## Real Amulet of Yendor, name the real once picked it up!
 MENUCOLOR="Amulet of Yendor named"=blue
 MENUCOLOR="Amulet of Yendor named.*\(being worn\)"=blue&underline
+## |EvilHack|
+MENUCOLOR="(amulet of magic resistance)( named .*)?"=bright blue
+MENUCOLOR="(amulet of magic resistance)( named .*)? \(being worn\)"=bright blue&underline
+
 
 ## Body armor
 
 ## Because the amulet slot is for flying.
-## So this is the only options for reflection.
-# MENUCOLOR="(silver dragon scale mail)"=red
+## I typically only use silver dragon scale mail in 3.7
+## And preserve the option that switch amulet to life saving in astral plane.
+## But in 3.6 there's no flying and the gehennom has much less lava.
+## You can choose gdsm + "ofReflection
+# MENUCOLOR="(silver dragon scale mail)"=bright blue
 MENUCOLOR="(dragon scale mail)"=bright blue
-MENUCOLOR="(dragon scale mail)( named .*)? \(being worn\)"=bright blue&underline
+MENUCOLOR="(dragon scale mail)( named .*)? \(being worn"=bright blue&underline
 
 ## If you are roles who choose a reflection shield.
 ## Or if you like rings of levitation and relfection.
 ## And a great early wish if you afraid sdsm may degrade due to polytrap.
-# MENUCOLOR="(gray dragon scale mail)"=red
-MENUCOLOR="(gray dragon scale mail)( named .*)? \(being worn\)"=bright blue&underline
+MENUCOLOR="(gray dragon scale mail)"=bright blue
+MENUCOLOR="(gray dragon scale mail)( named .*)? \(being worn"=bright blue&underline
+
+## |EvilHack|
+## In Evilhack and some other variants, there're no longer dragon scale mail.
+## Instead that we merge dragon scales into existed armor.
+## So typically one may choose mithril plate mail, crystal plate mail,
+##   dragonhide studded armor, dark elven tunic, mithril dwarven chain mail, etc.
+## And then merge dragon scales onto them.
+MENUCOLOR="(\-scaled)"=bright blue
+MENUCOLOR="(\-scaled).* \(being worn"=bright blue&underline
+
+## |EvilHack|
+## The best artifact torso armor in EvilHack.
+## Created by forging The Sword of Annihilation and Ashmar together.
+## But, SoA seems better to disintergrate enemies.
+## It's really hard to kill tough monster with -40 AC.
+## And AoR cannot be dragon-scaled, so MR and Reflection cannot be provided this slot.
+MENUCOLOR="(Armor of Retribution)"=bright blue
+MENUCOLOR="(Armor of Retribution)( named .*)? \(being worn\)"=bright blue&underline
+
+
+### Boots
 
 ## The only permenanent source of very fast speed.
 ## You get an extra turn most of the time.
@@ -390,20 +738,41 @@ MENUCOLOR="(speed boots)( named .*)? \(being worn\)"=bright blue&underline
 MENUCOLOR="(jumping boots|called jump(ing)?)"=bright blue
 MENUCOLOR="(jumping boots|called jump(ing)?)( named .*)? \(being worn\)"=bright blue&underline
 
-## Shirt! There are plentiful shirt if polyjunk, so only enchanted are highlit.
+
+## You can walk directly onto water, and if it is fixed, you can cross lava.
+## Typically not part of ascension kit in vanilla cuz you need speed boots.
+## But in EvilHack there's helm of speed, and giant race may require this.
+MENUCOLOR="(boots called (water|ww)|water walking boots)"=yellow
+MENUCOLOR="(boots called (water|ww)|water walking boots)( named .*)? \(being worn\)"=bright blue&underline
+
+
+
+
+
+
+### Shirt!
+
+##There are plentiful shirt if polyjunk, so only enchanted are highlit.
+## And usually you can wish a t-shirt of decay in EvilHack to obtain drain resistance.
 MENUCOLOR="(shirt)( named .*)?"=yellow
-MENUCOLOR="(\+[1-9].*shirt)( named .*)?"=bright blue
-MENUCOLOR="(\+[1-9].*shirt)( named .*)?.*\(being worn\)"=bright blue&underline
+MENUCOLOR="(shirt)( named .*)?.*\(being worn\)"=yellow&underline
+MENUCOLOR="((\+[1-9].*shirt)|shirt of)( named .*)?"=bright blue
+MENUCOLOR="((\+[1-9].*shirt)|shirt of)( named .*)?.*\(being worn\)"=bright blue&underline
+
+
+
+
+### Shield
 
 ## Shield of reflection are only for roles neither cast spells nor two-weapon.
 ## It has a very high spellcasting penalty.
 ## Or if you unfortunately got a boh instead of reflection from sokoban.
 ## Looking for a shield of reflection in medusa's island.
 ## Otherwise you may very likely face death ray or other nasty wands.
-MENUCOLOR="(shield of reflection|polished silver shield|smooth shield)( named .*)?"=bright blue
-MENUCOLOR="(shield of reflection|polished silver shield|smooth shield)( named .*)? \(being worn\)"=bright blue&underline
+MENUCOLOR="(shield of reflection|polished( silver)? shield|smooth shield)( named .*)?"=bright blue
+MENUCOLOR="(shield of reflection|polished( silver)? shield|smooth shield)( named .*)? \(being worn\)"=bright blue&underline
 
-## If you are wizard or a role you can't two-weapon and cast spells a lot.
+## If you are wizard or a role you can't two-weapon but cast spells a lot.
 ## The small shield is the only option. Or you can ditch shields at all.
 MENUCOLOR="\+[1-9].*(small shield)( named .*)?"=bright blue
 MENUCOLOR="\+[1-9].*(small shield)( named .*)? \(being worn\)"=bright blue&underline
@@ -413,12 +782,24 @@ MENUCOLOR="\+[1-9].*(elven shield|blue and green shield)( named .*)?"=bright blu
 MENUCOLOR="\+[1-9].*(elven shield|blue and green shield)( named .*)? \(being worn\)"=bright blue&underline
 
 
+## |Evilhack| Shield of light gives off light,
+##   if you can jump or need to zap some attack spells.
+MENUCOLOR="(shiny shield|shield of light)"=yellow
+MENUCOLOR="\+[1-9].*(shiny shield|shield of light)( named .*)?"=bright blue
+MENUCOLOR="\+[1-9].*(shiny shield|shield of light)( named .*)? \(being worn"=bright blue&underline
+
+
+## |EvilHack| Shield of mobility provides free action, and it's very vital.
+MENUCOLOR="(slippery shield|shield of mobility)"=bright blue
+MENUCOLOR="\+[1-9].*(slippery shield|shield of mobility)( named .*)? \(being worn"=bright blue&underline
+
 ### Helms
 ## Be careful to every unknown magical helms, you may lose protections.
 
-## My first choice is brilliance, but not worth wishing if not casting too much.
+## Very useful for wizards, or other roles casting spells a lot.
 MENUCOLOR="(helm of brilliance|called brilliance|called hob)( named .*)?"=bright blue
 MENUCOLOR="(helm of brilliance|called brilliance|called hob)( named .*)? \(being worn\)"=bright blue&underline
+
 ## Betray on astral plane to ascend simpler lol.
 ## Or if farming a lot you can get some opposite artefacts.
 ## But be aware this will lose all intrinsic protections.
@@ -432,8 +813,21 @@ MENUCOLOR="(helm of telepathy|called tele|called hot)( named .*)? \(being worn\)
 MENUCOLOR="(cornuthaum|called cornuthaum)( named .*)?"=bright blue
 MENUCOLOR="(cornuthaum|called cornuthaum)( named .*)? \(being worn\)"=bright blue&underline
 ## Elven armors can be safely enchant to +7
-MENUCOLOR="(leather (hat|helm))( named .*)? \(being worn\)"=bright blue&underline
+## Usually part of ascension kit if you don't cast spells.
+MENUCOLOR="\+[1-9].*(elven leather helm|leather hat)( named .*)?"=bright blue
+MENUCOLOR="(elven leather helm|leather hat)( named .*)? \(being worn\)"=bright blue&underline
 
+## Very important and useful in EvilHack, and some races cannot wear boots.
+## First choice helm in EvilHack :)
+MENUCOLOR="(helm of speed|helm called speed|called hos)( named .*)?"=bright blue
+MENUCOLOR="(helm of speed|helm called speed|called hos) \(being worn\)"=bright blue&underline
+
+## |EvilHack| |3.6|
+## Oilskin helm is great against mind flayers and alhoons.
+## They can no longer eat your brains.
+## And wearing oilskin cloak can make sea monsters unable to grab you and drown you.
+MENUCOLOR="\+[1-9].*(oilskin.*)( named .*)?"=bright blue
+MENUCOLOR="(oilskin.*)( named .*)? \(being worn\)"=bright blue&underline
 
 ### Gloves
 ## Check if you have wearing gloves before picking up or stepping into
@@ -445,8 +839,31 @@ MENUCOLOR="(gauntlets of dexterity|called dex)"=bright blue
 MENUCOLOR="(gauntlets of dexterity|called dex)( named .*)? \(being worn"=bright blue&underline
 MENUCOLOR="(gauntlets of power)"=bright blue
 MENUCOLOR="(gauntlets of power)( named .*)? \(being worn"=bright blue&underline
-MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)"=bright blue
-MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)( named .*)? \(being worn"=bright blue&underline
+MENUCOLOR="\+[1-9].*((leather|archer) gloves|called (leather|archer)|yugake)"=bright blue
+MENUCOLOR="\+[1-9].*((leather|archer) gloves|called (leather|archer)|yugake)( named .*)? \(being worn"=bright blue&underline
+
+## |EvilHack|
+## MC3 gloves in Evilhack, but gloves slot is typically saved for Dragonbane or the Hand of Vecna.
+MENUCOLOR="(gauntlets of protection|called pro)"=bright blue
+MENUCOLOR="(gauntlets of protection|called pro)( named .*)? \(being worn"=bright blue&underline
+
+## |NetHack| |EvilHack|
+## Dragonbane is a broadsword in vanilla providing reflection.
+## A good weapon if you currently have no reflection nor magic resistance.
+## But in EvilHack it's a pair of dragonhide gloves that provides reflection
+##     warns against dragons, and provides acid resistance.
+## The reflection in gloves slot, and acid resistance is crucial in Evilhack.
+## Made it a most favorable armors for me.
+MENUCOLOR="(Dragonbane)"=bright blue
+MENUCOLOR="(Dragonbane)( named .*)? \(being worn"=bright blue&underline
+
+## |EvilHack|
+## Forged by Dragonbane and Grayswandir.
+## Made of silver, and when worn, grants the wearer giant strength, reflection,
+##     death magic resistance, and spell power regeneration
+## Does not inhibit spell casting while worn.
+MENUCOLOR="(Gauntlets of Purity)"=bright blue
+MENUCOLOR="(Gauntlets of Purity)( named .*)? \(being worn\)"=bright blue&underline
 
 
 ### Weapons
@@ -455,8 +872,8 @@ MENUCOLOR="\+[1-9].*(leather gloves|called leather|yugake)( named .*)? \(being w
 ## And can easily achieve one from a captain.
 ## Other choice can be silver spear or katana.
 MENUCOLOR="silver (saber|spear|dagger)"=bright blue
-MENUCOLOR="silver (saber|spear|dagger) \(weapon in hand\)|silver (saber|spear|dagger) \(wielded"=bright blue&underline
-MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? \(wielded"=bright blue&underline
+MENUCOLOR="silver (saber|spear|dagger) \(weapon in|silver (saber|spear|dagger) \(wielded"=bright blue&underline
+MENUCOLOR="silver saber( named .*)? \(weapon in|silver saber( named .*)? \(wielded"=bright blue&underline
 
 
 ## My favorite weapons, Grayswandir + silver saber!
@@ -467,11 +884,11 @@ MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? 
 ## -20 to-hit penalty for body armor and -3 for unskilled, didn't stop me killing everything.
 ## Though actually -2 damage is crucial you'd better use Frosty or something else if unskilled.
 MENUCOLOR="Grayswandir"=bright blue
-MENUCOLOR="Grayswandir \(weapon in hand\)|Grayswandir \(wielded"=bright blue&underline
+MENUCOLOR="Grayswandir \(weapon in|Grayswandir \(wielded"=bright blue&underline
 
 ## My second favorite weapon is Frosty, as it has enough damage.
 MENUCOLOR="((Frost|Fire) Brand)"=bright blue
-MENUCOLOR="((Frost|Fire) Brand) \(weapon in hand\)|((Frost|Fire) Brand) \(wielded"=bright blue&underline
+MENUCOLOR="((Frost|Fire) Brand) \(weapon in|((Frost|Fire) Brand) \(wielded"=bright blue&underline
 
 
 ## My favorite weapons, Grayswandir + silver saber!
@@ -482,8 +899,8 @@ MENUCOLOR="((Frost|Fire) Brand) \(weapon in hand\)|((Frost|Fire) Brand) \(wielde
 ## -20 to-hit penalty for body armor and -3 for unskilled, didn't stop me killing everything.
 ## Though actually -2 damage is crucial you'd better use Frosty or something else if unskilled.
 MENUCOLOR="Grayswandir"=bright blue
-MENUCOLOR="Grayswandir \(weapon in hand\)|Grayswandir \(wielded"=bright blue&underline
-MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? \(wielded"=bright blue&underline
+MENUCOLOR="Grayswandir \(weapon in|Grayswandir \(wielded"=bright blue&underline
+MENUCOLOR="silver saber( named .*)? \(weapon in|silver saber( named .*)? \(wielded"=bright blue&underline
 
 
 ## For wizard, find an altar and sacrifice for Magicbane as soon as possible.
@@ -494,7 +911,7 @@ MENUCOLOR="silver saber( named .*)? \(weapon in hand\)|silver saber( named .*)? 
 ## Magicbane may be disarmed by bullwhip by horned devil or archeaologist.
 ## Also preventing you to wield a cockatrice corpse or potion of paralysis.
 MENUCOLOR="Magicbane"=bright blue
-MENUCOLOR="Magicbane \(weapon in hand\)|Magicbane \(wielded"=bright blue&underline
+MENUCOLOR="Magicbane \(weapon in|Magicbane \(wielded"=bright blue&underline
 
 
 ## Second favorite two-weaponing build, Excalibur + katana.
@@ -505,32 +922,95 @@ MENUCOLOR="Magicbane \(weapon in hand\)|Magicbane \(wielded"=bright blue&underli
 ## The search is extremely useful, often prevents me stepping into polytraps several times when I have no MR.
 ## Say The Lady of Lake loves lawful dungeneers equally, so do I.
 MENUCOLOR="Excalibur"=bright blue
-MENUCOLOR="Excalibur \(weapon in hand\)|Excalibur \(wielded"=bright blue&underline
+MENUCOLOR="Excalibur \((weapon in|wielded)"=bright blue&underline
 
 ## Katana has the highest damage among non-artifact one-handed weapons.
 ## Katana often performs better than silver saber outside Gehennom.
 MENUCOLOR="katana"=bright blue
-MENUCOLOR="katana( named.*)? (\(weapon in hand\)|\(wielded)"=bright blue&underline
+MENUCOLOR="katana( named.*)? (\(weapon in|\(wielded)"=bright blue&underline
+
+## poison instadeath is very useful in 3.6, and especially in EvilHack
+## Monsters in Evilhack calculate AC as like you,
+##   so you can very hardly kill a -40 AC player monster.
+## And there're many nasty passive attack, like passive cancel of gray dragon,
+##   passive disintergrate of black dragon, poisoned darts are very useful.
+MENUCOLOR="(((poisoned)? \+[2-9] darts?)|(darts? of venom))( named .*)?"=bright blue
+MENUCOLOR="(((poisoned)? \+[2-9] darts?)|(darts? of venom))( named .*)? \((weapon in|wielded|at the ready)"=bright blue&underline
+
+
+## |EvilHack|
+## An artifact trident that warns of Angels, confers automatic searching and
+##   half-spell damage, and does extra fire damage to targets that are
+##   susceptible. There is a 5% chance that a Balrog may spawn with this artifact.
+## 1d5 to-hit and 1d10 damage bonus, and the fire extra damage is subject to any monster.
+##
+## So in EvilHack, it has very high damage, often dual-wield with Sword of Annihilation.
+## And the valkyrie quest artifact Gjallar, has no half spell damage.
+MENUCOLOR="(Angelslayer)"=bright blue
+MENUCOLOR="(Angelslayer) \(weapon in|(Angelslayer) \(wielded"=bright blue&underline
+
+## Mjollnir has very high base damage, it's very useful gifts for neutral.
+## Especially neutral valkyrie,  guranteed first sacrifice gift.
+## There're only a few monsters that have shock resistance.
+## But you still need to take care of energy vortex.
+## Mojo's base item is hammer, so can be used to forge items in EvilHack.
+MENUCOLOR="(Mjollnir)"=bright blue
+MENUCOLOR="(Mjollnir) \(weapon in|(Mjollnir) \(wielded"=bright blue&underline
+
+## |EvilHack|
+## A long sword created by forging the artifacts Fire Brand and Frost Brand
+##   together. Grants disintegration resistance when wielded, can disintegrate
+##   various worn pieces of armor of its target, and has a 10% chance of
+##   disintegrating its target outright if they are not resistant.
+## The Sword of Annihilation is made of steel, and is indestructible.
+MENUCOLOR="(Sword of Annihilation)"=bright blue
+MENUCOLOR="(Sword of Annihilation) \(weapon in|(Sword of Annihilation) \(wielded"=bright blue&underline
+
+## |EvilHack|
+## The "Dark Knight"'s sword, can only be obtained by chaotic Knights by
+##   sacrificing a same race monster on a co-aligned altar while wielding
+##   a long sword, elven long sword, or orcish long sword (the exact type
+##   makes no difference, Dirge will become a 'long sword' regardless).
+## Does additional acidic damage as well as conferring acid resistance when
+##   wielded. Is made of mithril
+MENUCOLOR="(Dirge)"=bright blue
+MENUCOLOR="(Dirge) \((weapon in|wielded)"=bright blue&underline
 
 
 ## Less favorite
 
 ## Decent weapon for rangers, +1 multishot in 3.7
+## Summons a lot arrows, but seems useless cuz you can easily gather a lot from arrow traps.
 MENUCOLOR="Longbow of Diana"=bright blue
-MENUCOLOR="Longbow of Diana \(weapon in hand\)|Longbow of Diana \(wielded"=bright blue&underline
+MENUCOLOR="Longbow of Diana \(weapon in|Longbow of Diana \(wielded"=bright blue&underline
 
-## Some roles cannot train daggers or arrows, and the club can be a decent ranged weapon.
+## Some roles cannot train daggers or arrows, and the aklys can be a decent ranged weapon.
 ## It weighs 15 and, can be used nearly infinitely.
 ## But it's very low damage, and the chance of not returning is not low in real game.
-## So unless you are roles like caveman, don't see the need to use it as main weapon.
-## But tolerate
-MENUCOLOR="(aklys|thonged club)"=bright blue
-MENUCOLOR="(aklys|thonged club)( named.*?)? (\(tethered weapon in hand\)|\(wielded)"=bright blue&underline
+## Useful for strong melee roles, and cannot train daggers.
+## For these roles recommended:
+##   Cavepeople, Healers, Priest, Knight, Archeologist, Barbarian
+MENUCOLOR="(aklys|thonged club)"=yellow
+MENUCOLOR="\+[1-9].* (aklys|thonged club)"=bright blue
+MENUCOLOR="(aklys|thonged club)( named.*?)? \((tethered weapon in|wielded)"=bright blue&underline
+
+## |EvilHack|
+## Dropped by Kas, a boss reside at level 2 of Vecna's Domain.
+MENUCOLOR="(Sword of Kas)"=bright blue
+MENUCOLOR="(Sword of Kas) \(weapon in|(Sword of Kas) \((wielded|weapon in)"=bright blue&underline
+
+## Decent weapon for chaotic crowning gift.
+## But the damage is not good, especially in Evilhack.
+## In 3.7 my 6 rogues games all use Grayswandir :P
+## So why stormy, my little stormy :P
+MENUCOLOR="(Stormbringer)"=bright blue
+MENUCOLOR="(Stormbringer) \((wielded|weapon in)"=bright blue&underline
 
 ### Rings
 
-## In 3.7 rings may be destroyed by shocking sphere.
-## But wearing rings can be protected by non-iron gloves.
+## Rings may be destroyed by shock damage, reflection protects lightning ray.
+## But shocking spheres are still a danger.
+## In 3.7 wearing rings can be protected by non-iron gloves.
 ## And thanks to the amulet of flying, I hardly keep rings of levitation.
 
 ## The only source of free action.
@@ -546,6 +1026,11 @@ MENUCOLOR="[Cc]ursed .* (ring of conflict|ring called conflict)"=bright blue
 MENUCOLOR="(ring of polymorph control|ring called polymorph control|ring called polyc)( named .*)? \(on.*\)"=bright blue&underline
 ## If you're a weaponless monk finding a silver ring in the list lol
 MENUCOLOR="(ring.*\(silver\))( named .*)?"=green
+
+## |Evilhack| Barbarian quest chaotic artifact, a ring of free action providing
+##   MR when worn and disease resistance when carried.
+MENUCOLOR="(Ring of P'hul)"=bright blue
+MENUCOLOR="(Ring of P'hul)( named .*)? \(on.*\)"=bright blue&underline
 
 
 ### Wands
@@ -568,7 +1053,12 @@ MENUCOLOR="(wand of teleportation|wand called tp|wand called teleportation)( nam
 ## You can eat elf zombies or elf mummies, eaten immediately, they have 40% chance of causing food poisoning.
 ## You can apply unicorn horn, quaff holy water, or one kind of potion of healing.
 ## Or eating a non-cursed eucalyptus leaf.
+## The sleep beam can miss, you could explode one to sleep all nearby monsters
+##   without fail, but ensure you have sleep resistance.
 MENUCOLOR="(wand of sleep|wand called sleep)( named .*)?"=bright blue
+## High damage wands, you may explode those you have resistance to kill tough monsters.
+## But these may destroy some of your items in main inventory.
+MENUCOLOR="(wand (called|of) (fire|cold|ice|lightning))( named .*)?"=bright blue
 
 ### Tools
 
@@ -622,13 +1112,52 @@ MENUCOLOR="Master Key of Thievery"=bright blue&underline
 ## So I'd prefer Grayswandir, and Grayswandir don't require your alignment, though requrie you saber skill.
 MENUCOLOR="The Orb of Fate"=bright blue&underline
 
+## |Evilhack|
+## The valkyrie quest artifact replaced the Orb of Fate in EvilHack & Hack'EM
+## A tooled horn instead of crystal ball, but have no half spell damage.
+## So it only weighs 18 instead of 150 :)
+## Is a very good neutral wish option.
+MENUCOLOR="Gjallar"=bright blue&underline
+
+## |EvilHack|
+## A very awesome guranteed artifact bag of holding in Ice Queen's Realm
+## An optional branch in Evilhack, portal in 1 level before Medusa's Island.
+## Change items weight: x1/6 (blessed) x1/3 (uncursed) x4 (cursed)
+## Add MC1, and protects items from water damage.
+##
+## And, Kathryn the Ice Queen is the daunghter of K2, the EvilHack's developer.
+MENUCOLOR="Bag of the Hesperides"=bright blue&underline
+
+
+## |EvilHack|
+## Applying the Magic 8-Ball delivers a rumor. Held by the Oracle.
+## Confers warning when carried, and there's 0.001% chance it will
+##   grant a wish when applied and disappear.
+MENUCOLOR="Magic 8\-Ball"=bright blue&underline
+
+
+## |EvilHack|
+## Dropped by Vecna, 50% chance to get the Eye, and 50% chance of the Hand.
+## When carried, the Eye of Vecna confers
+##   cold resistance, ESP, astral vision, and half spell damage.
+MENUCOLOR="Eye of Vecna"=bright blue&underline
+
+## |EvilHack|
+## Dropped by Vecna, 50% chance to get the Eye, and 50% chance of the Hand.
+## When carried, the Eye of Vecna confers
+##   cold resistance, ESP, astral vision, and half spell damage.
+MENUCOLOR="Hand of Vecna"=bright blue
+MENUCOLOR="(Hand of Vecna).*\(merged"=bright blue&underline
+
 ## As an early wish, better wish one source of reflection or magic resistance.
 ## If you have one of which, you are immune to the death ray.
 ## In 3.7 purple L only spawns in Gehennom so MR is not so emergent.
 ## You can wish one great artifact like PYEC, EOTA, OOF or MKOT, or my favorite Grayswandir!
 ## Or a wand of polymorph to polypiling and gain everything.
-MENUCOLOR="(magic lamp|lamp called magic)"=bright blue
-MENUCOLOR="(magic lamp|lamp called magic)( named .*)? \(lit\)"=bright blue&underline
+## magic lamps cannot be wished in vanilla, but can in EvilHack.
+MENUCOLOR="([Cc]ursed).*(magic lamp|lamp called magic)( named .*)?"=red
+MENUCOLOR="([Bb]lessed|[Uu]ncursed).*(magic lamp|lamp called magic)"=bright blue
+MENUCOLOR="([Bb]lessed|[Uu]ncursed).*(magic lamp|lamp called magic)( named .*)? \(lit\)"=bright blue&underline
 
 ## Not so useful, oftimes I let pets die in sokoban zoo.
 MENUCOLOR="(magic whistle|whistle called magic)"=bright blue
@@ -637,23 +1166,40 @@ MENUCOLOR="(magic whistle|whistle called magic)"=bright blue
 ## The most useful ones are polymorph, identify, create monster and magic missile.
 ## Others mainly write enchant armor, charging and gold detection(for detection portals in end game).
 MENUCOLOR="(magic marker)( named .*)?"=bright blue
-MENUCOLOR="(bag of holding|called holding|called boh)( named .*)?"=bright blue
-MENUCOLOR="(bag of holding|called holding|called boh)( named .*)? containing"=bright blue&underline
+
+MENUCOLOR="(bag of holding|called hold(ing)?|called boh)"=bright blue
+MENUCOLOR="(bag of holding|called hold(ing)?|called boh)( named .*)"=bright blue&underline
+MENUCOLOR="(bag of holding|called hold(ing)?|called boh)( named .*)? containing"=bright blue&underline
+
 ## To grease your bag of holding to prevent water going into which.
 MENUCOLOR="(can of grease)( named .*)?"=bright blue
-MENUCOLOR="(stethoscope)( named .*)?"=bright blue
-## Though uncursed unicorn horn is decent, but better blessing it when you get spare holy waters.
+
+MENUCOLOR="(stethoscope)( named .*)?"=yellow
+MENUCOLOR="(ed ).*(stethoscope)( named .*)?"=bright blue
+
+MENUCOLOR="(ed ).*(towel|blindfold)( named .*)?"=bright blue
+
+## Though uncursed unicorn horn is decent, better blessing it when you get spare holy waters.
 ## To get a better change of dispelling debuffs and a defense againt being cursed.
 MENUCOLOR="unicorn horn"=yellow
-MENUCOLOR="([Bb]lessed).*(unicorn horn)( named .*)?"=bright blue
+MENUCOLOR="([Cc]ursed).*(unicorn horn)( named .*)?"=red
+MENUCOLOR="([Uu]ncursed|[Bb]lessed).*(unicorn horn)( named .*)?"=bright blue
 ## Best locking and unlocking tool, not essensial in end game but whatever.
+
 MENUCOLOR=" key"=yellow
-MENUCOLOR="(ed).*key"=bright blue
+MENUCOLOR="(ed ).*key"=bright blue
+
 ## When you don't have bag of holding, a sack or oilskin sack is important to protect your items.
-MENUCOLOR="sack"=yellow
+MENUCOLOR="((oilskin )?sack|called (sack|oilskin))"=yellow
+MENUCOLOR="((oilskin )?sack|called (sack|oilskin))( named .*)"=yellow&underline
+MENUCOLOR="((oilskin )?sack|called (sack|oilskin))( named .*)? containing"=yellow&underline
+
+## You can place wand of cancellation in such sacks.
+MENUCOLOR="((oilskin )?sack|called (sack|oilskin)).*(named (cancel))"=red
+MENUCOLOR="((oilskin )?sack|called (sack|oilskin)).*(named (cancel)).*containing"=red&underline
+
 
 ## Be careful for cursing in end game.
-MENUCOLOR="[Cc]ursed .* (magic lamp|lamp called magic)( named .*)?"=red
 MENUCOLOR="^[Cc]ursed .*(unicorn horn)( named .*)?"=red
 # MENUCOLOR="([Uu]ncursed|[Bb]lessed).*(unicorn horn)( named .*)?"=bright blue
 MENUCOLOR="^[Cc]ursed .* (bag of holding|called holding|called boh)( named .*)? containing"=red
@@ -676,16 +1222,14 @@ MENUCOLOR="bag of tricks|called tricks|called bot"=orange
 
 ### Potions
 
-MENUCOLOR="potions? of extra healing"=yellow
-MENUCOLOR="([Bb]lessed|[Uu]ncursed) potions? of extra healing"=bright blue
-MENUCOLOR="potions? of full healing"=yellow
-MENUCOLOR="([Bb]lessed|[Uu]ncursed) potions? of full healing"=bright blue
+MENUCOLOR="potions? of (full|extra) healing"=yellow
+MENUCOLOR="([Bb]lessed|[Uu]ncursed)( diluted)? potions? of (full|extra) healing"=bright blue
 MENUCOLOR="potions? of gain ability"=yellow
-MENUCOLOR="([Bb]lessed) potions? of gain ability"=bright blue
+MENUCOLOR="([Bb]lessed)( diluted)? potions? of gain ability"=bright blue
 MENUCOLOR="potions? of gain level"=yellow
-MENUCOLOR="([Bb]lessed|[Uu]ncursed) potions? of gain level"=bright blue
+MENUCOLOR="([Bb]lessed|[Uu]ncursed)( diluted)? potions? of gain level"=bright blue
 MENUCOLOR="potions? (of|called) paralysis"=bright blue
-MENUCOLOR="potions? (of|called) paralysis \(wielded"=bright blue&underline
+MENUCOLOR="potions? (of|called) paralysis \((wielded|weapon in)"=bright blue&underline
 
 ## You may get a wish from quaffing smoky potions.
 ## The probability of getting a wish is 6.15% if no djinni created.
@@ -712,13 +1256,21 @@ MENUCOLOR="([Bb]lessed).*(scrolls? of charging|scrolls? called charg)"=bright bl
 MENUCOLOR="(scrolls? of gold detection|scrolls? called gold)"=bright blue
 MENUCOLOR="scrolls? (of|called) (teleportation|tp)"=bright blue
 MENUCOLOR="^([Cc]ursed).*scrolls? (of|called) (teleportation|tp)"=orange
+MENUCOLOR="^([Cc]ursed).*scrolls? (of|called) (scare( monster)?)"=orange
 
 MENUCOLOR="([Cc]ursed) (scrolls? of genocide|scrolls? called gen)"=orange
 MENUCOLOR="([Uu]ncursed) (scrolls? of genocide|scrolls? called gen)"=yellow
 MENUCOLOR="([Bb]lessed) (scrolls? of genocide|scrolls? called gen)"=bright blue
 
+MENUCOLOR="([Bb]lessed) (scrolls? of taming|scrolls? called tam)"=bright blue
 
 ### Foods
+
+## Once a hill giant shaman in EvilHack keep summoning insects for me.
+## I just kill a lot insects and pickup those corpses.
+## So highlight the corpses when sacrificing.
+## But it's annoying when list objects.
+# MENUCOLOR="corpse"=orange
 
 MENUCOLOR="wraith corpse"=bright blue
 MENUCOLOR="lizard corpse"=bright blue
@@ -732,6 +1284,19 @@ MENUCOLOR="c[oi]ckatrice corpse"=yellow
 MENUCOLOR="c[oi]ckatrice corpse.*\(wielded\)"=yellow&underline
 ## Do not eat eggs, maybe cockatrice egg
 MENUCOLOR="egg"=yellow
+
+
+## May blow up bag of holding
+MENUCOLOR="wand of cancellation"=red
+MENUCOLOR="(called) cancel"=red
+MENUCOLOR="bag of tricks"=red
+## Once I price-id a steel wand and named steel 200, forget to engrave-id it.
+## And blow up my boh, so should be careful to 200 wands.
+## The better is to remeber engraving test all wands.
+MENUCOLOR="wand called.*(200|vanish)"=red
+
+
+
 
 ### Options
 
@@ -762,19 +1327,19 @@ MENUCOLOR="^\s*Level.*ltp"=green&reverse
 
 ## stash for stash, or books or artifacts or something.
 ## I'd annote bk-mm for magic missile or bk-id for identify etc.
-MENUCOLOR="^\s*Level.*(stash)"=bright blue&reverse
-MENUCOLOR="^\s*Level.*(bk|book)"=bright blue&reverse
-MENUCOLOR="^\s*Level.*art"=bright blue&reverse
+MENUCOLOR="^\s*Level.*(stash)"=cyan&reverse
+MENUCOLOR="^\s*Level.*(bk|book)"=cyan&reverse
+MENUCOLOR="^\s*Level.*art"=cyan&reverse
 ## You may use glass orb to find the portals if no spare markers.
-MENUCOLOR="^\s*Level.*item"=bright blue&reverse
-MENUCOLOR="^\s*Level.*orb"=bright blue&reverse
-MENUCOLOR="^\s*Level.*pick"=bright blue&reverse
-MENUCOLOR="^\s*Level.*boh"=bright blue&reverse
+MENUCOLOR="^\s*Level.*item"=cyan&reverse
+MENUCOLOR="^\s*Level.*orb"=cyan&reverse
+MENUCOLOR="^\s*Level.*pick"=cyan&reverse
+MENUCOLOR="^\s*Level.*boh"=cyan&reverse
 ## 1h means one unicorn horns, 3m means 3 magical polyfodders!
-MENUCOLOR="^\s*Level.*([0-9]+[hm])"=bright blue&reverse
+MENUCOLOR="^\s*Level.*([0-9]+[hm])"=cyan&reverse
 
 ## Foocubi, you may come later to gain level.
-MENUCOLOR="^\s*Level.*([0-9]+[hm])"=bright blue&reverse
+MENUCOLOR="^\s*Level.*((in|suc|foo)cub(i|us))"=cyan&reverse
 ## I don't kill cockatrice until I use their coprse to kill enemies.
 ## Like entering sanctum or the wizard tower.
 MENUCOLOR="^\s*Level.*(\"c\")"=bright blue&reverse
@@ -802,8 +1367,18 @@ MENUCOLOR="Sokoban:"=bright blue&reverse
 MENUCOLOR="The Quest:"=bright blue&reverse
 MENUCOLOR="Fort Ludios:"=bright blue&reverse
 MENUCOLOR="Gehennom:"=bright blue&reverse
-MENUCOLOR="Vlad's Tower:"=bright blue&reverse
+MENUCOLOR="Vlad.s Tower:"=bright blue&reverse
 MENUCOLOR="The Elemental Planes:"=bright blue&reverse
+
+## |EvilHack|
+MENUCOLOR="Goblin Town:"=bright blue&reverse
+MENUCOLOR="The Ice Queen.s Realm:"=bright blue&reverse
+MENUCOLOR="Vecna.s Domain:"=bright blue&reverse
+MENUCOLOR="The Wizard.s Tower"=bright blue&reverse
+MENUCOLOR="Portal to Goblin Town"=blue&reverse
+MENUCOLOR="Portal to The Quest"=blue&reverse
+MENUCOLOR="Portal to Fort Ludios"=blue&reverse
+MENUCOLOR="Portal to The Ice Queen.s Realm"=blue&reverse
 
 ### Enhancement
 MENUCOLOR="two weapon combat.*\[.*\]"=bright blue
@@ -820,52 +1395,15 @@ MENUCOLOR="(magic mapping).*%"=bright blue
 MENUCOLOR="(finger of death).*%"=bright blue
 MENUCOLOR="(create monster).*%"=bright blue
 MENUCOLOR="(charm monster).*%"=bright blue
+MENUCOLOR="(detect monsters).*%"=bright blue
+
+MENUCOLOR="(acid blast).*%"=bright blue
+MENUCOLOR="(poison blast).*%"=bright blue
 ## Must fail
 MENUCOLOR="100%.*%"=red
 ## Confusion source
 MENUCOLOR="%.*%.*gone"=orange
 
-
-### Monsters!
-## List monsters in farlook mode.
-## Way more faster to detect dangers.
-## Comfortable for mindless me to only notice several annoying monsters.
-
-## At night 22:00-5:59, they can remove your intrinsics.
-MENUCOLOR="(gremlin)"=red
-MENUCOLOR="([Ll]ich\b)"=red
-## Be very careful when you have no reflection.
-MENUCOLOR="(Medusa)"=red
-MENUCOLOR="(nymph)"=red
-## May take your armor off, and may stone you if you wield a c corpse.
-MENUCOLOR="((in|suc)cub(us|i))"=red
-MENUCOLOR="(Orcus)"=red
-MENUCOLOR="(Yeenoghu)"=red
-MENUCOLOR="(Demogorgon)"=red
-## Paralyse you, make sure to kill all shades before Orcus, or quaff to wake Orcus up and kill him quickly.
-## Otherwise while you're paralysing, Orcus may summon Yeenoghu and Demogorgon.
-MENUCOLOR="(shade)"=red
-## May instakill your pets, but also a choice of a good pet.
-MENUCOLOR="(purple worm)"=red
-## The only problem of ;
-## Which may destroy your escape wands and ring of levitation.
-MENUCOLOR="(electric eel)"=red
-## bullwhip
-MENUCOLOR="(horned devil)"=red
-MENUCOLOR="(balrog)"=red
-MENUCOLOR="(\bpeaceful\b) .+"=green
-MENUCOLOR="(\btame\b) .+"=bright blue
-MENUCOLOR="(lizard)"=yellow
-MENUCOLOR="(lizard corpse)"=bright blue
-
-## Destroying your wands and rings.
-MENUCOLOR="(shocking sphere)"=red
-## Take care if you have no reflection.
-MENUCOLOR="(black dragon)"=red
-## My favorite weapon though.
-MENUCOLOR="(c(o|hi)ckatrice)"=red
-
-MENUCOLOR="(peaceful \w+ unicorn) .+"=bright blue
 
 
 ### Enlightment
@@ -885,6 +1423,32 @@ MENUCOLOR="(Your life (will be|would have been) saved)"=bright blue
 
 MENUCOLOR="(You survived)"=blue
 MENUCOLOR="(the Demigod(dess)?\.{3})"=gray&reverse
+
+### Menu
+MENUCOLOR="(Look inside|stash one)"=gray
+## Cuz I typically use oilskin sack for storing wand of cancellation, so take care.
+MENUCOLOR="(Look inside|stash one).*oilskin"=red
+
+
+### Custome name highlight
+## You can name whatever plain items this word to highlight it.
+## But artifacts cannot be named, so you may need to add rules for them \
+##   if I don't already highlight which.
+
+## Rin!!! Rin!!! Rin!!! Rin!!! Rin!!! Rin!!! Rin!!! Rin!!! Rin!!! Rin!!!
+## Rin!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+MENUCOLOR="(named rin)"=bright blue
+MENUCOLOR="(named rin).*(being worn|\(wielded|weapon in|lit\)|\(on (left|right)|at the ready|in quiver)"=bright blue&underline
+
+## You may only stick to one word for good and one for bad lol.
+MENUCOLOR="(named (asc|fav|love|honey|sweet|good|eternal))"=bright blue
+MENUCOLOR="(named (asc|fav|love|honey|sweet|good|eternal)).*(being worn|\(wielded|weapon in|lit\)|\(on (left|right)|at the ready|in quiver)"=bright blue&underline
+AUTOPICKUP_EXCEPTION="<(named (asc|fav|love|honey|sweet|good|eternal))"
+
+
+MENUCOLOR="named (danger|harm|hurt|bad|damag|fatal|dead)"=red
+MENUCOLOR="named (danger|harm|hurt|bad|damag|fatal|dead).*(being worn|\(wielded|weapon in|lit\)|\(on (left|right)|at the ready|in quiver)"=red&underline
+
 
 
 ### Messages
@@ -906,15 +1470,27 @@ MSGTYPE=hide "You swap places with your .*"
 # MSGTYPE=hide "You descend .*"
 # MSGTYPE=hide "You (climb|fly) (up|down) .*"
 
-## Grats!
-# Got poison resistence!
+## Hide
+MSGTYPE=hide "I hope you don't mind\."
+MSGTYPE=hide "A mysterious force prevents the.*from teleporting"
+
+### Grats!
+## Got poison resistence!
 MSGTYPE=stop "You feel healthy"
 MSGTYPE=stop "You feel especially healthy"
-# Remember to pray immediately to avoid luck up.
+
+## Obtain sleep resistance, it's crucial that MR won't protect you from sleep.
+## And in EvilHack, you need 100% sleep resistance to avoid sleep.
+## And potion of sleep cannot be distinguished by dipping a unihorn into.
+## Typically you after you dip junk into potion to test it is not polymorph
+## Then dip unihorn into it, then you can typically safe to just quaff it.
+MSGTYPE=stop "You feel wide awake"
+
+## Remember to pray immediately to avoid luck up.
 MSGTYPE=stop "You have a feeling of reconciliation"
-# Remember to enhance your skill
+## Remember to enhance your skill
 MSGTYPE=stop "You feel more confident"
-# Important for racketing, don't dive into mine with little pets.
+## Important for racketing, don't dive into mine with little pets.
 MSGTYPE=stop "grows up"
 ## Name the container or any expensive item to credit cloning.
 ## You could just repeat pressing s or dot.
@@ -928,17 +1504,36 @@ MSGTYPE=stop "You see a puff of smoke."
 ## Amulet of yendor detecting magic portal
 ## You can switch amulet from flying to yendor in plane of water.
 MSGTYPE=stop "The Amulet of Yendor feels"
+## Co-aligned altar in the temple.
+MSGTYPE=stop "You experience a sense of peace."
+
+## Complete resistance in Evilhack
+MSGTYPE=stop "You feel completely healthy"
+MSGTYPE=stop "You feel completely firm"
+MSGTYPE=stop "You feel completely chilled"
+MSGTYPE=stop "You feel full of hot air"
+MSGTYPE=stop "Your health feels completely amplified"
+## Gift
+MSGTYPE=stop "Use (this|my) gift"
+
+
 
 ### Be careful!
+
 MSGTYPE=stop "You feel feverish"
 MSGTYPE=stop "slips? from your hand"
 MSGTYPE=stop "You fail to cast the spell correctly."
-MSGTYPE=stop "You are beginning to feel weak."
+MSGTYPE=stop "You don't have enough energy to cast that spell."
 MSGTYPE=stop "Closed for inventory"
-## The nymph may steal something important.
+## Stealing
 MSGTYPE=stop "steals? |stole"
-## Wand has no charge.
-## MSGTYPE=stop "Nothing happens"
+MSGTYPE=stop "flicks a bullwhip towards your"
+MSGTYPE=stop "wraps around .* you're wielding"
+MSGTYPE=stop "yanks .* from your .*!"
+MSGTYPE=stop "yanks .* to the .*!"
+MSGTYPE=stop "snatches .*!"
+## Wand has no charge and unicorn horn already cures all conditions.
+# MSGTYPE=stop "Nothing happens"
 ## Curses items.
 MSGTYPE=stop "You feel as if you need some help."
 MSGTYPE=stop "You notice a black glow surrounding you."
@@ -965,6 +1560,7 @@ MSGTYPE=stop "The scrolls? turns to dust as you pick it up"
 MSGTYPE=stop "The python grabs you"
 ## Rodney
 MSGTYPE=stop "The Wizard of Yendor suddenly appears next to you"
+MSGTYPE=stop "(Demogorgon|Dispater|Yeenoghu|Geryon) appears *"
 ## Pet death
 MSGTYPE=stop "You hear the rumble of distant thunder"
 MSGTYPE=stop "You feel sad for a moment."
@@ -972,6 +1568,63 @@ MSGTYPE=stop ".* starves."
 MSGTYPE=stop "You have a (peculiarly)? (sad|melancholy) feeling for a moment, then it passes."
 MSGTYPE=stop "is confused from hunger."
 MSGTYPE=stop "You feel worried about your"
+## Cannibal
+MSGTYPE=stop "You cannibal!"
+## Beheading
+MSGTYPE=stop "Vorpal Blade"
+MSGTYPE=stop "Tsurugi of Muramasa"
+## Near-death
+MSGTYPE=stop "You hear the howling of the CwnAnnwn..."
+MSGTYPE=stop ", your life force is running out"
+MSGTYPE=stop ", all your powers will be lost..."
+MSGTYPE=stop "You hear the wailing of the Banshee..."
+MSGTYPE=stop "(Wizard|Elf|Valkyrie) is about to die."
+## a monster quaffed a cursed potion of gain level.
+MSGTYPE=stop "rise up, through the ceiling|looks uneasy"
+## Draining
+MSGTYPE=stop "Goodbye level .*."                                #  Default
+MSGTYPE=stop "Fare thee well level .*."                         #  Knight
+MSGTYPE=stop "Sayonara level .*."                               #  Samurai
+MSGTYPE=stop "Aloha level .*."                                  #  Tourist
+MSGTYPE=stop "Farvel level .*."                                 #  Valkyrie
+## Hunger
+MSGTYPE=stop " needs food, badly!"
+MSGTYPE=stop "You are beginning to feel weak."
+MSGTYPE=stop "You faint from lack of food."
+## Undead do twice as much damage at midnight (0:00-0:59)
+## You'll be warned "Run away" when entering a graveyard during midnight.
+MSGTYPE=stop "Run away! Run away!"
+## Your base luck is decreased by 1 on Friday the 13th.
+MSGTYPE=stop "Watch out! Bad things can happen on Friday the 13th."
+## Luck is increased by 1 during a full moon
+## Werecreatures, especially at night, will usually be in their animal form.
+## You have a chance of not being able to tame dogs at night;
+##   failed attempts will still pacify them, and you can try repeatedly.
+MSGTYPE=stop "You are lucky! Full moon tonight."
+## Cockatrice always stone you when hissing during a new moon.
+MSGTYPE=stop "Be careful! New moon tonight."
+## Cuz I have plentiful pickup rules, may fill inventory if no sack or boh.
+MSGTYPE=stop "Your knapsack cannot accommodate any more items."
+## Fountain or shallow water dries up.
+##   and then you may accidentally press y to do alchemy :(
+MSGTYPE=stop "dries up"
+## |EvilHack| You are an elf or drow, hate iron items.
+## Wearing or wield iron items will hurt you and stop your hp regeneration.
+MSGTYPE=stop "You feel itchy"
+## Wand of speed won't speed you up permanently in 3.7 and Evilhack
+## But only speed you up about hundreds turns, so keep an eye on slowing down.
+MSGTYPE=stop "You feel yourself slowing down"
+## You stepped into a trap door.
+MSGTYPE=stop "A trap door opens up under you!"
+## In evilhack, offhand weapon weight depends.
+MSGTYPE=stop "seems very cumbersome"
+## Kick open doors or chests.
+MSGTYPE=stop "it crashes open"
+## |Evilhack| Reflection spell creates a temorary refletive bubble.
+## And don't miss when it fades.
+MSGTYPE=stop "The shimmering globe around you is starting to fade"
+MSGTYPE=stop "The shimmering globe around you flickers and vanishes"
+
 
 
 ## Traps
@@ -984,6 +1637,7 @@ MSGTYPE=stop "polymorph trap"
 
 # delayed instadeaths
 MSGTYPE=stop "The .* (grabs|swings itself around) you!"
+MSGTYPE=stop "wraps its arms around you"
 MSGTYPE=stop "You don't feel very well."
 MSGTYPE=stop "You are turning a little green."
 MSGTYPE=stop "Your limbs are getting oozy."
@@ -1002,8 +1656,8 @@ MSGTYPE=stop "You feel deathly sick."
 MSGTYPE=stop "You feel (much|even) worse."
 
 MSGTYPE=stop "You hear.*atrice.*hissing"
-MSGTYPE=stop "You (feel|see) here a(n? .*) c(hi|o)ckatrice corpse."
-MSGTYPE=stop "(picks up|wields|hits you with) (a|the)(n? .*) c(hi|o)ckatrice corpse"
+MSGTYPE=stop "You (feel|see) here a(n? .*) (c(hi|o)ckatrice|basilisk) corpse."
+MSGTYPE=stop "(picks up|wields|hits you with) (a|the)(n? .*) (c(hi|o)ckatrice|basilisk) corpse"
 MSGTYPE=stop "You no longer feel secure from petrification"
 
 ## Don't speed past wrest message when wresting
@@ -1029,11 +1683,12 @@ MSGTYPE=stop "You feel clumsy."
 MSGTYPE=stop "You feel vulnerable."
 MSGTYPE=stop "You feel less attractive."
 
+
 ### Status line
 ## 2 or 3, but 2 lines are not enough
 OPTIONS=statuslines:3
 ## Use status hilites
-OPTIONS=statushilites
+OPTIONS=statushilites:10
 ## HP
 OPTIONS=hitpointbar
 OPTIONS=hilite_status:hitpoints/100%/lightcyan&normal
@@ -1054,50 +1709,80 @@ OPTIONS=hilite_status:cap/burdened/yellow/stressed/orange/strained/red&bold/over
 OPTIONS=hilite_status:hunger/satiated/yellow/hungry/orange/weak/red&bold/fainting/red&inverse/fainted/red&inverse&blink
 ## Mental
 OPTIONS=hilite_status:condition/hallu/yellow
+OPTIONS=hilite_status:condition/blind/orange
 OPTIONS=hilite_status:condition/conf/orange
 OPTIONS=hilite_status:condition/stun/red&bold
 ## Health
 OPTIONS=hilite_status:condition/termill/red&inverse
 OPTIONS=hilite_status:condition/foodpois/red&inverse
 OPTIONS=hilite_status:condition/slime/red&inverse
+OPTIONS=hilite_status:condition/stone/red&inverse
 # Str, Con, Dex, Int, Wis, Cha
 OPTIONS=hilite_status:characteristics/up/green/down/red
 # Gold
 OPTIONS=hilite_status: gold/always/yellow/up/green/down/brown
 
+OPTIONS=hilite_status:condition/fly/blue
+OPTIONS=hilite_status:armor-class/down/green/up/red
+# OPTIONS=hilite_status:alignment/lawful/white/neutral/gray/chaotic/black
+OPTIONS=hilite_status:experience-level/up/green/down/red
+# OPTIONS=hilite_status:experience/up/green
+
 ### Auto Pickup rules
 
 OPTIONS=autopickup
+
+## Very useful for rangers or rogues, helps recollecting all your ammos when step onto.
+## Recycle the daggers, arrows, shurikens, or valuable items you throw accidentally :)
 OPTIONS=pickup_thrown
+
+## You may change pickup_types to venom or iron chain to avoid pickup $.
+## But only rules listed in exceptions.
+## You may also sometimes choose to pickup all scrolls and potions for polypiling.
 OPTIONS=pickup_types:$
+## You could the latter line to auto pickup every valuable items. But I listed a lot in exceptions.
+# OPTIONS=pickup_types:$"?!=/(
+
+## DO NOT be burdened, unless you really know what you are doing.
 OPTIONS=pickup_burden:unencumbered
 
-AUTOPICKUP_EXCEPTION="> cursed"
+# AUTOPICKUP_EXCEPTION="> cursed"
 
 ## Name the real Amulet of Yendor to prevent forgeries
 AUTOPICKUP_EXCEPTION=">Amulet of Yendor"
 AUTOPICKUP_EXCEPTION="<Amulet of Yendor named"
+AUTOPICKUP_EXCEPTION="<([Cc]andelabrum)"
+AUTOPICKUP_EXCEPTION="<(silver bell|Bell of Opening)"
+AUTOPICKUP_EXCEPTION="<(Book of the Dead|papyrus spellbook)"
 
-AUTOPICKUP_EXCEPTION=">scroll .* scare monster"
 
-## Wands used up can be saved for polypiling or recharging
-## But don't autopick these wand I manually drop somewhere
-# AUTOPICKUP_EXCEPTION=">:0)"
-# AUTOPICKUP_EXCEPTION="> named empty"
-AUTOPICKUP_EXCEPTION="> nothing"
+AUTOPICKUP_EXCEPTION=">scroll.*scare( monster)?"
 
 ## lichen and lizard corpse never rot
 ## lichen corpse can identify potion of acid
 AUTOPICKUP_EXCEPTION="<lichen corpse"
-## lizard corpse prevents stoning, and makes you confident in bashing c.
+## lizard corpse prevents stoning, and cures a bit of confusion or stun.
 AUTOPICKUP_EXCEPTION="<lizard corpse"
+## It weighs 1200 in Evilhack :P, dnethack has cave lizards too.
+AUTOPICKUP_EXCEPTION=">cave lizard corpse"
 
 ## Don't carelessly let pet eats useful corpse
-AUTOPICKUP_EXCEPTION="<floating eye corpse"
-MSGTYPE=stop "\- floating eye corpse"
+# AUTOPICKUP_EXCEPTION="<floating eye corpse"
+# MSGTYPE=stop "\- floating eye corpse"
 AUTOPICKUP_EXCEPTION="<wraith corpse"
 MSGTYPE=stop "\- wraith corpse"
 # AUTOPICKUP_EXCEPTION="<newt corpse"
+
+## For convenience, you don't need to distinguish this with killer bee coprses.
+AUTOPICKUP_EXCEPTION="<(lumps? of royal jelly)"
+
+## Some best food, autopickup C/K-rations in junk piles of soldiers.
+## It may be sometimes annoying, but I often collect all and drop somewhere.
+# AUTOPICKUP_EXCEPTION="<(food ration|gunyoki)"
+# AUTOPICKUP_EXCEPTION="<(C\-ration)"
+# AUTOPICKUP_EXCEPTION="<(K\-ration)"
+AUTOPICKUP_EXCEPTION="<(lembas wafer)"
+
 
 ## If you like bothering keeping ammo away from enemies, I copied but disabled.
 ## But you'd remember taking powerful weapons away in mine if racketing.
@@ -1121,9 +1806,9 @@ MSGTYPE=stop "\- wraith corpse"
 # AUTOPICKUP_EXCEPTION="<crude dagger"
 # AUTOPICKUP_EXCEPTION="<knife"
 
-AUTOPICKUP_EXCEPTION="<silver saber"
-MSGTYPE=stop "[a-zA-Z] \-.*silver saber\."
-AUTOPICKUP_EXCEPTION="<silver dagger"
+# AUTOPICKUP_EXCEPTION="<silver saber"
+# MSGTYPE=stop "[a-zA-Z] \-.*silver saber\."
+# AUTOPICKUP_EXCEPTION="<silver dagger"
 ## I find I hardly train spear skill, so I disable this.
 # AUTOPICKUP_EXCEPTION="<silver spear"
 
@@ -1154,10 +1839,20 @@ AUTOPICKUP_EXCEPTION="<(wand (of|called) teleportation|wand called tp)( named .*
 MSGTYPE=stop "\-.*(wand (of|called) teleportation|wand called tp)( named .*)?"
 
 AUTOPICKUP_EXCEPTION="<(scrolls? (called|of) (teleportation|tp))( named .*)?"
-## MSGTYPE=stop "\-.*(scrolls? (called|of) (teleportation|tp))( named .*)?"
+# MSGTYPE=stop "\-.*(scrolls? (called|of) (teleportation|tp))( named .*)?"
 
 AUTOPICKUP_EXCEPTION="<(wand (called|of) sleep)( named .*)?"
-MSGTYPE=stop "\-.*(wand (called|of) sleep)( named .*)?"
+# MSGTYPE=stop "\-.*(wand (called|of) sleep)( named .*)?"
+
+AUTOPICKUP_EXCEPTION="<(wand (called|of) (fire|cold|ice|lightning))( named .*)?"
+# MSGTYPE=stop "\-.*((wand (called|of) (fire|cold|ice|lightning))( named .*)?)"
+
+AUTOPICKUP_EXCEPTION="<(wand (called|of) digging)"
+# MSGTYPE=stop "\-.*(wand (called|of) digging)"
+
+## Useful in EvilHack, there's a lot of drawbridges.
+## And wand of opening saved fro crystal chests.
+AUTOPICKUP_EXCEPTION="<(wand (called|of) (open|striking))( named .*)?"
 
 ## It may be dangerous when monsters zap a lot create monster or read the scroll.
 AUTOPICKUP_EXCEPTION="<(wand|scrolls?) of (create monster)( named .*)?"
@@ -1170,19 +1865,64 @@ MSGTYPE=stop "\-.*(lamp called magic|magic lamp)( named .*)?"
 AUTOPICKUP_EXCEPTION="<(magic marker)( named .*)?"
 MSGTYPE=stop "\-.*(magic marker)( named .*)?"
 
-AUTOPICKUP_EXCEPTION="<(amulet of life saving)( named .*)?"
-MSGTYPE=stop "\-.*(amulet of life saving)( named .*)?"
+AUTOPICKUP_EXCEPTION="<((tooled|fire|frost|a) horn)( named .*)?"
+MSGTYPE=stop "\-.*((tooled|fire|frost|a) horn)( named .*)?"
 
+AUTOPICKUP_EXCEPTION="<(flute|drum|harp)( named .*)?"
+MSGTYPE=stop "\-.*(flute|drum|harp)( named .*)?"
+
+AUTOPICKUP_EXCEPTION="<(expensive camera|stethoscope|can of grease)( named .*)?"
+MSGTYPE=stop "\-.*(expensive camera|stethoscope|can of grease)( named .*)?"
+
+## Do not accidentally pick up things that may blow up your bag of holding
+AUTOPICKUP_EXCEPTION=">(wand of cancellation|called cancel|named cancel)( named .*)?"
+AUTOPICKUP_EXCEPTION=">(bag of holding|bag called hold(ing)?|bag called boh)( named .*)?"
+AUTOPICKUP_EXCEPTION=">(bag of tricks|bag called bot|bag called trick)( named .*)?"
+
+## A bit annoying, you are likely to pick potion from nymphs but not mirrors.
+## But it's good if you like altar farming and avoid crowning.
+# AUTOPICKUP_EXCEPTION="<(looking glass|mirror)( named .*)?"
+# MSGTYPE=stop "\-.*(looking glass|mirror)( named .*)?"
+
+AUTOPICKUP_EXCEPTION="<(amulet (called|of) life( saving)?)( named .*)?"
+MSGTYPE=stop "\-.*(amulet (called|of) life( saving)?)( named .*)?"
+
+## Usually as a result of polypiling.
 AUTOPICKUP_EXCEPTION="<(shirt)( named .*)?"
 MSGTYPE=stop "\-.*((T-| )shirt)( named .*)?."
 
-## DO NOT TURN THIS ON! you may die instantly lol.
+AUTOPICKUP_EXCEPTION="<(potions? (called|of) (para|gain level|gain ability|speed))( named .*)?"
+# MSGTYPE=stop "\-.*(potions? (called|of) (para|gain level|gain ability|speed))( named .*)?"
+
+AUTOPICKUP_EXCEPTION="<(potions? (called|of).*(heal))( named .*)?"
+# MSGTYPE=stop "\-.*(potions? (called|of).*(heal))( named .*)?"
+
+## Do not let pets eat them directly.
+## You could pickup and drop a tripe ration in shop to increase apport.
+## Or save it in main inventory, canivorous pets will follow you more close.
+# AUTOPICKUP_EXCEPTION="<(tripe ration)( named .*)?"
+# MSGTYPE=stop "\-.*(tripe ration)( named .*)?"
+
+AUTOPICKUP_EXCEPTION="<(scrolls? (called|of) (id|enchant|charg|geno|magic|remove|tele|tam|create))( named .*)?"
+# MSGTYPE=stop "\-.*(scrolls? (called|of) (id|enchant|charg|geno|magic|remove|tele|tam|create))( named .*)?"
+
+AUTOPICKUP_EXCEPTION="<(dragonhide .*)"
+MSGTYPE=stop "\-.*(dragonhide .*)( named .*)?."
+
+
+## DO NOT TURN THIS ON! you may die instantly if not wearing gloves lol.
 ## But do remember to collect c corpses in late game preventing enemies use them on you.
 # AUTOPICKUP_EXCEPTION="<(c[oi]ckatrice corpse)( named .*)?"
 # MSGTYPE=stop "\-.*(c[oi]ckatrice corpse)( named .*)?"
 
-## For convenience, you don't need to distinguish this with killer bee coprses.
-AUTOPICKUP_EXCEPTION="<(lumps? of royal jelly)"
+
+## Wands used up can be saved for polypiling or recharging
+## But don't autopick these wand I manually drop somewhere
+AUTOPICKUP_EXCEPTION=">:0)"
+# AUTOPICKUP_EXCEPTION="> named empty"
+# AUTOPICKUP_EXCEPTION="> nothing"
+AUTOPICKUP_EXCEPTION="> named (0|empty)"
+
 
 # Kick before picking up any gray stone and type name them.
 AUTOPICKUP_EXCEPTION="> loadstone"
@@ -1207,18 +1947,26 @@ AUTOPICKUP_EXCEPTION="< named .*<"
 AUTOPICKUP_EXCEPTION="> named .*>"
 
 
-### Starting characters, when I haven't ever ascend I stuck to wizard.
+### Starting characters
+## When I haven't ever ascend I was sticking to wizard :).
 ## Now I'm confident at ascending any characters so choose in game.
-# CHOOSE=human wizard
+## I recommend new players to stick to dwarven valkyrie.
+
+## Text in brackets are title, you could specify one in CHOOSE
+
 # CHOOSE=neutral human wizard,human tourist,valkyrie
 
-#[human wizard]
-#OPTIONS=role:wizard,race:human,align:random,gender:random
-#[chaotic elf wizard]
-#OPTIONS=role:wizard,race:elf,align:chaotic,gender:random
-#[human tourist]
-#OPTIONS=role:tourist,race:human,align:neutral,gender:random
-#[human valkyrie]
-#OPTIONS=role:valkyrie,race:human,align:lawful,gender:random
-#[human rogue]
-#OPTIONS=role:rogue,race:human,align:chaotic,gender:random
+# [neutral female human wizard]
+# OPTIONS=role:wizard,race:human,align:neutral,gender:female
+
+# [chaotic elf wizard]
+# OPTIONS=role:wizard,race:elf,align:chaotic,gender:random
+
+# [human tourist]
+# OPTIONS=role:tourist,race:human,align:neutral,gender:random
+
+# [human valkyrie]
+# OPTIONS=role:valkyrie,race:human,align:lawful,gender:random
+
+# [human rogue]
+# OPTIONS=role:rogue,race:human,align:chaotic,gender:random
